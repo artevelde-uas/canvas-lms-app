@@ -5,6 +5,7 @@
   "author": "Renaat De Muynck <renaat.demuynck@arteveldehs.be>",
   "module": "src/index.js",
   "dependencies": {
+    "element-ready-es5": "^2.1.0",
     "events": "^2.0.0",
     "routes": "^2.1.0"
   }

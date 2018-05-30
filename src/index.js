@@ -1,5 +1,6 @@
 import Router from 'routes';
 import EventEmitter from 'events';
+import elementReady from 'element-ready-es5';
 
 
 const router = new Router();
@@ -27,6 +28,10 @@ export default class {
     
     addRouteListener(name, handler) {
         emitter.on(name, handler);
+    }
+    
+    addReadyListener(selector, handler) {
+        elementReady(selector).then(handler);
     }
     
     handle(path) {
