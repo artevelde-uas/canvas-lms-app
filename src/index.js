@@ -34,6 +34,10 @@ export default class {
         elementReady(selector).then(handler);
     }
     
+    addPlugin(plugin) {
+        plugin.init(this);
+    }
+    
     handle(path) {
         var match = router.match(path);
         
