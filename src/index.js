@@ -24,6 +24,16 @@ export default class {
     
     initRouter() {
         router.addRoute('/', getEmitter('dashboard'));
+        
+        router.addRoute('/courses', getEmitter('courses'));
+        router.addRoute('/courses/:id', getEmitter('course.home'));
+        router.addRoute('/courses/:id/announcements', getEmitter('course.announcements'));
+        router.addRoute('/courses/:id/discussion_topics/new?is_announcement=true', getEmitter('course.announcements.new'));
+        router.addRoute('/courses/:id/discussion_topics', getEmitter('course.discussions'));
+        router.addRoute('/courses/:id/gradebook', getEmitter('course.gradebook'));
+        router.addRoute('/courses/:id/users', getEmitter('course.users'));
+        router.addRoute('/courses/:id/settings', getEmitter('course.settings'));
+        router.addRoute('/courses/:id/external_tools/:toolId', getEmitter('course.external-tool'));
     }
     
     addRouteListener(name, handler) {

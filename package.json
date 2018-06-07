@@ -1,9 +1,13 @@
 {
   "name": "@ahsdile/canvas-lms-app",
+  "version": "0.1.0",
   "description": "App for building custom JS & CSS for Canvas LMS themes",
   "license": "MIT",
   "author": "Renaat De Muynck <renaat.demuynck@arteveldehs.be>",
   "module": "src/index.js",
+  "files": [
+    "src/index.js"
+  ],
   "dependencies": {
     "element-ready-es5": "^2.1.0",
     "events": "^2.0.0",
