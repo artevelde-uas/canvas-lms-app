@@ -20,7 +20,7 @@ function getRouteHandler(app, name) {
 }
 
 
-export default class {
+export default new class {
     
     constructor() {
         this.initRouter();
