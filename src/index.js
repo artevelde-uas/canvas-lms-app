@@ -56,6 +56,13 @@ export default new class {
         plugin.init(this);
     }
     
+    run() {
+        let path = window.location.pathname + window.location.search;
+        
+        this.handle(path);
+    }
+    
+    // DEPRECATED: use `run()`
     handle(path) {
         var match = router.match(path);
         
