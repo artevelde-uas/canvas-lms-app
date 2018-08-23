@@ -53,7 +53,14 @@ export default new class {
     }
     
     addPlugin(plugin) {
-        plugin.init(this);
+        switch (typeof plugin) {
+        case 'function':
+            plugin(this);
+            break;
+        case 'object':
+            plugin.init(this);
+            break;
+        }
     }
     
     run() {
