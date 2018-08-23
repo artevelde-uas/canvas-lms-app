@@ -38,6 +38,12 @@ export default new class {
         router.addRoute('/courses/:id/gradebook', getRouteHandler('courses', 'course.gradebook'));
         router.addRoute('/courses/:id/users', getRouteHandler('courses', 'course.users'));
         router.addRoute('/courses/:id/settings', getRouteHandler('courses', 'course.settings'));
+        router.addRoute('/courses/:id/statistics', getRouteHandler('courses', 'course.settings.statistics'));
+        router.addRoute('/courses/:id/confirm_action?event=conclude', getRouteHandler('courses', 'course.settings.confirm-conclude'));
+        router.addRoute('/courses/:id/confirm_action?event=delete', getRouteHandler('courses', 'course.settings.confirm-delete'));
+        router.addRoute('/courses/:id/copy', getRouteHandler('courses', 'course.settings.copy'));
+        router.addRoute('/courses/:id/content_migrations', getRouteHandler('courses', 'course.settings.import'));
+        router.addRoute('/courses/:id/content_export', getRouteHandler('courses', 'course.settings.export'));
         router.addRoute('/courses/:id/external_tools/:toolId', getRouteHandler('courses', 'course.external-tool'));
     }
     
