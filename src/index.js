@@ -9,12 +9,13 @@ const emitter = new EventEmitter();
 
 function getRouteHandler(app, name) {
     return function (params) {
-        params.name = name;
-
-        if (app !== undefined) {
-            emitter.emit('application:' + app, { name: app });
+        emitter.emit('application:' + app, { name: app });
+        
+        if (name === undefined) {
+            name = app;
         }
         
+        params.name = name;
         emitter.emit('route:' + name, params);
     };
 }
@@ -27,9 +28,9 @@ export default new class {
     }
     
     initRouter() {
-        router.addRoute('/', getRouteHandler('dashboard', 'dashboard'));
+        router.addRoute('/', getRouteHandler('dashboard'));
         
-        router.addRoute('/courses', getRouteHandler('courses', 'courses'));
+        router.addRoute('/courses', getRouteHandler('courses'));
         router.addRoute('/courses/:id', getRouteHandler('courses', 'course.home'));
         router.addRoute('/courses/:id/announcements', getRouteHandler('courses', 'course.announcements'));
         router.addRoute('/courses/:id/discussion_topics/new?is_announcement=true', getRouteHandler('courses', 'course.announcements.new'));
