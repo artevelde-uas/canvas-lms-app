@@ -31,20 +31,20 @@ export default new class {
         router.addRoute('/', getRouteHandler('dashboard'));
         
         router.addRoute('/courses', getRouteHandler('courses'));
-        router.addRoute('/courses/:id', getRouteHandler('courses', 'course.home'));
-        router.addRoute('/courses/:id/announcements', getRouteHandler('courses', 'course.announcements'));
-        router.addRoute('/courses/:id/discussion_topics/new?is_announcement=true', getRouteHandler('courses', 'course.announcements.new'));
-        router.addRoute('/courses/:id/discussion_topics', getRouteHandler('courses', 'course.discussions'));
-        router.addRoute('/courses/:id/gradebook', getRouteHandler('courses', 'course.gradebook'));
-        router.addRoute('/courses/:id/users', getRouteHandler('courses', 'course.users'));
-        router.addRoute('/courses/:id/settings', getRouteHandler('courses', 'course.settings'));
-        router.addRoute('/courses/:id/statistics', getRouteHandler('courses', 'course.settings.statistics'));
-        router.addRoute('/courses/:id/confirm_action?event=conclude', getRouteHandler('courses', 'course.settings.confirm-conclude'));
-        router.addRoute('/courses/:id/confirm_action?event=delete', getRouteHandler('courses', 'course.settings.confirm-delete'));
-        router.addRoute('/courses/:id/copy', getRouteHandler('courses', 'course.settings.copy'));
-        router.addRoute('/courses/:id/content_migrations', getRouteHandler('courses', 'course.settings.import'));
-        router.addRoute('/courses/:id/content_export', getRouteHandler('courses', 'course.settings.export'));
-        router.addRoute('/courses/:id/external_tools/:toolId', getRouteHandler('courses', 'course.external-tool'));
+        router.addRoute('/courses/:courseId', getRouteHandler('courses', 'course.home'));
+        router.addRoute('/courses/:courseId/announcements', getRouteHandler('courses', 'course.announcements'));
+        router.addRoute('/courses/:courseId/discussion_topics/new?is_announcement=true', getRouteHandler('courses', 'course.announcements.new'));
+        router.addRoute('/courses/:courseId/discussion_topics', getRouteHandler('courses', 'course.discussions'));
+        router.addRoute('/courses/:courseId/gradebook', getRouteHandler('courses', 'course.gradebook'));
+        router.addRoute('/courses/:courseId/users', getRouteHandler('courses', 'course.users'));
+        router.addRoute('/courses/:courseId/settings', getRouteHandler('courses', 'course.settings'));
+        router.addRoute('/courses/:courseId/statistics', getRouteHandler('courses', 'course.settings.statistics'));
+        router.addRoute('/courses/:courseId/confirm_action?event=conclude', getRouteHandler('courses', 'course.settings.confirm-conclude'));
+        router.addRoute('/courses/:courseId/confirm_action?event=delete', getRouteHandler('courses', 'course.settings.confirm-delete'));
+        router.addRoute('/courses/:courseId/copy', getRouteHandler('courses', 'course.settings.copy'));
+        router.addRoute('/courses/:courseId/content_migrations', getRouteHandler('courses', 'course.settings.import'));
+        router.addRoute('/courses/:courseId/content_export', getRouteHandler('courses', 'course.settings.export'));
+        router.addRoute('/courses/:courseId/external_tools/:toolId', getRouteHandler('courses', 'course.external-tool'));
     }
     
     addRouteListener(name, handler) {
