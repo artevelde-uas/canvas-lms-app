@@ -36,6 +36,15 @@ export default new class {
         router.addRoute('/courses/:courseId/discussion_topics/new?is_announcement=true', getRouteHandler('courses', 'course.announcements.new'));
         router.addRoute('/courses/:courseId/discussion_topics', getRouteHandler('courses', 'course.discussions'));
         router.addRoute('/courses/:courseId/gradebook', getRouteHandler('courses', 'course.gradebook'));
+        router.addRoute('/courses/:courseId/grades', getRouteHandler('courses', 'course.grades'));
+        router.addRoute('/courses/:courseId/outcomes', getRouteHandler('courses', 'course.outcomes'));
+        router.addRoute('/courses/:courseId/quizzes', getRouteHandler('courses', 'course.quizzes'));
+        router.addRoute('/courses/:courseId/wiki', getRouteHandler('courses', 'course.pages'));
+        router.addRoute('/courses/:courseId/modules', getRouteHandler('courses', 'course.modules'));
+        router.addRoute('/courses/:courseId/assignments/syllabus', getRouteHandler('courses', 'course.syllabus'));
+        router.addRoute('/courses/:courseId/assignments', getRouteHandler('courses', 'course.assignments'));
+        router.addRoute('/courses/:courseId/conferences', getRouteHandler('courses', 'course.conferences'));
+        router.addRoute('/courses/:courseId/lti_collaborations', getRouteHandler('courses', 'course.collaborations'));
         router.addRoute('/courses/:courseId/users', getRouteHandler('courses', 'course.users'));
         router.addRoute('/courses/:courseId/settings', getRouteHandler('courses', 'course.settings'));
         router.addRoute('/courses/:courseId/statistics', getRouteHandler('courses', 'course.settings.statistics'));
