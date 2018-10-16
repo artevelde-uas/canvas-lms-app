@@ -68,13 +68,13 @@ export default new class {
         elementReady(selector).then(handler);
     }
     
-    addPlugin(plugin) {
+    addPlugin(plugin, options) {
         switch (typeof plugin) {
         case 'function':
-            plugin(this);
+            plugin(this, options);
             break;
         case 'object':
-            plugin.init(this);
+            plugin.init(this, options);
             break;
         }
     }
