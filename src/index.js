@@ -39,7 +39,11 @@ export default new class {
         router.addRoute('/courses/:courseId/grades', getRouteHandler('courses', 'course.grades'));
         router.addRoute('/courses/:courseId/outcomes', getRouteHandler('courses', 'course.outcomes'));
         router.addRoute('/courses/:courseId/quizzes', getRouteHandler('courses', 'course.quizzes'));
-        router.addRoute('/courses/:courseId/wiki', getRouteHandler('courses', 'course.pages'));
+        router.addRoute('/courses/:courseId/pages', getRouteHandler('courses', 'course.pages'));
+        router.addRoute('/courses/:courseId/wiki', getRouteHandler('courses', 'course.pages.home'));
+        router.addRoute('/courses/:courseId/pages/:pageSlug', getRouteHandler('courses', 'course.pages.view'));
+        router.addRoute('/courses/:courseId/pages/:pageSlug/edit', getRouteHandler('courses', 'course.pages.edit'));
+        router.addRoute('/courses/:courseId/pages/:pageSlug/revisions', getRouteHandler('courses', 'course.pages.revisions'));
         router.addRoute('/courses/:courseId/modules', getRouteHandler('courses', 'course.modules'));
         router.addRoute('/courses/:courseId/assignments/syllabus', getRouteHandler('courses', 'course.syllabus'));
         router.addRoute('/courses/:courseId/assignments', getRouteHandler('courses', 'course.assignments'));
