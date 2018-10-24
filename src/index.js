@@ -57,11 +57,19 @@ export default new class {
     }
     
     addRouteListener(name, handler) {
-        emitter.on('route:' + name, handler);
+        let names = Array.isArray(name) ? name : name.split(/\s*,\s*/);
+        
+        names.forEach(function (name) {
+            emitter.on('route:' + name, handler);
+        });
     }
     
     addAppListener(name, handler) {
-        emitter.on('application:' + name, handler);
+        let names = Array.isArray(name) ? name : name.split(/\s*,\s*/);
+        
+        names.forEach(function (name) {
+            emitter.on('application:' + name, handler);
+        });
     }
     
     addReadyListener(selector, handler) {

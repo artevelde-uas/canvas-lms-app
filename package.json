@@ -1,6 +1,6 @@
 {
   "name": "@ahsdile/canvas-lms-app",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "App for building custom JS & CSS for Canvas LMS themes",
   "keywords": ["Canvas LMS"],
   "license": "MIT",
