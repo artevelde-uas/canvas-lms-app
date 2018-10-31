@@ -2,6 +2,10 @@
 
 Using this JavaScript application you can add plug-ins that add/modify functionality to the Canvas LMS front end.
 
+[![](https://img.shields.io/npm/v/@ahsdile/canvas-lms-app.svg)](#)
+[![](https://img.shields.io/github/license/ahsdile/canvas-lms-app.svg)](#)
+[![](https://img.shields.io/npm/dt/@ahsdile/canvas-lms-app.svg)](#)
+[![](https://img.shields.io/librariesio/github/ahsdile/canvas-lms-app.svg)](#)
 
 ## Installation
 
@@ -36,7 +40,7 @@ Here's an [example project](https://github.com/ahsdile/canvas-lms-customisation-
 
 | Plug-in | Description | Author |
 | ------- | ----------- | ------ |
-| [Course Recycle Bin](https://github.com/ahsdile/canvas-lms-reorder-dashboard-courses-plugin) | Adds a 'Course Recycle Bin' button to the course settings menu. | Renaat De Muynck |
+| [Course Recycle Bin](https://github.com/ahsdile/canvas-lms-reorder-dashboard-courses-plugin) | Adds a 'Course Recycle Bin' button to the course settings menu.<br> | Renaat De Muynck |
 | [Reorder Dashboard Courses](https://github.com/@ahsdile/canvas-lms-enable-course-recycle-bin-plugin) | Lets you reorder your courses on the dashboard. | Renaat De Muynck |
 | [Restrict SIS Course Settings](https://github.com/ahsdile/canvas-lms-restrict-sis-course-settings-plugin) | Restricts some settings in courses created by the SIS import/sync. | Renaat De Muynck |
 | [Course Gradebook Disclaimer](https://github.com/ahsdile/canvas-lms-gradebook-disclaimer-plugin) | Adds a disclaimer on the gradebook page. | Renaat De Muynck |
