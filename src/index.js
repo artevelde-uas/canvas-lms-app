@@ -77,17 +77,25 @@ export default new class {
     }
     
     addReadyListener(selector, handler) {
-        elementReady(selector).then(handler);
+        elementReady(selector).then(handler, function (e) {
+            console.log(e.message);
+        }).catch(function (e) {
+            throw e;
+        });
     }
     
     addPlugin(plugin, options) {
-        switch (typeof plugin) {
-        case 'function':
-            plugin(this, options);
-            break;
-        case 'object':
-            plugin.init(this, options);
-            break;
+        try {
+            switch (typeof plugin) {
+            case 'function':
+                plugin(this, options);
+                break;
+            case 'object':
+                plugin.init(this, options);
+                break;
+            }
+        } catch (ex) {
+            console.error(ex.message);
         }
     }
     
