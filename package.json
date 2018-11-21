@@ -11,7 +11,7 @@
     "src/index.js"
   ],
   "dependencies": {
-    "element-ready-es5": "^2.1.0",
+    "element-is-ready": "^1.0.0",
     "events": "^2.0.0",
     "routes": "^2.1.0"
   }

@@ -1,6 +1,6 @@
 import Router from 'routes';
 import EventEmitter from 'events';
-import elementReady from 'element-ready-es5';
+import elementReady from 'element-is-ready';
 
 
 const router = new Router();
