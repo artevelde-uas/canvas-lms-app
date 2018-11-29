@@ -77,10 +77,10 @@ export default new class {
     }
     
     addReadyListener(selector, handler) {
-        elementReady(selector).then(handler, function (e) {
-            console.log(e.message);
-        }).catch(function (e) {
-            throw e;
+        elementReady(selector).then(handler, function (event) {
+            console.log(event.message);
+        }).catch(function (ex) {
+            throw ex;
         });
     }
     
