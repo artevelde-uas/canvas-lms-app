@@ -102,6 +102,8 @@ export default new class {
     run() {
         let path = window.location.pathname + window.location.search;
         
+        if (window !== window.top) return;
+        
         this.handle(path);
     }
     
