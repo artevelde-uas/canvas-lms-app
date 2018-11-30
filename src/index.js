@@ -8,40 +8,41 @@ const emitter = new EventEmitter();
 
 
 function fireRouteEvent(match) {
-    let params = {
-        name: match.name,
-        ...match.params
-    };
+    let { name, params } = match;
+    let index;
     
-    emitter.emit('route:' + match.name, params);
-}
-
-function fireAppEvent(match) {
-    let name = match.name;
-    let app = name.substring(0, name.indexOf('.')) || name;
+    emitter.emit(name, params, name);
     
-    // TODO: fix route names from 'course.' to 'courses.'
-    // TODO: deprecate 'application' events
-    if (app === 'course') {
-        app = 'courses';
-    }
-    
-    emitter.emit('application:' + app, { name: app });
+    do {
+        emitter.emit(name + '.*', params, match.name);
+        
+        index = name.lastIndexOf('.');
+        name = name.substring(0, index);
+    } while (index >= 0);
 }
 
 function addRouteListener(name, handler) {
     let names = Array.isArray(name) ? name : name.split(/\s*,\s*/);
     
     names.forEach(function (name) {
-        emitter.on('route:' + name, handler);
+        if (name.startsWith('course.')) {
+            name = 'courses.' + name.substring(7);
+            
+            console.warn(`DEPRECATED: Use "addRouteListener('${name}', handler)" instead`);
+        }
+        
+        emitter.on(name, handler);
     });
 }
 
+//DEPRECATED: use `addRouteListener()`
 function addAppListener(name, handler) {
     let names = Array.isArray(name) ? name : name.split(/\s*,\s*/);
     
     names.forEach(function (name) {
-        emitter.on('application:' + name, handler);
+        console.warn(`DEPRECATED: Use "addRouteListener('${name}.*', handler)" instead`);
+        
+        addRouteListener(name + '.*', handler);
     });
 }
 
@@ -76,20 +77,20 @@ function addPlugin(plugin, options) {
 
 function run() {
     let path = window.location.pathname + window.location.search;
-    
-    if (window !== window.top) return;
-    
-    this.handle(path);
-}
-
-// DEPRECATED: use `run()`
-function handle(path) {
     let match = router.match(path);
     
     if (match === undefined) return false;
     
+    if (window !== window.top) return;
+    
     fireRouteEvent(match);
-    fireAppEvent(match); 
+}
+
+// DEPRECATED: use `run()`
+function handle(path) {
+    console.warn('DEPRECATED: Use "run()" instead');
+    
+    run();
 }
 
 
