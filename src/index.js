@@ -39,16 +39,21 @@ function addRouteListener(name, handler) {
     names.forEach(function (name) {
         if (name.startsWith('course.')) {
             name = 'courses.' + name.substring(7);
+            
+            console.warn(`DEPRECATED: Use "addRouteListener('${name}', handler)" instead`);
         }
         
         emitter.on('route:' + name, handler);
     });
 }
 
+//DEPRECATED: use `addRouteListener()`
 function addAppListener(name, handler) {
     let names = Array.isArray(name) ? name : name.split(/\s*,\s*/);
     
     names.forEach(function (name) {
+        console.warn(`DEPRECATED: Use "addRouteListener('${name}.*', handler)" instead`);
+        
         emitter.on('application:' + name, handler);
     });
 }
@@ -84,20 +89,21 @@ function addPlugin(plugin, options) {
 
 function run() {
     let path = window.location.pathname + window.location.search;
-    
-    if (window !== window.top) return;
-    
-    this.handle(path);
-}
-
-// DEPRECATED: use `run()`
-function handle(path) {
     let match = router.match(path);
     
     if (match === undefined) return false;
     
+    if (window !== window.top) return;
+    
     fireRouteEvent(match);
     fireAppEvent(match); 
+}
+
+// DEPRECATED: use `run()`
+function handle(path) {
+    console.warn('DEPRECATED: Use "run()" instead');
+    
+    run();
 }
 
 
