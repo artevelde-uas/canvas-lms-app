@@ -30,12 +30,6 @@ function fireAppEvent(match) {
     let name = match.name;
     let app = name.substring(0, name.indexOf('.')) || name;
     
-    // TODO: fix route names from 'course.' to 'courses.'
-    // TODO: deprecate 'application' events
-    if (app === 'course') {
-        app = 'courses';
-    }
-    
     emitter.emit('application:' + app, { name: app });
 }
 
@@ -43,6 +37,10 @@ function addRouteListener(name, handler) {
     let names = Array.isArray(name) ? name : name.split(/\s*,\s*/);
     
     names.forEach(function (name) {
+        if (name.startsWith('course.')) {
+            name = 'courses.' + name.substring(7);
+        }
+        
         emitter.on('route:' + name, handler);
     });
 }
