@@ -29,64 +29,72 @@ function fireAppEvent(match) {
     emitter.emit('application:' + app, { name: app });
 }
 
+function addRouteListener(name, handler) {
+    let names = Array.isArray(name) ? name : name.split(/\s*,\s*/);
+    
+    names.forEach(function (name) {
+        emitter.on('route:' + name, handler);
+    });
+}
 
-export default new class {
+function addAppListener(name, handler) {
+    let names = Array.isArray(name) ? name : name.split(/\s*,\s*/);
     
-    addRouteListener(name, handler) {
-        let names = Array.isArray(name) ? name : name.split(/\s*,\s*/);
-        
-        names.forEach(function (name) {
-            emitter.on('route:' + name, handler);
-        });
-    }
+    names.forEach(function (name) {
+        emitter.on('application:' + name, handler);
+    });
+}
+
+function addReadyListener(selector, handler) {
+    elementReady(selector).then(handler, function (event) {
+        console.log(event.message);
+    }).catch(function (ex) {
+        throw ex;
+    });
+}
+
+function addPlugin(plugin, options) {
+    let services = {
+        addRouteListener,
+        addAppListener,
+        addReadyListener
+    };
     
-    addAppListener(name, handler) {
-        let names = Array.isArray(name) ? name : name.split(/\s*,\s*/);
-        
-        names.forEach(function (name) {
-            emitter.on('application:' + name, handler);
-        });
-    }
-    
-    addReadyListener(selector, handler) {
-        elementReady(selector).then(handler, function (event) {
-            console.log(event.message);
-        }).catch(function (ex) {
-            throw ex;
-        });
-    }
-    
-    addPlugin(plugin, options) {
-        try {
-            switch (typeof plugin) {
-            case 'function':
-                plugin(this, options);
-                break;
-            case 'object':
-                plugin.init(this, options);
-                break;
-            }
-        } catch (ex) {
-            console.error(ex.message);
+    try {
+        switch (typeof plugin) {
+        case 'function':
+            plugin(services, options);
+            break;
+        case 'object':
+            plugin.init(services, options);
+            break;
         }
+    } catch (ex) {
+        console.error(ex.message);
     }
+}
+
+function run() {
+    let path = window.location.pathname + window.location.search;
     
-    run() {
-        let path = window.location.pathname + window.location.search;
-        
-        if (window !== window.top) return;
-        
-        this.handle(path);
-    }
+    if (window !== window.top) return;
     
-    // DEPRECATED: use `run()`
-    handle(path) {
-        let match = router.match(path);
-        
-        if (match === undefined) return false;
-        
-        fireRouteEvent(match);
-        fireAppEvent(match); 
-    }
+    this.handle(path);
+}
+
+// DEPRECATED: use `run()`
+function handle(path) {
+    let match = router.match(path);
     
+    if (match === undefined) return false;
+    
+    fireRouteEvent(match);
+    fireAppEvent(match); 
+}
+
+
+export default {
+    addPlugin,
+    run,
+    handle
 }
