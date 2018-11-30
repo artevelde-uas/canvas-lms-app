@@ -16,21 +16,14 @@ function fireRouteEvent(match) {
     };
     let index;
     
-    emitter.emit('route:' + match.name, params);
+    emitter.emit(match.name, params);
     
     do {
-        emitter.emit('route:' + name + '.*', params);
+        emitter.emit(name + '.*', params);
         
         index = name.lastIndexOf('.');
         name = name.substring(0, index);
     } while (index >= 0);
-}
-
-function fireAppEvent(match) {
-    let name = match.name;
-    let app = name.substring(0, name.indexOf('.')) || name;
-    
-    emitter.emit('application:' + app, { name: app });
 }
 
 function addRouteListener(name, handler) {
@@ -43,7 +36,7 @@ function addRouteListener(name, handler) {
             console.warn(`DEPRECATED: Use "addRouteListener('${name}', handler)" instead`);
         }
         
-        emitter.on('route:' + name, handler);
+        emitter.on(name, handler);
     });
 }
 
@@ -54,7 +47,7 @@ function addAppListener(name, handler) {
     names.forEach(function (name) {
         console.warn(`DEPRECATED: Use "addRouteListener('${name}.*', handler)" instead`);
         
-        emitter.on('application:' + name, handler);
+        addRouteListener(name + '.*', handler);
     });
 }
 
@@ -96,7 +89,6 @@ function run() {
     if (window !== window.top) return;
     
     fireRouteEvent(match);
-    fireAppEvent(match); 
 }
 
 // DEPRECATED: use `run()`
