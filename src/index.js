@@ -8,12 +8,22 @@ const emitter = new EventEmitter();
 
 
 function fireRouteEvent(match) {
+    let name = match.name;
+    // TODO: don't add name to params (could conflict with 'name' parameter)
     let params = {
         name: match.name,
         ...match.params
     };
+    let index;
     
     emitter.emit('route:' + match.name, params);
+    
+    do {
+        emitter.emit('route:' + name + '.*', params);
+        
+        index = name.lastIndexOf('.');
+        name = name.substring(0, index);
+    } while (index >= 0);
 }
 
 function fireAppEvent(match) {
