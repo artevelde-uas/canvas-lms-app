@@ -8,18 +8,13 @@ const emitter = new EventEmitter();
 
 
 function fireRouteEvent(match) {
-    let name = match.name;
-    // TODO: don't add name to params (could conflict with 'name' parameter)
-    let params = {
-        name: match.name,
-        ...match.params
-    };
+    let { name, params } = match;
     let index;
     
-    emitter.emit(match.name, params);
+    emitter.emit(name, params, name);
     
     do {
-        emitter.emit(name + '.*', params);
+        emitter.emit(name + '.*', params, match.name);
         
         index = name.lastIndexOf('.');
         name = name.substring(0, index);
