@@ -56,7 +56,12 @@ function match(path) {
     }
 }
 
+function reverse(name, params) {
+    return routes[name].reverse(params);
+}
+
 
 export default {
-    match
+    match,
+    reverse
 }

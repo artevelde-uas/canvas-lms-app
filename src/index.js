@@ -53,11 +53,16 @@ function addReadyListener(selector, handler) {
     });
 }
 
+function getRouteUrl(name, params) {
+    return router.reverse(name, params);
+}
+
 function addPlugin(plugin, options) {
     let services = {
         addRouteListener,
         addAppListener,
-        addReadyListener
+        addReadyListener,
+        getRouteUrl
     };
     
     try {
