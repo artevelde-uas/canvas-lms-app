@@ -39,7 +39,7 @@ Here's an [example project](https://github.com/ahsdile/canvas-lms-customisation-
 ## List of existing plug-ins
 
 | Plug-in | Description | Downloads |
-| ------- | ----------- | ------ |
+| ------- | ----------- | --------- |
 | [Course Recycle Bin](https://github.com/@ahsdile/canvas-lms-enable-course-recycle-bin-plugin) | Adds a 'Course Recycle Bin' button to the course settings menu. | [![](https://img.shields.io/npm/dt/@ahsdile/canvas-lms-enable-course-recycle-bin-plugin.svg)](#) |
 | [~~Reorder Dashboard Courses~~](https://github.com/ahsdile/canvas-lms-reorder-dashboard-courses-plugin)<br>:warning: DEPRECATED :warning: | Lets you reorder your courses on the dashboard. | [![](https://img.shields.io/npm/dt/@ahsdile/canvas-lms-reorder-dashboard-courses-plugin.svg)](#) |
 | [Restrict SIS Course Settings](https://github.com/ahsdile/canvas-lms-restrict-sis-course-settings-plugin) | Restricts some settings in courses created by the SIS import/sync. | [![](https://img.shields.io/npm/dt/@ahsdile/canvas-lms-restrict-sis-course-settings-plugin.svg)](#) |
@@ -49,3 +49,8 @@ Here's an [example project](https://github.com/ahsdile/canvas-lms-customisation-
 | [Google Analytics](https://github.com/ahsdile/canvas-lms-google-analytics-plugin) | Adds the Google Analytics scripts to Canvas by providing the tracking id | [![](https://img.shields.io/npm/dt/@ahsdile/canvas-lms-google-analytics-plugin.svg)](#) |
 
 *(More will follow soon...)*
+
+## Contributing
+
+I accept feature requests! Just create an issue with the label '**new feature**' or '**new plug-in**'.
+Or create a pull request if you have created your own plug-in and want it to be added to the list.
