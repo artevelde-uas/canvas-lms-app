@@ -1,4 +1,3 @@
-import Router from 'routes';
 import EventEmitter from 'events';
 import elementReady from 'element-is-ready';
 

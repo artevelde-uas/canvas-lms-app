@@ -13,7 +13,6 @@
   "dependencies": {
     "element-is-ready": "^1.0.0",
     "events": "^2.0.0",
-    "route-parser": "^0.0.5",
-    "routes": "^2.1.0"
+    "route-parser": "^0.0.5"
   }
 }
