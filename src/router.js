@@ -44,24 +44,50 @@ const routes = {
 };
 
 
-function match(path) {
+function fireEvent(name, params) {
+    let index;
+    let orig = name;
+    
+    emitter.emit(name, params, orig);
+    
+    do {
+        emitter.emit(name + '.*', params, orig);
+        
+        index = name.lastIndexOf('.');
+        name = name.substring(0, index);
+    } while (index >= 0);
+}
+
+function handlePath(path) {
     let match;
     let [name] = Object.entries(routes).find(([, route]) => (match = route.match(path))) || [];
     
     if (name === undefined) return;
     
-    return {
-        name,
-        params: match || {}
-    }
+    fireEvent(name, match);
 }
 
-function reverse(name, params) {
+function getUrl(name, params) {
     return routes[name].reverse(params);
+}
+
+function addListener(name, handler) {
+    let names = Array.isArray(name) ? name : name.split(/\s*,\s*/);
+    
+    names.forEach(function (name) {
+        if (name.startsWith('course.')) {
+            name = 'courses.' + name.substring(7);
+            
+            console.warn(`DEPRECATED: Use "addRouteListener('${name}', handler)" instead`);
+        }
+        
+        emitter.on(name, handler);
+    });
 }
 
 
 export default {
-    match,
-    reverse
+    handlePath,
+    getUrl,
+    addListener
 }
