@@ -1,8 +1,10 @@
 {
   "name": "@ahsdile/canvas-lms-app",
-  "version": "0.9.1",
+  "version": "0.10.1",
   "description": "App for building custom JS & CSS for Canvas LMS themes",
-  "keywords": ["Canvas LMS"],
+  "keywords": [
+    "Canvas LMS"
+  ],
   "license": "MIT",
   "author": "Renaat De Muynck <renaat.demuynck@arteveldehs.be>",
   "repository": "https://github.com/ahsdile/canvas-lms-app",
@@ -14,7 +16,6 @@
   "dependencies": {
     "element-is-ready": "^1.0.0",
     "events": "^2.0.0",
-    "route-parser": "^0.0.5",
-    "routes": "^2.1.0"
+    "route-parser": "^0.0.5"
   }
 }
