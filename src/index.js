@@ -1,6 +1,7 @@
 import elementReady from 'element-is-ready';
 
 import router from './router';
+import i18n from './i18n';
 
 
 //DEPRECATED: use `addRouteListener()`
@@ -27,7 +28,8 @@ function addPlugin(plugin, options) {
         addRouteListener: router.addListener,
         addAppListener,
         addReadyListener,
-        getRouteUrl: router.getUrl
+        getRouteUrl: router.getUrl,
+        i18n: i18n.createInstance()
     };
     
     try {
