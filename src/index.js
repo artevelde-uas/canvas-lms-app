@@ -1,7 +1,15 @@
 import elementReady from 'element-is-ready';
 
+import services from './services';
 import router from './router';
 import i18n from './i18n';
+
+
+services.add('addRouteListener', () => router.addListener.bind(router));
+services.add('getRouteUrl', () => router.getUrl.bind(router));
+services.add('addAppListener', () => addAppListener);
+services.add('addReadyListener', () => addReadyListener);
+services.add('i18n', () => i18n.createInstance());
 
 
 //DEPRECATED: use `addRouteListener()`
@@ -24,21 +32,15 @@ function addReadyListener(selector, handler) {
 }
 
 function addPlugin(plugin, options) {
-    let services = {
-        addRouteListener: router.addListener,
-        addAppListener,
-        addReadyListener,
-        getRouteUrl: router.getUrl,
-        i18n: i18n.createInstance()
-    };
+    let sm = services.createLazyManager();
     
     try {
         switch (typeof plugin) {
         case 'function':
-            plugin(services, options);
+            plugin(sm, options);
             break;
         case 'object':
-            plugin.init(services, options);
+            plugin.init(sm, options);
             break;
         }
     } catch (ex) {
