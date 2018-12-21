@@ -77,7 +77,7 @@ const routes = {
 };
 
 
-function fireEvent(name, params) {
+function fireEvents(name, params) {
     let index;
     let orig = name;
     
@@ -97,7 +97,7 @@ function handlePath(path) {
     
     if (name === undefined) return;
     
-    fireEvent(name, match);
+    fireEvents(name, match);
 }
 
 function getUrl(name, params) {
