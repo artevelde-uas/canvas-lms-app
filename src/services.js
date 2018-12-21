@@ -15,9 +15,7 @@ function createLazyManager() {
                 let obj = initializer();
                 
                 Object.defineProperty(this, name, {
-                    value: obj,
-                    writable: false,
-                    configurable: false
+                    value: obj
                 });
                 
                 return obj;
