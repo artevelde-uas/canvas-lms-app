@@ -1,6 +1,6 @@
 {
   "name": "@ahsdile/canvas-lms-app",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "App for building custom JS & CSS for Canvas LMS themes",
   "keywords": ["Canvas LMS"],
   "license": "MIT",
@@ -8,7 +8,8 @@
   "repository": "https://github.com/ahsdile/canvas-lms-app",
   "module": "src/index.js",
   "files": [
-    "src/index.js"
+    "src/index.js",
+    "src/router.js"
   ],
   "dependencies": {
     "element-is-ready": "^1.0.0",
