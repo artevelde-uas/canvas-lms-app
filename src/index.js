@@ -3,6 +3,7 @@ import elementReady from 'element-is-ready';
 import services from './services';
 import router from './router';
 import i18n from './i18n';
+import api from './api';
 
 
 services.add('addRouteListener', () => router.addListener.bind(router));
@@ -10,6 +11,7 @@ services.add('getRouteUrl', () => router.getUrl.bind(router));
 services.add('addAppListener', () => addAppListener);
 services.add('addReadyListener', () => addReadyListener);
 services.add('i18n', () => i18n.createInstance());
+services.add('api', () => api);
 
 
 //DEPRECATED: use `addRouteListener()`
