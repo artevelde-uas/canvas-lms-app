@@ -1,39 +1,7 @@
-import Router from 'routes';
-import EventEmitter from 'events';
 import elementReady from 'element-is-ready';
 
 import router from './router';
 
-const emitter = new EventEmitter();
-
-
-function fireRouteEvent(match) {
-    let { name, params } = match;
-    let index;
-    
-    emitter.emit(name, params, name);
-    
-    do {
-        emitter.emit(name + '.*', params, match.name);
-        
-        index = name.lastIndexOf('.');
-        name = name.substring(0, index);
-    } while (index >= 0);
-}
-
-function addRouteListener(name, handler) {
-    let names = Array.isArray(name) ? name : name.split(/\s*,\s*/);
-    
-    names.forEach(function (name) {
-        if (name.startsWith('course.')) {
-            name = 'courses.' + name.substring(7);
-            
-            console.warn(`DEPRECATED: Use "addRouteListener('${name}', handler)" instead`);
-        }
-        
-        emitter.on(name, handler);
-    });
-}
 
 //DEPRECATED: use `addRouteListener()`
 function addAppListener(name, handler) {
@@ -42,7 +10,7 @@ function addAppListener(name, handler) {
     names.forEach(function (name) {
         console.warn(`DEPRECATED: Use "addRouteListener('${name}.*', handler)" instead`);
         
-        addRouteListener(name + '.*', handler);
+        router.addListener(name + '.*', handler);
     });
 }
 
@@ -56,9 +24,10 @@ function addReadyListener(selector, handler) {
 
 function addPlugin(plugin, options) {
     let services = {
-        addRouteListener,
+        addRouteListener: router.addListener,
         addAppListener,
-        addReadyListener
+        addReadyListener,
+        getRouteUrl: router.getUrl
     };
     
     try {
@@ -77,13 +46,10 @@ function addPlugin(plugin, options) {
 
 function run() {
     let path = window.location.pathname + window.location.search;
-    let match = router.match(path);
-    
-    if (match === undefined) return false;
     
     if (window !== window.top) return;
     
-    fireRouteEvent(match);
+    router.handlePath(path);
 }
 
 // DEPRECATED: use `run()`
