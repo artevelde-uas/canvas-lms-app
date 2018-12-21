@@ -9,7 +9,7 @@ function add(name, initializer) {
 function createLazyManager() {
     let sm = {};
     
-    services.forEach(function lazyLoader({ name, initializer }) {
+    services.forEach(function ({ name, initializer }) {
         Object.defineProperty(sm, name, {
             get: function () {
                 let obj = initializer();
