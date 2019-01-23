@@ -1,6 +1,5 @@
-import elementReady from 'element-is-ready';
-
 import services from './services';
+import elementReady from './element-ready';
 import router from './router';
 import i18n from './i18n';
 import api from './api';
@@ -9,7 +8,7 @@ import api from './api';
 services.add('addRouteListener', () => router.addListener.bind(router));
 services.add('getRouteUrl', () => router.getUrl.bind(router));
 services.add('addAppListener', () => addAppListener);
-services.add('addReadyListener', () => addReadyListener);
+services.add('addReadyListener', () => elementReady);
 services.add('i18n', () => i18n.createInstance());
 services.add('api', () => api);
 
@@ -22,14 +21,6 @@ function addAppListener(name, handler) {
         console.warn(`DEPRECATED: Use "addRouteListener('${name}.*', handler)" instead`);
         
         router.addListener(name + '.*', handler);
-    });
-}
-
-function addReadyListener(selector, handler) {
-    elementReady(selector).then(handler, function (event) {
-        console.log(event.message);
-    }).catch(function (ex) {
-        throw ex;
     });
 }
 
