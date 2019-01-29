@@ -1,19 +1,16 @@
 import Cookies from 'js-cookie';
 
 
-function ajax(path, method, params) {
+function ajax(method, path, params) {
     var url = '/api/v1' + path;
     var init = {
+        method,
         headers: new Headers({
             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
             'X-CSRF-Token': Cookies.get('_csrf_token')
         })
     };
-
-    if (method) {
-        init.method = method;
-    }
-
+    
     if (params) {
         init.body = new URLSearchParams(params);
     }
@@ -25,19 +22,19 @@ function ajax(path, method, params) {
 }
 
 function get(path, params) {
-    return ajax(path, 'GET', params);
+    return ajax('GET', path, params);
 }
 
 function post(path, params) {
-    return ajax(path, 'POST', params);
+    return ajax('POST', path, params);
 }
 
 function put(path, params) {
-    return ajax(path, 'PUT', params);
+    return ajax('PUT', path, params);
 }
 
 function del(path, params) {
-    return ajax(path, 'DELETE', params);
+    return ajax('DELETE', path, params);
 }
 
 
