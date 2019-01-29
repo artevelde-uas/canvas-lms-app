@@ -6,13 +6,13 @@ function ajax(method, path, params) {
     var init = {
         method,
         headers: new Headers({
-            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+            'Content-Type': 'application/json; charset=utf-8',
             'X-CSRF-Token': Cookies.get('_csrf_token')
         })
     };
     
     if (params) {
-        init.body = new URLSearchParams(params);
+        init.body = JSON.stringify(params);
     }
     
     return fetch(url, init)
