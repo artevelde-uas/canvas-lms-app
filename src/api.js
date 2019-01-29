@@ -6,8 +6,10 @@ function ajax(method, path, params) {
     var init = {
         method,
         headers: new Headers({
+            'Accept': 'application/json+canvas-string-ids, application/json, text/plain, */*',
             'Content-Type': 'application/json; charset=utf-8',
-            'X-CSRF-Token': Cookies.get('_csrf_token')
+            'X-CSRF-Token': Cookies.get('_csrf_token'),
+            'X-Requested-With': 'XMLHttpRequest'
         })
     };
     
