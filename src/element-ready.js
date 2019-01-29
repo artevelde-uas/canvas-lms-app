@@ -34,6 +34,10 @@ export default function (root, selector, handler) {
         });
     });
     
+    if (handler === undefined) {
+        return promise;
+    }
+    
     promise.then(handler, function (event) {
         console.log(event.message);
     }).catch(function (ex) {
