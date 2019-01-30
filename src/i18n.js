@@ -4,7 +4,7 @@ import i18next from 'i18next';
 function setTranslations(translations) {
     let resources = {};
     
-    Object.entries(translations).forEach(function ([key, value]) {;
+    Object.entries(translations).forEach(function ([key, value]) {
         resources[key] = { 'translation': value };
     });
     
