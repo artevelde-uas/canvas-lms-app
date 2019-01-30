@@ -1,7 +1,7 @@
 import i18next from 'i18next';
 
 
-function setTranslations(translations) {
+function setTranslations(translations, fallbackLanguage = 'en') {
     var resources = {};
     
     Object.entries(translations).forEach(function ([key, value]) {
@@ -10,7 +10,7 @@ function setTranslations(translations) {
     
     this.init({
         lng: document.documentElement.lang,
-        fallbackLng: 'en',
+        fallbackLng: fallbackLanguage,
         resources
     });
 }
