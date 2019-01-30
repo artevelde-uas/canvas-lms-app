@@ -78,8 +78,8 @@ const routes = {
 
 
 function fireEvents(name, params) {
-    let index;
-    let orig = name;
+    var index;
+    var orig = name;
     
     emitter.emit(name, params, orig);
     
@@ -92,8 +92,8 @@ function fireEvents(name, params) {
 }
 
 function handlePath(path) {
-    let match;
-    let [name] = Object.entries(routes).find(([, route]) => (match = route.match(path))) || [];
+    var match;
+    var [name] = Object.entries(routes).find(([, route]) => (match = route.match(path))) || [];
     
     if (name === undefined) return;
     
@@ -105,7 +105,7 @@ function getUrl(name, params) {
 }
 
 function addListener(name, handler) {
-    let names = Array.isArray(name) ? name : name.split(/\s*,\s*/);
+    var names = Array.isArray(name) ? name : name.split(/\s*,\s*/);
     
     names.forEach(function (name) {
         if (name.startsWith('course.')) {

@@ -16,7 +16,7 @@ services.add('api', () => api);
 
 //DEPRECATED: use `addRouteListener()`
 function addAppListener(name, handler) {
-    let names = Array.isArray(name) ? name : name.split(/\s*,\s*/);
+    var names = Array.isArray(name) ? name : name.split(/\s*,\s*/);
     
     names.forEach(function (name) {
         console.warn(`DEPRECATED: Use "addRouteListener('${name}.*', handler)" instead`);
@@ -34,7 +34,7 @@ function addReadyListener(selector, handler) {
 }
 
 function addPlugin(plugin, options) {
-    let sm = services.createLazyManager();
+    var sm = services.createLazyManager();
     
     try {
         switch (typeof plugin) {
@@ -51,7 +51,7 @@ function addPlugin(plugin, options) {
 }
 
 function run() {
-    let path = window.location.pathname + window.location.search;
+    var path = window.location.pathname + window.location.search;
     
     if (window !== window.top) return;
     
