@@ -1,7 +1,27 @@
 import Cookies from 'js-cookie';
 
 
-function ajax(method, path, params) {
+function buildQueryString(data, prefix) {
+    var params = [];
+    
+    if (typeof data !== 'object' || data === null) {
+        return encodeURIComponent(prefix) + '=' + encodeURIComponent(value);
+    }
+    
+    for (let key in data) {
+        let name = (prefix === undefined)
+            ? key
+            : (data instanceof Array && typeof data[key] !== 'object')
+            ? `${prefix}[]`
+            : `${prefix}[${key}]`;
+
+        params.push(buildQueryString(data[key], name));
+    }
+    
+    return params.join('&');
+}
+
+function ajax(method, path, data, queryParams) {
     var url = '/api/v1' + path;
     var init = {
         method,
@@ -12,9 +32,13 @@ function ajax(method, path, params) {
             'X-Requested-With': 'XMLHttpRequest'
         })
     };
-    
-    if (params) {
-        init.body = JSON.stringify(params);
+
+    if (data) {
+        init.body = JSON.stringify(data);
+    }
+
+    if (queryParams) {
+        url += '?' + buildQueryString(queryParams);
     }
     
     return fetch(url, init)
@@ -23,20 +47,20 @@ function ajax(method, path, params) {
         .then(data => JSON.parse(data));
 }
 
-function get(path, params) {
-    return ajax('GET', path, params);
+function get(path, queryParams) {
+    return ajax('GET', path, queryParams);
 }
 
-function post(path, params) {
-    return ajax('POST', path, params);
+function post(path, data, queryParams) {
+    return ajax('POST', path, data, queryParams);
 }
 
-function put(path, params) {
-    return ajax('PUT', path, params);
+function put(path, data, queryParams) {
+    return ajax('PUT', path, data, queryParams);
 }
 
-function del(path, params) {
-    return ajax('DELETE', path, params);
+function del(path, queryParams) {
+    return ajax('DELETE', path, queryParams);
 }
 
 
