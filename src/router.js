@@ -77,6 +77,9 @@ const routes = {
     
     'admin': new Route('/accounts')
 };
+const deprecatedRoutes = {
+    'course': 'courses'
+};
 
 
 function fireEvents(name, params) {
@@ -109,12 +112,18 @@ function getUrl(name, params) {
 function addListener(name, handler) {
     var names = Array.isArray(name) ? name : name.split(/\s*,\s*/);
     
-    names.forEach(function (name) {
-        if (name.startsWith('course.')) {
-            name = 'courses.' + name.substring(7);
+    names.forEach(name => {
+        Object.entries(deprecatedRoutes).some(([deprecatedName, newName]) => {
             
-            console.warn(`DEPRECATED: Use "addRouteListener('${name}', handler)" instead`);
-        }
+            if (name === deprecatedName || name.startsWith(`${deprecatedName}.`)) {
+                let suffix = deprecatedName.substring(deprecatedName.length);
+                
+                name = (suffix === '') ? newName : `${newName}.${suffix}`;
+                console.warn(`DEPRECATED: "addRouteListener('${deprecatedName}', handler)". Use "addRouteListener('${name}', handler)" instead`);
+                
+                return true;
+            }
+        });
         
         emitter.on(name, handler);
     });
