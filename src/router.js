@@ -44,7 +44,7 @@ const routes = {
     'courses.settings.export': new Route('/courses/:courseId/content_export'),
     'courses.settings.undelete': new Route('/courses/:courseId/undelete'),
     'courses.external-tool': new Route('/courses/:courseId/external_tools/:toolId'),
-
+    
     'groups': new Route('/groups'),
     'groups.home': new Route('/groups/:groupId'),
     'groups.announcements': new Route('/groups/:groupId/announcements'),
@@ -61,7 +61,7 @@ const routes = {
     'groups.files': new Route('/groups/:groupId/files'),
     'groups.conferences': new Route('/groups/:groupId/conferences'),
     'groups.collaborations': new Route('/groups/:groupId/collaborations'),
-
+    
     'profile': new Route('/profile'),
     'profile.about': new Route('/about[/:userId]'),
     'profile.communication': new Route('/profile/communication'),
@@ -72,8 +72,10 @@ const routes = {
     'profile.eportfolios.view': new Route('/eportfolios/:portfolioId/:sectionSlug[/:pageSlug]'),
 
     'calendar': new Route('/calendar'),
-
-    'inbox': new Route('/conversations')
+    
+    'inbox': new Route('/conversations'),
+    
+    'admin': new Route('/accounts')
 };
 
 
