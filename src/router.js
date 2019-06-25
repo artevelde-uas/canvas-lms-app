@@ -64,13 +64,13 @@ const routes = {
     
     'profile': new Route('/profile'),
     'profile.about': new Route('/about[/:userId]'),
-    'profile.communication': new Route('/profile/communication'),
+    'profile.notifications': new Route('/profile/communication'),
     'profile.settings': new Route('/profile/settings'),
     'profile.files': new Route('/files'),
     'profile.eportfolios': new Route('/dashboard/eportfolios'),
     'profile.eportfolios.home': new Route('/eportfolios/:portfolioId'),
     'profile.eportfolios.view': new Route('/eportfolios/:portfolioId/:sectionSlug[/:pageSlug]'),
-
+    
     'calendar': new Route('/calendar'),
     
     'inbox': new Route('/conversations'),
@@ -78,7 +78,8 @@ const routes = {
     'admin': new Route('/accounts')
 };
 const deprecatedRoutes = {
-    'course': 'courses'
+    'course': 'courses',
+    'profile.communication': 'profile.notifications'
 };
 
 
