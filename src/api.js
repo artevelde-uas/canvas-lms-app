@@ -21,7 +21,7 @@ function buildQueryString(data, prefix) {
     return params.join('&');
 }
 
-function ajax(method, path, data, queryParams) {
+function request(method, path, data, queryParams) {
     var url = '/api/v1' + path;
     var init = {
         method,
@@ -48,19 +48,19 @@ function ajax(method, path, data, queryParams) {
 }
 
 function get(path, queryParams) {
-    return ajax('GET', path, queryParams);
+    return request('GET', path, queryParams);
 }
 
 function post(path, data, queryParams) {
-    return ajax('POST', path, data, queryParams);
+    return request('POST', path, data, queryParams);
 }
 
 function put(path, data, queryParams) {
-    return ajax('PUT', path, data, queryParams);
+    return request('PUT', path, data, queryParams);
 }
 
 function del(path, queryParams) {
-    return ajax('DELETE', path, queryParams);
+    return request('DELETE', path, queryParams);
 }
 
 
