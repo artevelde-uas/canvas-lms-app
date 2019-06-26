@@ -127,6 +127,14 @@ function addListener(name, handler) {
             }
         });
         
+        if (!Object.keys(routes).some(routeName => {
+            if (routeName === baseName || routeName.startsWith(`${baseName}.`)) {
+                return true;
+            }
+        })) {
+            throw new TypeError(`Route '${name}' does not exist.`);
+        }
+        
         emitter.on(name, handler);
     });
 }
