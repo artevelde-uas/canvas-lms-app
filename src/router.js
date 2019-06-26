@@ -114,13 +114,14 @@ function addListener(name, handler) {
     var names = Array.isArray(name) ? name : name.split(/\s*,\s*/);
     
     names.forEach(name => {
+        var baseName = name.endsWith('.*') ? name.slice(0, -2) : name;
+        
         Object.entries(deprecatedRoutes).some(([deprecatedName, newName]) => {
-            
-            if (name === deprecatedName || name.startsWith(`${deprecatedName}.`)) {
-                let suffix = deprecatedName.substring(deprecatedName.length);
+            if (baseName === deprecatedName || baseName.startsWith(`${deprecatedName}.`)) {
+                let suffix = name.substring(deprecatedName.length);
                 
-                name = (suffix === '') ? newName : `${newName}.${suffix}`;
-                console.warn(`DEPRECATED: "addRouteListener('${deprecatedName}', handler)". Use "addRouteListener('${name}', handler)" instead`);
+                baseName = (suffix === '') ? newName : `${newName}.${suffix}`;
+                console.warn(`DEPRECATED: Route '${deprecatedName}' is deprecated and will be removed in v1.0.0, use '${newName}' instead`);
                 
                 return true;
             }
