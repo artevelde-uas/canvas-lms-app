@@ -37,7 +37,7 @@ function addPlugin(plugin, options = {}) {
             break;
         }
     } catch (ex) {
-        console.error(ex.message);
+        console.error(ex.toString());
     }
 }
 
