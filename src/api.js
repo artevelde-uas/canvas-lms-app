@@ -21,7 +21,7 @@ function buildQueryString(data, prefix) {
     return params.join('&');
 }
 
-function request(method, path, data, queryParams) {
+function request(method, path, queryParams, data) {
     var url = '/api/v1' + path;
     var init = {
         method,
@@ -32,13 +32,13 @@ function request(method, path, data, queryParams) {
             'X-Requested-With': 'XMLHttpRequest'
         })
     };
-
-    if (data) {
-        init.body = JSON.stringify(data);
-    }
-
+    
     if (queryParams) {
         url += '?' + buildQueryString(queryParams);
+    }
+    
+    if (data) {
+        init.body = JSON.stringify(data);
     }
     
     return fetch(url, init)
@@ -52,11 +52,11 @@ function get(path, queryParams) {
 }
 
 function post(path, data, queryParams) {
-    return request('POST', path, data, queryParams);
+    return request('POST', path, queryParams, data);
 }
 
 function put(path, data, queryParams) {
-    return request('PUT', path, data, queryParams);
+    return request('PUT', path, queryParams, data);
 }
 
 function del(path, queryParams) {
