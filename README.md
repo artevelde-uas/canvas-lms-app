@@ -23,8 +23,10 @@ Just import the Canvas app and your plug-ins and add them to the app:
 
 ```javascript
 import canvas from '@ahsdile/canvas-lms-app';
-import myPlugin from './plugins/my-plugin/'
+import somePlugin from '@ahsdile/some-other-plugin'
+import myPlugin from './plugins/my-plugin'
 
+canvas.addPlugin(somePlugin);
 canvas.addPlugin(myPlugin);
 
 canvas.run();
