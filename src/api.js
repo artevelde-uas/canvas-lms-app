@@ -4,14 +4,16 @@ import Cookies from 'js-cookie';
 function buildQueryString(data, prefix) {
     var params = [];
     
+    // For primitive types, just encode
     if (typeof data !== 'object' || data === null) {
-        return encodeURIComponent(prefix) + '=' + encodeURIComponent(value);
+        return encodeURIComponent(prefix) + '=' + encodeURIComponent(data);
     }
     
+    // Recursively serialize all properties of objects
     for (let key in data) {
         let name = (prefix === undefined)
             ? key
-            : (data instanceof Array && typeof data[key] !== 'object')
+            : (data instanceof Array)
             ? `${prefix}[]`
             : `${prefix}[${key}]`;
 
