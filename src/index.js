@@ -24,7 +24,7 @@ function addAppListener(name, handler) {
     });
 }
 
-function addPlugin(plugin, options) {
+function addPlugin(plugin, options = {}) {
     var sm = services.createLazyManager();
     
     try {
