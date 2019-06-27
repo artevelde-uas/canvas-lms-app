@@ -33,10 +33,45 @@ canvas.run();
 
 ```
 
-## Building
+### Building
 
 Before you can upload the code to Canvas you must compile it into a single JavaScript and CSS file.
 Here's an [example project](https://github.com/auc-ghent/canvas-lms-customisation-demo) using Webpack.
+
+## API
+
+### The main app
+
+#### `addPlugin(plugin, options)`
+
+Adds a plug-in to the app. This method takes two arguments:
+- **plugin**: This can be either a function or an object with an `init()` method. Both will be
+called with a [service manager object](#the-service-manager) and the provided options.
+- **options**: An object containing the options for the plugin
+
+#### `run()`
+
+Starts the application. 
+
+### The service manager 
+
+#### `addRouteListener(name, handler)`
+
+#### `getRouteUrl(name[, params])`
+
+#### `addReadyListener([root,] selector, handler)`
+
+#### `i18n.setTranslations(translations[, fallbackLanguage = 'en'])`
+
+#### `i18n.translate(keys[, options])`
+
+#### `api.get(path[, queryParams])`
+
+#### `api.post(path[, data[, queryParams]])`
+
+#### `api.put(path[, data[, queryParams]])`
+
+#### `api.del(path[, queryParams])`
 
 ## List of existing plug-ins
 
