@@ -2,10 +2,10 @@
 
 Using this JavaScript application you can add plug-ins that add/modify functionality to the Canvas LMS front end.
 
-[![](https://img.shields.io/npm/v/@ahsdile/canvas-lms-app.svg)](#)
-[![](https://img.shields.io/github/license/ahsdile/canvas-lms-app.svg)](#)
-[![](https://img.shields.io/npm/dt/@ahsdile/canvas-lms-app.svg)](#)
-[![](https://img.shields.io/librariesio/github/ahsdile/canvas-lms-app.svg)](#)
+[![](https://img.shields.io/npm/v/@ahsdile/canvas-lms-app.svg)](https://www.npmjs.com/package/@ahsdile/canvas-lms-app)
+[![](https://img.shields.io/github/license/auc-ghent/canvas-lms-app.svg)](https://spdx.org/licenses/MIT)
+[![](https://img.shields.io/npm/dt/@ahsdile/canvas-lms-app.svg)](https://www.npmjs.com/package/@ahsdile/canvas-lms-app)
+[![](https://img.shields.io/librariesio/github/auc-ghent/canvas-lms-app.svg)](https://libraries.io/npm/@ahsdile%2Fcanvas-lms-app)
 
 ## Installation
 
@@ -34,19 +34,19 @@ canvas.run();
 ## Building
 
 Before you can upload the code to Canvas you must compile it into a single JavaScript and CSS file.
-Here's an [example project](https://github.com/ahsdile/canvas-lms-customisation-demo) using Webpack.
+Here's an [example project](https://github.com/auc-ghent/canvas-lms-customisation-demo) using Webpack.
 
 ## List of existing plug-ins
 
 | Plug-in | Description | Downloads |
 | ------- | ----------- | --------- |
-| [Course Recycle Bin](https://github.com/@ahsdile/canvas-lms-enable-course-recycle-bin-plugin) | Adds a 'Course Recycle Bin' button to the course settings menu. | [![](https://img.shields.io/npm/dt/@ahsdile/canvas-lms-enable-course-recycle-bin-plugin.svg)](#) |
-| [~~Reorder Dashboard Courses~~](https://github.com/ahsdile/canvas-lms-reorder-dashboard-courses-plugin)<br>:warning: DEPRECATED :warning: | Lets you reorder your courses on the dashboard. | [![](https://img.shields.io/npm/dt/@ahsdile/canvas-lms-reorder-dashboard-courses-plugin.svg)](#) |
-| [Restrict SIS Course Settings](https://github.com/ahsdile/canvas-lms-restrict-sis-course-settings-plugin) | Restricts some settings in courses created by the SIS import/sync. | [![](https://img.shields.io/npm/dt/@ahsdile/canvas-lms-restrict-sis-course-settings-plugin.svg)](#) |
-| [Course Gradebook Disclaimer](https://github.com/ahsdile/canvas-lms-gradebook-disclaimer-plugin) | Adds a disclaimer on the gradebook page. | [![](https://img.shields.io/npm/dt/@ahsdile/canvas-lms-gradebook-disclaimer-plugin.svg)](#) |
-| [Sticky Left Menu](https://github.com/ahsdile/canvas-lms-sticky-left-menu-plugin) | Makes the left menu sticky when scrolling. | [![](https://img.shields.io/npm/dt/@ahsdile/canvas-lms-sticky-left-menu-plugin.svg)](#) |
-| [Only Show Selected Module](https://github.com/ahsdile/canvas-lms-only-show-selected-module-plugin) | Hides other modules when linked directly to module via URL hash | [![](https://img.shields.io/npm/dt/@ahsdile/canvas-lms-only-show-selected-module-plugin.svg)](#) |
-| [Google Analytics](https://github.com/ahsdile/canvas-lms-google-analytics-plugin) | Adds the Google Analytics scripts to Canvas by providing the tracking id | [![](https://img.shields.io/npm/dt/@ahsdile/canvas-lms-google-analytics-plugin.svg)](#) |
+| [Course Recycle Bin](https://github.com/auc-ghent/canvas-lms-enable-course-recycle-bin-plugin) | Adds a 'Course Recycle Bin' button to the course settings menu. | [![](https://img.shields.io/npm/dt/@ahsdile/canvas-lms-enable-course-recycle-bin-plugin.svg)](#) |
+| [Restrict SIS Course Settings](https://github.com/auc-ghent/canvas-lms-restrict-sis-course-settings-plugin) | Restricts some settings in courses created by the SIS import/sync. | [![](https://img.shields.io/npm/dt/@ahsdile/canvas-lms-restrict-sis-course-settings-plugin.svg)](#) |
+| [Course Gradebook Disclaimer](https://github.com/auc-ghent/canvas-lms-gradebook-disclaimer-plugin) | Adds a disclaimer on the gradebook page. | [![](https://img.shields.io/npm/dt/@ahsdile/canvas-lms-gradebook-disclaimer-plugin.svg)](#) |
+| [Sticky Left Menu](https://github.com/auc-ghent/canvas-lms-sticky-left-menu-plugin) | Makes the left menu sticky when scrolling. | [![](https://img.shields.io/npm/dt/@ahsdile/canvas-lms-sticky-left-menu-plugin.svg)](#) |
+| [Only Show Selected Module](https://github.com/auc-ghent/canvas-lms-only-show-selected-module-plugin) | Hides other modules when linked directly to module via URL hash | [![](https://img.shields.io/npm/dt/@ahsdile/canvas-lms-only-show-selected-module-plugin.svg)](#) |
+| [Google Analytics](https://github.com/auc-ghent/canvas-lms-google-analytics-plugin) | Adds the Google Analytics scripts to Canvas by providing the tracking id | [![](https://img.shields.io/npm/dt/@ahsdile/canvas-lms-google-analytics-plugin.svg)](#) |
+| [All Courses Terms Tabs](https://github.com/auc-ghent/canvas-lms-all-courses-terms-tabs-plugin) | Groups the courses on the 'All Courses' page in tabs per term. | [![](https://img.shields.io/npm/dt/@auc-ghent/canvas-lms-all-courses-terms-tabs-plugin.svg)](#) |
 
 *(More will follow soon...)*
 
