@@ -7,6 +7,12 @@ Using this JavaScript application you can add plug-ins that add/modify functiona
 [![](https://img.shields.io/npm/dt/@ahsdile/canvas-lms-app.svg)](https://www.npmjs.com/package/@ahsdile/canvas-lms-app)
 [![](https://img.shields.io/librariesio/github/auc-ghent/canvas-lms-app.svg)](https://libraries.io/npm/@ahsdile%2Fcanvas-lms-app)
 
+| With the upcoming release of version 1.0, the npm package will be renamed to the new vendor name
+***AUC Ghent***. The full package name will be '@auc-ghent/canvas-lms-app'. All plug-ins will be
+renamed upon their 1.0 release as well. However, older versions of plug-ins will still be compatible
+with version 1.0 of the main app.|
+|-|
+
 ## Installation
 
 Using NPM:
