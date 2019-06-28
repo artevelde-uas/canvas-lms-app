@@ -4,6 +4,17 @@ import Cookies from 'js-cookie';
 function buildQueryString(data, prefix) {
     var params = [];
     
+    // Just encode primitive values if no prefix given
+    if (prefix === undefined && (typeof data !== 'object' || data === null)) {
+        // Encode non strings primitives
+        if (typeof data !== 'string') {
+            return encodeURIComponent(data);
+        }
+        
+        // Encode the query string parts
+        return data.split('&').map(item => item.split('=').map(item => encodeURIComponent(item)).join('=')).join('&');
+    }
+    
     // Convert Date instances to ISO strings
     if (data instanceof Date) {
         data = data.toISOString();
