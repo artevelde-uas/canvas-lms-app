@@ -13,25 +13,24 @@ export default function (root, selector, handler) {
         element = document.querySelector(selector);
 
         if (element !== null) {
-            return resolve(element);
-        }
+            resolve(element);
+        } else {
+            observer = new MutationObserver((mutationRecords, observer) => {
+                if (mutationRecords.some(mutation => (mutation.type === 'childList' && mutation.addedNodes.length))) {
+                    let element = document.querySelector(selector);
 
-        observer = new MutationObserver(function (mutation) {
-            var nodes = Array.from(mutation.addedNodes || []);
-
-            for (let node of nodes) {
-                if (node instanceof Element && node.matches(selector)) {
-                    observer.disconnect();
-
-                    return resolve(node);
+                    if (element !== null) {
+                        observer.disconnect();
+                        resolve(element);
+                    }
                 }
-            }
-        });
+            });
 
-        observer.observe(root, {
-            childList: true,
-            subtree: true
-        });
+            observer.observe(root, {
+                childList: true,
+                subtree: true
+            });
+        }
     });
 
     if (handler === undefined) {
