@@ -7,7 +7,7 @@ const emitter = new EventEmitter();
 
 const routes = {
     'dashboard': new Route('/'),
-    
+
     'courses': new Route('/courses'),
     'courses.home': new Route('/courses/:courseId'),
     'courses.announcements': new Route('/courses/:courseId/announcements'),
@@ -44,7 +44,7 @@ const routes = {
     'courses.settings.export': new Route('/courses/:courseId/content_export'),
     'courses.settings.undelete': new Route('/courses/:courseId/undelete'),
     'courses.external-tool': new Route('/courses/:courseId/external_tools/:toolId'),
-    
+
     'groups': new Route('/groups'),
     'groups.home': new Route('/groups/:groupId'),
     'groups.announcements': new Route('/groups/:groupId/announcements'),
@@ -61,7 +61,7 @@ const routes = {
     'groups.files': new Route('/groups/:groupId/files'),
     'groups.conferences': new Route('/groups/:groupId/conferences'),
     'groups.collaborations': new Route('/groups/:groupId/collaborations'),
-    
+
     'profile': new Route('/profile'),
     'profile.about': new Route('/about[/:userId]'),
     'profile.notifications': new Route('/profile/communication'),
@@ -70,11 +70,11 @@ const routes = {
     'profile.eportfolios': new Route('/dashboard/eportfolios'),
     'profile.eportfolios.home': new Route('/eportfolios/:portfolioId'),
     'profile.eportfolios.view': new Route('/eportfolios/:portfolioId/:sectionSlug[/:pageSlug]'),
-    
+
     'calendar': new Route('/calendar'),
-    
+
     'inbox': new Route('/conversations'),
-    
+
     'admin': new Route('/accounts')
 };
 const deprecatedRoutes = {
@@ -86,12 +86,12 @@ const deprecatedRoutes = {
 function fireEvents(name, params) {
     var index;
     var orig = name;
-    
+
     emitter.emit(name, params, orig);
-    
+
     do {
         emitter.emit(name + '.*', params, orig);
-        
+
         index = name.lastIndexOf('.');
         name = name.substring(0, index);
     } while (index >= 0);
@@ -100,9 +100,9 @@ function fireEvents(name, params) {
 function handlePath(path) {
     var match;
     var [name] = Object.entries(routes).find(([, route]) => (match = route.match(path))) || [];
-    
+
     if (name === undefined) return;
-    
+
     fireEvents(name, match);
 }
 
@@ -112,21 +112,21 @@ function getUrl(name, params) {
 
 function addListener(name, handler) {
     var names = Array.isArray(name) ? name : name.split(/\s*,\s*/);
-    
+
     names.forEach(name => {
         var baseName = name.endsWith('.*') ? name.slice(0, -2) : name;
-        
+
         Object.entries(deprecatedRoutes).some(([deprecatedName, newName]) => {
             if (baseName === deprecatedName || baseName.startsWith(`${deprecatedName}.`)) {
                 let suffix = name.substring(deprecatedName.length);
-                
+
                 baseName = (suffix === '') ? newName : `${newName}.${suffix}`;
                 console.warn(`DEPRECATED: Route '${deprecatedName}' is deprecated and will be removed in v1.0.0, use '${newName}' instead`);
-                
+
                 return true;
             }
         });
-        
+
         if (!Object.keys(routes).some(routeName => {
             if (routeName === baseName || routeName.startsWith(`${baseName}.`)) {
                 return true;
@@ -134,7 +134,7 @@ function addListener(name, handler) {
         })) {
             throw new TypeError(`Route '${name}' does not exist.`);
         }
-        
+
         emitter.on(name, handler);
     });
 }
