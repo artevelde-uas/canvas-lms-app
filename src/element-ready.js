@@ -38,7 +38,7 @@ export default function (root, selector, handler) {
     }
 
     promise.then(handler, function (event) {
-        console.log(event.message);
+        console.error(event.message);
     }).catch(function (ex) {
         throw ex;
     });
