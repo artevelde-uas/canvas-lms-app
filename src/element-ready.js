@@ -10,14 +10,14 @@ export default function (root, selector, handler) {
             root = document.body;
         }
 
-        element = document.querySelector(selector);
+        element = root.querySelector(selector);
 
         if (element !== null) {
             resolve(element);
         } else {
             observer = new MutationObserver((mutationRecords, observer) => {
                 if (mutationRecords.some(mutation => (mutation.type === 'childList' && mutation.addedNodes.length))) {
-                    let element = document.querySelector(selector);
+                    let element = root.querySelector(selector);
 
                     if (element !== null) {
                         observer.disconnect();
