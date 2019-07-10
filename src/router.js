@@ -31,6 +31,7 @@ const routes = {
     'courses.syllabus': new Route('/courses/:courseId/assignments/syllabus'),
     'courses.files': new Route('/courses/:courseId/files'),
     'courses.assignments': new Route('/courses/:courseId/assignments'),
+    'courses.assignments.view': new Route('/courses/:courseId/assignments/:assignmentId'),
     'courses.assignments.new': new Route('/courses/:courseId/assignments/new'),
     'courses.assignments.edit': new Route('/courses/:courseId/assignments/:assignmentId/edit'),
     'courses.conferences': new Route('/courses/:courseId/conferences'),
