@@ -97,6 +97,8 @@ function fireEvents(name, params) {
         emitter.emit(baseName + '.*', params, name);
         index = baseName.lastIndexOf('.');
     }
+
+    emitter.emit('*', params, name);
 }
 
 function handlePath(path) {
@@ -129,7 +131,7 @@ function addListener(name, handler) {
             }
         });
 
-        if (!Object.keys(routes).some(routeName => {
+        if (name !== '*' && !Object.keys(routes).some(routeName => {
             if (routeName === baseName || routeName.startsWith(`${baseName}.`)) {
                 return true;
             }
