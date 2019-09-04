@@ -22,6 +22,7 @@ const routes = {
     'courses.grades': new Route('/courses/:courseId/grades'),
     'courses.outcomes': new Route('/courses/:courseId/outcomes'),
     'courses.quizzes': new Route('/courses/:courseId/quizzes'),
+    'courses.quizzes.edit': new Route('/courses/:courseId/quizzes/:quizzId/edit'),
     'courses.pages': new Route('/courses/:courseId/pages'),
     'courses.pages.home': new Route('/courses/:courseId/wiki'),
     'courses.pages.view': new Route('/courses/:courseId/pages/:pageSlug'),
