@@ -87,17 +87,16 @@ const deprecatedRoutes = {
 
 
 function fireEvents(name, params) {
-    var index;
-    var orig = name;
+    var index = name.lastIndexOf('.');
+    var baseName = name;
 
-    emitter.emit(name, params, orig);
+    emitter.emit(name, params, name);
 
-    do {
-        emitter.emit(name + '.*', params, orig);
-
-        index = name.lastIndexOf('.');
-        name = name.substring(0, index);
-    } while (index >= 0);
+    while (index >= 0) {
+        baseName = baseName.substring(0, index);
+        emitter.emit(baseName + '.*', params, name);
+        index = baseName.lastIndexOf('.');
+    }
 }
 
 function handlePath(path) {
