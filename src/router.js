@@ -116,7 +116,13 @@ function getUrl(name, params) {
 }
 
 function addListener(name, handler) {
-    var names = Array.isArray(name) ? name : name.split(/\s*,\s*/);
+    // 'name' is optional and defaults to '*'
+    if (typeof name === 'function') {
+        handler = name;
+        name = '*';
+    }
+
+    let names = Array.isArray(name) ? name : name.split(/\s*,\s*/);
 
     names.forEach(name => {
         var baseName = name.endsWith('.*') ? name.slice(0, -2) : name;
