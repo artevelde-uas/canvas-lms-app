@@ -102,7 +102,7 @@ function fireEvents(name, params) {
     emitter.emit('*', params, name);
 }
 
-function handlePath(path) {
+export function handlePath(path) {
     var match;
     var [name] = Object.entries(routes).find(([, route]) => (match = route.match(path))) || [];
 
@@ -152,7 +152,6 @@ function addListener(name, handler) {
 
 
 export default {
-    handlePath,
     getUrl,
     addListener
 }

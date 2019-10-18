@@ -1,19 +1,20 @@
 import services from './services';
 import elementReady from './element-ready';
-import router from './router';
+import router, { handlePath } from './router';
 import i18n from './i18n';
 import api from './api';
 
 
-services.add('addRouteListener', () => router.addListener.bind(router));
-services.add('getRouteUrl', () => router.getUrl.bind(router));
-services.add('addAppListener', () => addAppListener);
+services.add('router', () => router);
+services.add('addRouteListener', () => router.addListener.bind(router)); // DEPRECATED: use `router.addListener()`
+services.add('getRouteUrl', () => router.getUrl.bind(router)); // DEPRECATED: use `router.getUrl()`
+services.add('addAppListener', () => addAppListener); // DEPRECATED: use `router.addListener()`
 services.add('addReadyListener', () => elementReady);
 services.add('i18n', () => i18n.createInstance());
 services.add('api', () => api);
 
 
-//DEPRECATED: use `addRouteListener()`
+// DEPRECATED: use `addRouteListener()`
 function addAppListener(name, handler) {
     var names = Array.isArray(name) ? name : name.split(/\s*,\s*/);
 
@@ -46,7 +47,7 @@ function run() {
 
     if (window !== window.top) return;
 
-    router.handlePath(path);
+    handlePath(path);
 }
 
 // DEPRECATED: use `run()`
