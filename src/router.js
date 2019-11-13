@@ -144,11 +144,7 @@ function addListener(name, handler) {
             }
         });
 
-        if (name !== '*' && !Object.keys(routes).some(routeName => {
-            if (routeName === baseName || routeName.startsWith(`${baseName}.`)) {
-                return true;
-            }
-        })) {
+        if (name !== '*' && !Object.keys(routes).some(name => (name === baseName || name.startsWith(`${baseName}.`)))) {
             throw new TypeError(`Route '${name}' does not exist.`);
         }
 
