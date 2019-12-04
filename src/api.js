@@ -39,7 +39,7 @@ function buildQueryString(data, prefix) {
     return params.join('&');
 }
 
-function request(method, path, queryParams, data) {
+function request(path, { method, queryParams, data }) {
     var url = '/api/v1' + path;
     var init = {
         method,
@@ -66,19 +66,33 @@ function request(method, path, queryParams, data) {
 }
 
 function get(path, queryParams) {
-    return request('GET', path, queryParams);
+    return request(path, {
+        method: 'GET',
+        queryParams
+    });
 }
 
 function post(path, data, queryParams) {
-    return request('POST', path, queryParams, data);
+    return request(path, {
+        method: 'POST',
+        queryParams,
+        data
+    });
 }
 
 function put(path, data, queryParams) {
-    return request('PUT', path, queryParams, data);
+    return request(path, {
+        method: 'PUT',
+        queryParams,
+        data
+    });
 }
 
 function del(path, queryParams) {
-    return request('DELETE', path, queryParams);
+    return request(path, {
+        method: 'DELETE',
+        queryParams
+    });
 }
 
 
