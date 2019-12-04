@@ -39,7 +39,7 @@ function buildQueryString(data, prefix) {
     return params.join('&');
 }
 
-function request(path, { method, queryParams, data }) {
+async function request(path, { method, queryParams, data }) {
     var url = '/api/v1' + path;
     var init = {
         method,
@@ -59,20 +59,20 @@ function request(path, { method, queryParams, data }) {
         init.body = JSON.stringify(data);
     }
 
-    return fetch(url, init)
-        .then(response => response.text())
-        .then(data => data.replace(/^while\(1\);/, ''))
-        .then(data => JSON.parse(data));
+    let response = await fetch(url, init);
+    let text = await response.text();
+
+    return JSON.parse(text.replace(/^while\(1\);/, ''));
 }
 
-function get(path, queryParams) {
+async function get(path, queryParams) {
     return request(path, {
         method: 'GET',
         queryParams
     });
 }
 
-function post(path, data, queryParams) {
+async function post(path, data, queryParams) {
     return request(path, {
         method: 'POST',
         queryParams,
@@ -80,7 +80,7 @@ function post(path, data, queryParams) {
     });
 }
 
-function put(path, data, queryParams) {
+async function put(path, data, queryParams) {
     return request(path, {
         method: 'PUT',
         queryParams,
@@ -88,7 +88,7 @@ function put(path, data, queryParams) {
     });
 }
 
-function del(path, queryParams) {
+async function del(path, queryParams) {
     return request(path, {
         method: 'DELETE',
         queryParams
