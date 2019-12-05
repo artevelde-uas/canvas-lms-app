@@ -59,7 +59,8 @@ async function request(path, { method, queryParams, data }) {
         init.body = JSON.stringify(data);
     }
 
-    let response = await fetch(url, init);
+    let request = new Request(url, init);
+    let response = await fetch(request);
     let text = await response.text();
 
     return JSON.parse(text.replace(/^while\(1\);/, ''));
