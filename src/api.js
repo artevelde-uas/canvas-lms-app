@@ -40,7 +40,7 @@ function buildQueryString(data, prefix) {
 }
 
 async function request(path, { method, queryParams, data }) {
-    var url = '/api/v1' + path;
+    var url = new URL('/api/v1' + path, window.location);
     var init = {
         method,
         headers: new Headers({
@@ -52,7 +52,7 @@ async function request(path, { method, queryParams, data }) {
     };
 
     if (queryParams) {
-        url += '?' + buildQueryString(queryParams);
+        url.search += ((url.search === '') ? '?' : '&') + buildQueryString(queryParams);
     }
 
     if (data) {
