@@ -15,7 +15,7 @@
     "src/i18n.js",
     "src/services.js",
     "src/element-ready.js",
-    "src/api.js"
+    "src/api/index.js"
   ],
   "dependencies": {
     "events": "^2.0.0",

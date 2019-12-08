@@ -2,7 +2,7 @@ import services from './services';
 import elementReady from './element-ready';
 import router, { handlePath } from './router';
 import i18n from './i18n';
-import api from './api';
+import api from './api/index';
 
 
 services.add('router', () => router);
