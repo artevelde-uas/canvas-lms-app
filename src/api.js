@@ -39,31 +39,63 @@ function buildQueryString(data, prefix) {
     return params.join('&');
 }
 
-async function request(path, { method, queryParams, data }) {
-    var url = new URL('/api/v1' + path, window.location);
-    var init = {
-        method,
-        headers: new Headers({
-            'Accept': 'application/json+canvas-string-ids, application/json+canvas-string-ids, application/json, text/plain, */*',
-            'Content-Type': 'application/json;charset=UTF-8',
-            'X-CSRF-Token': Cookies.get('_csrf_token'),
-            'X-Requested-With': 'XMLHttpRequest'
-        })
-    };
+class CanvasApiRequest extends Request {
 
-    if (queryParams) {
-        url.search += ((url.search === '') ? '?' : '&') + buildQueryString(queryParams);
+    constructor(path, { method, queryParams, data }) {
+        var url = new URL('/api/v1' + path, window.location);
+        var init = {
+            method,
+            headers: new Headers({
+                'Accept': 'application/json+canvas-string-ids, application/json+canvas-string-ids, application/json, text/plain, */*',
+                'Content-Type': 'application/json;charset=UTF-8',
+                'X-CSRF-Token': Cookies.get('_csrf_token'),
+                'X-Requested-With': 'XMLHttpRequest'
+            })
+        };
+
+        if (queryParams) {
+            url.search += ((url.search === '') ? '?' : '&') + buildQueryString(queryParams);
+        }
+
+        if (data) {
+            init.body = JSON.stringify(data);
+        }
+
+        super(url, init);
     }
 
-    if (data) {
-        init.body = JSON.stringify(data);
+}
+
+class CanvasApiResponse extends Response {
+
+    constructor(response) {
+        super(response.body, {
+            status: response.status,
+            statusText: response.statusText,
+            headers: response.headers
+        });
     }
 
-    let request = new Request(url, init);
-    let response = await fetch(request);
-    let text = await response.text();
+    async text() {
+        return (await super.text()).replace(/^while\(1\);/, '');
+    }
 
-    return JSON.parse(text.replace(/^while\(1\);/, ''));
+    async json() {
+        return JSON.parse(await this.text());
+    }
+
+}
+
+async function canvasApiFetch(request) {
+    return new CanvasApiResponse(await fetch(request));
+}
+
+async function request(path, init) {
+    var request = new CanvasApiRequest(path, init);
+    var response = await canvasApiFetch(request);
+    var json = await response.json();
+
+    return json;
 }
 
 async function get(path, queryParams) {
