@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie';
-import { buildQueryString } from './buildQueryString';
+import { buildQueryString } from './util';
 
 
 export default class CanvasApiRequest extends Request {

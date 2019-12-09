@@ -16,8 +16,7 @@
     "src/services.js",
     "src/element-ready.js",
     "src/api/index.js",
-    "src/api/buildQueryString.js",
-    "src/api/canvasApiFetch.js",
+    "src/api/util.js",
     "src/api/CanvasApiRequest.js",
     "src/api/CanvasApiResponse.js"
   ],

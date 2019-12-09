@@ -1,5 +1,5 @@
 import CanvasApiRequest from './CanvasApiRequest';
-import { canvasApiFetch } from './canvasApiFetch';
+import { canvasApiFetch } from './util';
 
 
 async function request(path, init) {
