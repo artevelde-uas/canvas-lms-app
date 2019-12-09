@@ -1,4 +1,4 @@
-import { CanvasApiRequest } from './CanvasApiRequest';
+import CanvasApiRequest from './CanvasApiRequest';
 import { canvasApiFetch } from './canvasApiFetch';
 
 

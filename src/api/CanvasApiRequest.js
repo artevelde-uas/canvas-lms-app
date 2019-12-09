@@ -2,7 +2,7 @@ import Cookies from 'js-cookie';
 import { buildQueryString } from './buildQueryString';
 
 
-export class CanvasApiRequest extends Request {
+export default class CanvasApiRequest extends Request {
 
     constructor(path, { method, queryParams, data }) {
         var url = new URL('/api/v1' + path, window.location);

@@ -1,4 +1,4 @@
-export class CanvasApiResponse extends Response {
+export default class CanvasApiResponse extends Response {
 
     constructor(response) {
         super(response.body, {

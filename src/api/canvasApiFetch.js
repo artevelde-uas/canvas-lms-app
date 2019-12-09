@@ -1,4 +1,4 @@
-import { CanvasApiResponse } from './CanvasApiResponse';
+import CanvasApiResponse from './CanvasApiResponse';
 
 
 export async function canvasApiFetch(request) {
