@@ -49,11 +49,9 @@ export function buildQueryString(data, prefix) {
 
     // Recursively serialize all properties of objects
     for (let key in data) {
-        let name = (prefix === undefined)
-            ? key
-            : (data instanceof Array)
-                ? `${prefix}[]`
-                : `${prefix}[${key}]`;
+        let name = (prefix === undefined) ? key
+                 : (data instanceof Array) ? `${prefix}[]`
+                 : `${prefix}[${key}]`;
 
         params.push(buildQueryString(data[key], name));
     }
