@@ -1,16 +1,34 @@
 import CanvasApiResponse from './CanvasApiResponse';
 
-
+/**
+ * Calls fetch using a CanvasApiRequest and returns a CanvasApiResponse object
+ *
+ * @param  {CanvasApiRequest} request - A Canvas API request object
+ *
+ * @return {CanvasApiResponse} A Canvas API resonse object
+ */
 export async function canvasApiFetch(request) {
     return new CanvasApiResponse(await fetch(request));
 }
 
+/**
+ * Takes any value and recursively serializes it into a valid query string
+ *
+ *   - Arrays will be serialized with empty brackets (e.g. `arr[]=1&arr[]=2&...`)
+ *   - Objects will be serialized with their keys in brackets (e.g. `obj[foo]=bar&obj[baz]=boo&...`)
+ *   - Dates will be converted to ISO 8601 format
+ *
+ * @param  {object} data - The data to be serialized
+ * @param  {string} [prefix] - The string to prepend to all parts of the data
+ *
+ * @return {string} The serialized string
+ */
 export function buildQueryString(data, prefix) {
     var params = [];
 
     // Just encode primitive values if no prefix given
     if (prefix === undefined && (typeof data !== 'object' || data === null)) {
-        // Encode non strings primitives
+        // Encode non string primitives
         if (typeof data !== 'string') {
             return encodeURIComponent(data);
         }
@@ -19,7 +37,7 @@ export function buildQueryString(data, prefix) {
         return data.split('&').map(item => item.split('=').map(item => encodeURIComponent(item)).join('=')).join('&');
     }
 
-    // Convert Date instances to ISO strings
+    // Convert Date instances to ISO 8601 strings
     if (data instanceof Date) {
         data = data.toISOString();
     }

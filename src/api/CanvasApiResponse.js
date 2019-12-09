@@ -1,3 +1,8 @@
+/**
+ * Extends normal Response object
+ *
+ *   - The result has "while(1);" prepended which will be stripped
+ */
 export default class CanvasApiResponse extends Response {
 
     constructor(response) {
