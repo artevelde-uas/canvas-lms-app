@@ -15,7 +15,11 @@
     "src/i18n.js",
     "src/services.js",
     "src/element-ready.js",
-    "src/api/index.js"
+    "src/api/index.js",
+    "src/api/buildQueryString.js",
+    "src/api/canvasApiFetch.js",
+    "src/api/CanvasApiRequest.js",
+    "src/api/CanvasApiResponse.js"
   ],
   "dependencies": {
     "events": "^2.0.0",
