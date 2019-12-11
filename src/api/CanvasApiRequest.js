@@ -9,7 +9,7 @@ import { buildQueryString } from './util';
  */
 export default class CanvasApiRequest extends Request {
 
-    constructor(path, { method, queryParams, data }) {
+    constructor(path, { method, queryParams, data } = {}) {
         var url = new URL('/api/v1' + path, window.location);
         var init = {
             method,
