@@ -6,14 +6,13 @@ import { canvasApiFetch } from './util';
  * @param  {string} path - The path of the API endpoint
  * @param  {object} init - The options to initialize the request with
  *
- * @return {CanvasApiResponse} A Canvas API resonse object
+ * @return {object|array} An object or array of objects
  */
 async function request(path, init) {
     var request = new CanvasApiRequest(path, init);
     var response = await canvasApiFetch(request);
-    var json = await response.json();
 
-    return json;
+    return (response.links === null) ? response.json() : response.array();
 }
 
 /**
