@@ -1,11 +1,15 @@
 import CanvasApiRequest from './CanvasApiRequest';
 import CanvasApiResponse from './CanvasApiResponse';
 
+
 /**
  * Calls fetch using a CanvasApiRequest and returns a CanvasApiResponse object
  *
  * @param  {string|CanvasApiRequest} resource - A url or Canvas API request object
  * @param  {object} [init] - Settings that you want to apply to the request
+ * @param  {string} init.method - The request method (e.g. GET, POST)
+ * @param  {object} [init.queryParams] - The data to be serialized to a valid query string
+ * @param  {object} [init.data] - The JSON data to be sent as the request body
  *
  * @return {CanvasApiResponse} A Canvas API resonse object
  */

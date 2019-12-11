@@ -9,6 +9,15 @@ import { buildQueryString } from './util';
  */
 export default class CanvasApiRequest extends Request {
 
+    /**
+     * @constructor
+     *
+     * @param  {string} path - A url or Canvas API request object
+     * @param  {object} [init] - Settings that you want to apply to the request
+     * @param  {string} init.method - The request method (e.g. GET, POST)
+     * @param  {object} [init.queryParams] - The data to be serialized to a valid query string
+     * @param  {object} [init.data] - The JSON data to be sent as the request body
+     */
     constructor(path, { method, queryParams, data } = {}) {
         var url = new URL('/api/v1' + path, window.location);
         var init = {
