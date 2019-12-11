@@ -61,4 +61,14 @@ export default class CanvasApiResponse extends Response {
         } while (response !== null);
     }
 
+    async array() {
+        var array = [];
+
+        for await (let item of this.iterator()) {
+            array.push(item);
+        }
+
+        return array;
+    }
+
 }
