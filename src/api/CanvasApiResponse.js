@@ -1,3 +1,6 @@
+import { canvasApiFetch } from './util';
+
+
 /**
  * Extends normal Response object
  *
@@ -38,6 +41,24 @@ export default class CanvasApiResponse extends Response {
 
     async json() {
         return JSON.parse(await this.text());
+    }
+
+    async * iterator() {
+        var response = this;
+
+        do {
+            let data = await response.json();
+
+            if (!(data instanceof Array)) {
+                data = [data];
+            }
+
+            for (let item of data) {
+                yield item;
+            }
+
+            response = (this.links === null || response.links.next === undefined) ? null : await canvasApiFetch(response.links.next);
+        } while (response !== null);
     }
 
 }
