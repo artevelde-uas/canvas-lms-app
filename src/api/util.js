@@ -1,13 +1,17 @@
+import CanvasApiRequest from './CanvasApiRequest';
 import CanvasApiResponse from './CanvasApiResponse';
 
 /**
  * Calls fetch using a CanvasApiRequest and returns a CanvasApiResponse object
  *
- * @param  {CanvasApiRequest} request - A Canvas API request object
+ * @param  {string|CanvasApiRequest} resource - A url or Canvas API request object
+ * @param  {object} [init] - Settings that you want to apply to the request
  *
  * @return {CanvasApiResponse} A Canvas API resonse object
  */
-export async function canvasApiFetch(request) {
+export async function canvasApiFetch(resource, init = {}) {
+    var request = (resource instanceof CanvasApiRequest) ? resource : new CanvasApiRequest(resource, init);
+
     return new CanvasApiResponse(await fetch(request));
 }
 
