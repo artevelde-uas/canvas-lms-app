@@ -3,6 +3,7 @@ import elementReady from './element-ready';
 import router, { handlePath } from './router';
 import i18n from './i18n';
 import api from '@artevelde-uas/canvas-lms-api';
+import messages from './messages';
 
 
 services.add('router', () => router);
@@ -12,6 +13,7 @@ services.add('addAppListener', () => addAppListener); // DEPRECATED: use `router
 services.add('addReadyListener', () => elementReady);
 services.add('i18n', () => i18n.createInstance());
 services.add('api', () => api);
+services.add('message', () => messages);
 
 
 // DEPRECATED: use `addRouteListener()`
@@ -62,4 +64,4 @@ export default {
     addPlugin,
     run,
     handle
-}
+};
