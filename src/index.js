@@ -4,6 +4,7 @@ import router, { handlePath } from './router';
 import i18n from './i18n';
 import api from '@artevelde-uas/canvas-lms-api';
 import dom from './dom';
+import auth from './auth';
 import messages from './messages';
 
 
@@ -15,6 +16,7 @@ services.add('addReadyListener', () => elementReady); // DEPRECATED: use `dom.on
 services.add('i18n', () => i18n.createInstance());
 services.add('api', () => api);
 services.add('dom', () => dom);
+services.add('auth', () => auth);
 services.add('messages', () => messages);
 
 
