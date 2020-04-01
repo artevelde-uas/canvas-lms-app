@@ -13,7 +13,7 @@ services.add('addAppListener', () => addAppListener); // DEPRECATED: use `router
 services.add('addReadyListener', () => elementReady);
 services.add('i18n', () => i18n.createInstance());
 services.add('api', () => api);
-services.add('message', () => messages);
+services.add('messages', () => messages);
 
 
 // DEPRECATED: use `addRouteListener()`
