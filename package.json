@@ -1,6 +1,6 @@
 {
   "name": "@ahsdile/canvas-lms-app",
-  "version": "0.24.0",
+  "version": "0.25.0",
   "description": "App for building custom JS & CSS for Canvas LMS themes",
   "keywords": [
     "Canvas LMS"
@@ -14,7 +14,8 @@
     "src/router.js",
     "src/i18n.js",
     "src/services.js",
-    "src/element-ready.js"
+    "src/element-ready.js",
+    "src/dom.js"
   ],
   "dependencies": {
     "@artevelde-uas/canvas-lms-api": "^0.1.0",
