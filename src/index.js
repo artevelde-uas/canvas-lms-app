@@ -3,15 +3,21 @@ import elementReady from './element-ready';
 import router, { handlePath } from './router';
 import i18n from './i18n';
 import api from '@artevelde-uas/canvas-lms-api';
+import dom from './dom';
+import auth from './auth';
+import messages from './messages';
 
 
 services.add('router', () => router);
 services.add('addRouteListener', () => router.addListener.bind(router)); // DEPRECATED: use `router.addListener()`
 services.add('getRouteUrl', () => router.getUrl.bind(router)); // DEPRECATED: use `router.getUrl()`
 services.add('addAppListener', () => addAppListener); // DEPRECATED: use `router.addListener()`
-services.add('addReadyListener', () => elementReady);
+services.add('addReadyListener', () => elementReady); // DEPRECATED: use `dom.onElementAdded()`
 services.add('i18n', () => i18n.createInstance());
 services.add('api', () => api);
+services.add('dom', () => dom);
+services.add('auth', () => auth);
+services.add('messages', () => messages);
 
 
 // DEPRECATED: use `addRouteListener()`
@@ -62,4 +68,4 @@ export default {
     addPlugin,
     run,
     handle
-}
+};

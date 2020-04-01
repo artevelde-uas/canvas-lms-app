@@ -1,6 +1,6 @@
 {
   "name": "@ahsdile/canvas-lms-app",
-  "version": "0.24.0",
+  "version": "0.27.0",
   "description": "App for building custom JS & CSS for Canvas LMS themes",
   "keywords": [
     "Canvas LMS"
@@ -14,10 +14,13 @@
     "src/router.js",
     "src/i18n.js",
     "src/services.js",
-    "src/element-ready.js"
+    "src/element-ready.js",
+    "src/dom.js",
+    "src/messages.js",
+    "src/auth.js"
   ],
   "dependencies": {
-    "@artevelde-uas/canvas-lms-api": "^0.1.0",
+    "@artevelde-uas/canvas-lms-api": "^0.2.0",
     "events": "^2.0.0",
     "i18next": "^12.1.0",
     "js-cookie": "^2.2.0",
