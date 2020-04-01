@@ -16,7 +16,9 @@
 
 :global(#flash_message_holder) .message.hide,
 #content-message-holder .message.hide {
-    animation: message-fade-out 1s forwards;
+    animation-name: message-fade-out;
+    animation-duration: 1s;
+    animation-direction: forwards;
 }
 
 :global(#flash_message_holder) .message + .message,
