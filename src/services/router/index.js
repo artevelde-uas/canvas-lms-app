@@ -55,6 +55,8 @@ function getUrl(name, params) {
 }
 
 function addListener(name, handler) {
+    console.warn(`DEPRECATED: Use "router.onRoute(name, handler)" instead`);
+
     // 'name' is optional and defaults to '*'
     if (typeof name === 'function') {
         handler = name;
@@ -62,6 +64,12 @@ function addListener(name, handler) {
     }
 
     let names = Array.isArray(name) ? name : name.split(/\s*,\s*/);
+
+    onRoute(names, handler);
+}
+
+function onRoute(name, handler) {
+    let names = Array.isArray(name) ? name : name.trim().split(/\s*,\s*/);
 
     names.forEach(name => {
         var baseName = name.endsWith('.*') ? name.slice(0, -2) : name;
@@ -98,6 +106,7 @@ export function addAppListener(name, handler) {
 
 
 export default {
+    onRoute,
     getUrl,
     addListener
 };
