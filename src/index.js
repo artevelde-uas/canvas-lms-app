@@ -1,23 +1,23 @@
 import services from './services';
-import elementReady from './services/element-ready';
-import router, { handlePath } from './services/router';
-import i18n from './services/i18n';
 import api from '@artevelde-uas/canvas-lms-api';
-import dom from './services/dom';
 import auth from './services/auth';
+import dom from './services/dom';
+import elementReady from './services/element-ready';
+import i18n from './services/i18n';
 import messages from './services/messages';
+import router, { handlePath } from './services/router';
 
 
+services.add('api', () => api);
+services.add('auth', () => auth);
+services.add('dom', () => dom);
+services.add('i18n', () => i18n.createInstance());
+services.add('messages', () => messages);
 services.add('router', () => router);
 services.add('addRouteListener', () => router.addListener.bind(router)); // DEPRECATED: use `router.addListener()`
 services.add('getRouteUrl', () => router.getUrl.bind(router)); // DEPRECATED: use `router.getUrl()`
 services.add('addAppListener', () => addAppListener); // DEPRECATED: use `router.addListener()`
 services.add('addReadyListener', () => elementReady); // DEPRECATED: use `dom.onElementAdded()`
-services.add('i18n', () => i18n.createInstance());
-services.add('api', () => api);
-services.add('dom', () => dom);
-services.add('auth', () => auth);
-services.add('messages', () => messages);
 
 
 // DEPRECATED: use `addRouteListener()`
