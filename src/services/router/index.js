@@ -163,6 +163,17 @@ function addListener(name, handler) {
     });
 }
 
+// DEPRECATED: use `addRouteListener()`
+export function addAppListener(name, handler) {
+    var names = Array.isArray(name) ? name : name.split(/\s*,\s*/);
+
+    names.forEach(function (name) {
+        console.warn(`DEPRECATED: Use "addRouteListener('${name}.*', handler)" instead`);
+
+        router.addListener(name + '.*', handler);
+    });
+}
+
 
 export default {
     getUrl,

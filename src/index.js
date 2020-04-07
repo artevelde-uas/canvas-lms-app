@@ -20,17 +20,6 @@ services.add('addAppListener', () => addAppListener); // DEPRECATED: use `router
 services.add('addReadyListener', () => elementReady); // DEPRECATED: use `dom.onElementAdded()`
 
 
-// DEPRECATED: use `addRouteListener()`
-function addAppListener(name, handler) {
-    var names = Array.isArray(name) ? name : name.split(/\s*,\s*/);
-
-    names.forEach(function (name) {
-        console.warn(`DEPRECATED: Use "addRouteListener('${name}.*', handler)" instead`);
-
-        router.addListener(name + '.*', handler);
-    });
-}
-
 function addPlugin(plugin, options = {}) {
     var sm = services.createLazyManager();
 
