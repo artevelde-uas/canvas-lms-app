@@ -1,5 +1,5 @@
 import api from '@artevelde-uas/canvas-lms-api';
-import { routeMatch } from './router';
+import { routeMatch } from '../router';
 
 
 export function getCourseRoles(userId = 'self') {

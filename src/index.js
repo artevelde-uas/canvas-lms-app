@@ -1,11 +1,11 @@
 import services from './services';
-import elementReady from './element-ready';
-import router, { handlePath } from './router';
-import i18n from './i18n';
+import elementReady from './services/element-ready';
+import router, { handlePath } from './services/router';
+import i18n from './services/i18n';
 import api from '@artevelde-uas/canvas-lms-api';
-import dom from './dom';
-import auth from './auth';
-import messages from './messages';
+import dom from './services/dom';
+import auth from './services/auth';
+import messages from './services/messages';
 
 
 services.add('router', () => router);
