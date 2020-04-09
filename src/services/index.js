@@ -10,11 +10,8 @@ export function createServiceManager() {
     const serviceManager = {};
 
     services.forEach(function ({ name, service }) {
-        Object.defineProperty(serviceManager, name, {
-            value: (typeof service === 'function') ? service(serviceManager) : service,
-            configurable: false
-        });
+        serviceManager[name] = (typeof service === 'function') ? service(serviceManager) : service;
     });
 
-    return serviceManager;
+    return Object.freeze(serviceManager);
 }
