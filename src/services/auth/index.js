@@ -1,21 +1,30 @@
-import api from '@artevelde-uas/canvas-lms-api';
-import { routeMatch } from '../router';
+import { hasCourseEnrollment } from './util';
 
 
-export function getCourseRoles(userId = 'self') {
-    let path = window.location.pathname + window.location.search;
-    let { params } = routeMatch(path);
+export function isCourseStudent() {
+    return hasCourseEnrollment('StudentEnrollment');
+}
 
-    if (!('courseId' in params)) {
-        throw new Error('Function called out of course context');
-    }
+export function isCourseTeacher() {
+    return hasCourseEnrollment('TeacherEnrollment');
+}
 
-    let url = `/courses/${params.courseId}/enrollments`;
-    let promise = api.get(url, { user_id: userId });
+export function isCourseTA() {
+    return hasCourseEnrollment('TaEnrollment');
+}
 
-    return promise.then(enrollments => new Set(enrollments.map(enrollment => enrollment.role)));
+export function isCourseDesigner() {
+    return hasCourseEnrollment('DesignerEnrollment');
+}
+
+export function isCourseObserver() {
+    return hasCourseEnrollment('ObserverEnrollment');
 }
 
 export default {
-    getCourseRoles
+    isCourseStudent,
+    isCourseTeacher,
+    isCourseTA,
+    isCourseDesigner,
+    isCourseObserver
 };
