@@ -1,4 +1,4 @@
-import services from './services';
+import { createServiceManager, addService } from './services';
 import api from '@artevelde-uas/canvas-lms-api';
 import auth from './services/auth';
 import dom from './services/dom';
@@ -8,16 +8,16 @@ import messages from './services/messages';
 import router, { handlePath } from './services/router';
 
 
-services.add('api', () => api);
-services.add('auth', () => auth);
-services.add('dom', () => dom);
-services.add('i18n', () => i18n.createInstance());
-services.add('messages', () => messages);
-services.add('router', () => router);
-services.add('addRouteListener', () => router.addListener.bind(router)); // DEPRECATED: use `router.addListener()`
-services.add('getRouteUrl', () => router.getUrl.bind(router)); // DEPRECATED: use `router.getUrl()`
-services.add('addAppListener', () => addAppListener); // DEPRECATED: use `router.addListener()`
-services.add('addReadyListener', () => elementReady); // DEPRECATED: use `dom.onElementAdded()`
+addService('api', () => api);
+addService('auth', () => auth);
+addService('dom', () => dom);
+addService('i18n', () => i18n.createInstance());
+addService('messages', () => messages);
+addService('router', () => router);
+addService('addRouteListener', () => router.addListener.bind(router)); // DEPRECATED: use `router.addListener()`
+addService('getRouteUrl', () => router.getUrl.bind(router)); // DEPRECATED: use `router.getUrl()`
+addService('addAppListener', () => addAppListener); // DEPRECATED: use `router.addListener()`
+addService('addReadyListener', () => elementReady); // DEPRECATED: use `dom.onElementAdded()`
 
 
 // DEPRECATED: use `addRouteListener()`
@@ -32,16 +32,16 @@ function addAppListener(name, handler) {
 }
 
 function addPlugin(plugin, options = {}) {
-    var sm = services.createLazyManager();
+    var serviceManager = createServiceManager();
 
     try {
         switch (typeof plugin) {
-        case 'function':
-            plugin(sm, options);
-            break;
-        case 'object':
-            plugin.init(sm, options);
-            break;
+            case 'function':
+                plugin(serviceManager, options);
+                break;
+            case 'object':
+                plugin.init(serviceManager, options);
+                break;
         }
     } catch (ex) {
         console.error(ex.toString());

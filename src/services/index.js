@@ -2,33 +2,19 @@
 var services = [];
 
 
-function add(name, initializer) {
+export function addService(name, initializer) {
     services.push({ name, initializer });
 }
 
-function createLazyManager() {
-    var sm = {};
+export function createServiceManager() {
+    const serviceManager = {};
 
     services.forEach(function ({ name, initializer }) {
-        Object.defineProperty(sm, name, {
-            get: function () {
-                var obj = initializer();
-
-                Object.defineProperty(this, name, {
-                    value: obj
-                });
-
-                return obj;
-            },
-            configurable: true
+        Object.defineProperty(serviceManager, name, {
+            value: initializer(serviceManager),
+            configurable: false
         });
     });
 
-    return sm;
-}
-
-
-export default {
-    add,
-    createLazyManager
+    return serviceManager;
 }
