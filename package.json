@@ -10,14 +10,7 @@
   "repository": "https://github.com/ahsdile/canvas-lms-app",
   "module": "src/index.js",
   "files": [
-    "src/index.js",
-    "src/router.js",
-    "src/i18n.js",
-    "src/services.js",
-    "src/element-ready.js",
-    "src/dom.js",
-    "src/messages.js",
-    "src/auth.js"
+    "src/"
   ],
   "dependencies": {
     "@artevelde-uas/canvas-lms-api": "^0.2.0",
