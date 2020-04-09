@@ -2,16 +2,16 @@
 var services = [];
 
 
-export function addService(name, initializer) {
-    services.push({ name, initializer });
+export function addService(name, service) {
+    services.push({ name, service });
 }
 
 export function createServiceManager() {
     const serviceManager = {};
 
-    services.forEach(function ({ name, initializer }) {
+    services.forEach(function ({ name, service }) {
         Object.defineProperty(serviceManager, name, {
-            value: initializer(serviceManager),
+            value: (typeof service === 'function') ? service(serviceManager) : service,
             configurable: false
         });
     });

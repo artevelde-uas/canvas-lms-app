@@ -8,12 +8,12 @@ import messages from './services/messages';
 import router, { handlePath } from './services/router';
 
 
-addService('api', () => api);
-addService('auth', () => auth);
-addService('dom', () => dom);
+addService('api', api);
+addService('auth', auth);
+addService('dom', dom);
 addService('i18n', () => i18n.createInstance());
-addService('messages', () => messages);
-addService('router', () => router);
+addService('messages', messages);
+addService('router', router);
 addService('addRouteListener', () => router.addListener.bind(router)); // DEPRECATED: use `router.addListener()`
 addService('getRouteUrl', () => router.getUrl.bind(router)); // DEPRECATED: use `router.getUrl()`
 addService('addAppListener', () => addAppListener); // DEPRECATED: use `router.addListener()`
