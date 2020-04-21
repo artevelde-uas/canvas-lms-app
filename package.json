@@ -1,6 +1,6 @@
 {
-  "name": "@ahsdile/canvas-lms-app",
-  "version": "0.29.1",
+  "name": "@artevelde-uas/canvas-lms-app",
+  "version": "0.30.0",
   "description": "App for building custom JS & CSS for Canvas LMS customizations",
   "keywords": [
     "Canvas LMS"
