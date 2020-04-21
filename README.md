@@ -7,9 +7,9 @@ Using this JavaScript application you can add plug-ins that add/modify functiona
 [![](https://img.shields.io/npm/dt/@ahsdile/canvas-lms-app.svg)](https://www.npmjs.com/package/@ahsdile/canvas-lms-app)
 [![](https://img.shields.io/librariesio/github/artevelde-uas/canvas-lms-app.svg)](https://libraries.io/npm/@ahsdile%2Fcanvas-lms-app)
 
-> With the upcoming release of version 1.0, the npm package will be renamed to the new vendor name 
-> ***artevelde-uas** (Artevelde University of Applied Sciences)*. The full package name will be
-> '@artevelde-uas/canvas-lms-app'. All plug-ins will be renamed upon their 1.0 release as well.
+> With the upcoming release of version 1.0, the npm package will be renamed with the new organization name
+> [***artevelde-uas** (Artevelde University of Applied Sciences)*](https://www.npmjs.com/org/artevelde-uas).
+> The full package name will be *'@artevelde-uas/canvas-lms-app'*. All plug-ins will be renamed as well.
 
 ## Installation
 
@@ -23,7 +23,7 @@ Using Yarn:
 
 ## Usage
 
-Just import the Canvas app and your plug-ins and add them to the app: 
+Just import the Canvas app and your plug-ins and add them to the app:
 
 ```javascript
 import canvas from '@ahsdile/canvas-lms-app';
