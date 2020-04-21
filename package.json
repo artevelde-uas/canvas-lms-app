@@ -7,7 +7,7 @@
   ],
   "license": "MIT",
   "author": "Renaat De Muynck <renaat.demuynck@arteveldehs.be>",
-  "repository": "https://github.com/ahsdile/canvas-lms-app",
+  "repository": "https://github.com/canvas-lms-api/canvas-lms-app",
   "module": "src/index.js",
   "files": [
     "src/"
