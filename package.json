@@ -1,13 +1,13 @@
 {
   "name": "@ahsdile/canvas-lms-app",
-  "version": "0.28.0",
+  "version": "0.29.0",
   "description": "App for building custom JS & CSS for Canvas LMS themes",
   "keywords": [
     "Canvas LMS"
   ],
   "license": "MIT",
   "author": "Renaat De Muynck <renaat.demuynck@arteveldehs.be>",
-  "repository": "https://github.com/ahsdile/canvas-lms-app",
+  "repository": "https://github.com/canvas-lms-api/canvas-lms-app",
   "module": "src/index.js",
   "files": [
     "src/"
