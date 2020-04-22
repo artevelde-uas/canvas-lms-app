@@ -5,8 +5,17 @@
  * @param {string} selector The CSS seletor to observe
  * @param {function} handler The handler to run for each added element
  */
-function onElementAdded(selector, handler) {
+function onElementAdded(selector, handler, options = {
+    once: false
+}) {
     let currentElements = Array.from(document.querySelectorAll(selector));
+
+    // Stop if element found and 'once' option provided
+    if (options.once && currentElements.length > 0) {
+        handler(currentElements[0]);
+
+        return;
+    }
 
     // Handle all existing elements
     currentElements.forEach(element => {
@@ -14,10 +23,18 @@ function onElementAdded(selector, handler) {
     });
 
     // Observe the page for any new elements that are added
-    new MutationObserver(mutationRecords => {
+    new MutationObserver((mutationRecords, observer) => {
         if (mutationRecords.some(mutation => (mutation.type === 'childList' && mutation.addedNodes.length > 0))) {
             let elements = Array.from(document.querySelectorAll(selector));
             let addedElements = elements.filter(element => !currentElements.includes(element));
+
+            // Stop if element found and 'once' option provided
+            if (options.once && addedElements.length > 0) {
+                handler(addedElements[0]);
+                observer.disconnect();
+
+                return;
+            }
 
             // Handle all new elements
             addedElements.forEach(element => {
@@ -39,14 +56,24 @@ function onElementAdded(selector, handler) {
  * @param {string} selector The CSS seletor to observe
  * @param {function} handler The handler to run for each removed element
  */
-function onElementRemoved(selector, handler) {
+function onElementRemoved(selector, handler, options = {
+    once: false
+}) {
     let currentElements = Array.from(document.querySelectorAll(selector));
 
     // Observe the page for any new elements that are removed
-    new MutationObserver(mutationRecords => {
+    new MutationObserver((mutationRecords, observer) => {
         if (mutationRecords.some(mutation => (mutation.type === 'childList' && mutation.removedNodes.length > 0))) {
             let elements = Array.from(document.querySelectorAll(selector));
             let removededElements = currentElements.filter(element => !elements.includes(element));
+
+            // Stop if element found and 'once' option provided
+            if (options.once && removededElements.length > 0) {
+                handler(removededElements[0]);
+                observer.disconnect();
+
+                return;
+            }
 
             // Handle all removed elements
             removededElements.forEach(element => {
