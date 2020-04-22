@@ -4,14 +4,13 @@
  *
  * @param {string} selector The CSS seletor to observe
  * @param {function} handler The handler to run for each added element
+ * @param {object} options The options
  */
-function onElementAdded(selector, handler, options = {
-    once: false
-}) {
+function onElementAdded(selector, handler, { once = false }) {
     let currentElements = Array.from(document.querySelectorAll(selector));
 
     // Stop if element found and 'once' option provided
-    if (options.once && currentElements.length > 0) {
+    if (once && currentElements.length > 0) {
         handler(currentElements[0]);
 
         return;
@@ -29,7 +28,7 @@ function onElementAdded(selector, handler, options = {
             let addedElements = elements.filter(element => !currentElements.includes(element));
 
             // Stop if element found and 'once' option provided
-            if (options.once && addedElements.length > 0) {
+            if (once && addedElements.length > 0) {
                 handler(addedElements[0]);
                 observer.disconnect();
 
@@ -55,10 +54,9 @@ function onElementAdded(selector, handler, options = {
  *
  * @param {string} selector The CSS seletor to observe
  * @param {function} handler The handler to run for each removed element
+ * @param {object} options The options
  */
-function onElementRemoved(selector, handler, options = {
-    once: false
-}) {
+function onElementRemoved(selector, handler, { once = false }) {
     let currentElements = Array.from(document.querySelectorAll(selector));
 
     // Observe the page for any new elements that are removed
@@ -68,7 +66,7 @@ function onElementRemoved(selector, handler, options = {
             let removededElements = currentElements.filter(element => !elements.includes(element));
 
             // Stop if element found and 'once' option provided
-            if (options.once && removededElements.length > 0) {
+            if (once && removededElements.length > 0) {
                 handler(removededElements[0]);
                 observer.disconnect();
 
