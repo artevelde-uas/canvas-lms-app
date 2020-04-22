@@ -5,7 +5,7 @@ import dom from './services/dom';
 import elementReady from './services/element-ready';
 import i18n from './services/i18n';
 import messages from './services/messages';
-import router, { handlePath } from './services/router';
+import router, { handlePath, addAppListener } from './services/router';
 
 
 addService('api', api);
