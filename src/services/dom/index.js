@@ -6,7 +6,7 @@
  * @param {function} handler The handler to run for each added element
  * @param {object} options The options
  */
-function onElementAdded(selector, handler, { once = false, root = document }) {
+function onElementAdded(selector, handler, { once = false, root = document } = {}) {
     let currentElements = Array.from(root.querySelectorAll(selector));
 
     // Stop if element found and 'once' option provided
@@ -56,7 +56,7 @@ function onElementAdded(selector, handler, { once = false, root = document }) {
  * @param {function} handler The handler to run for each removed element
  * @param {object} options The options
  */
-function onElementRemoved(selector, handler, { once = false, root = document }) {
+function onElementRemoved(selector, handler, { once = false, root = document } = {}) {
     let currentElements = Array.from(root.querySelectorAll(selector));
 
     // Observe the page for any new elements that are removed
