@@ -1,37 +1,14 @@
+import dom from './index';
 
 
 export default function (root, selector, handler) {
-    var promise = new Promise(function (resolve) {
-        var element, observer;
+    if (typeof root === 'string' && (typeof selector === 'function' || selector === undefined)) {
+        handler = selector;
+        selector = root;
+        root = document.body;
+    }
 
-        if (typeof root === 'string' && (typeof selector === 'function' || selector === undefined)) {
-            handler = selector;
-            selector = root;
-            root = document.body;
-        }
-
-        element = root.querySelector(selector);
-
-        if (element !== null) {
-            resolve(element);
-        } else {
-            observer = new MutationObserver((mutationRecords, observer) => {
-                if (mutationRecords.some(mutation => (mutation.type === 'childList' && mutation.addedNodes.length))) {
-                    let element = root.querySelector(selector);
-
-                    if (element !== null) {
-                        observer.disconnect();
-                        resolve(element);
-                    }
-                }
-            });
-
-            observer.observe(root, {
-                childList: true,
-                subtree: true
-            });
-        }
-    });
+    let promise = dom.onElementReady(selector, { root });
 
     if (handler === undefined) {
         return promise;
