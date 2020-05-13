@@ -96,7 +96,7 @@ function onElementRemoved(selector, handler, { once = false, root = document } =
  * @returns {Promise} A Promise that will be resolved when the element is available
  */
 function onElementReady(selector, { root = document } = {}) {
-    return new Promise(function (resolve) {
+    return new Promise(resolve => {
         onElementAdded(selector, resolve, { root, once: true });
     });
 }
