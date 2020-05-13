@@ -91,7 +91,6 @@ function onElementRemoved(selector, handler, { once = false, root = document } =
  * Observes the document for the availability of an element
  *
  * @param {string} selector The CSS seletor to observe
- * @param {function} handler The handler to run if the element is found
  * @param {object} options The options
  * @returns {Promise} A Promise that will be resolved when the element is available
  */
