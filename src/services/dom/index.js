@@ -5,6 +5,8 @@
  * @param {string} selector The CSS seletor to observe
  * @param {function} handler The handler to run for each added element
  * @param {object} options The options
+ * @param {boolean} options.once If TRUE, the handler will fire only once
+ * @param {ParentNode} options.root The root element to observe
  */
 function onElementAdded(selector, handler, { once = false, root = document } = {}) {
     let currentElements = Array.from(root.querySelectorAll(selector));
@@ -41,7 +43,7 @@ function onElementAdded(selector, handler, { once = false, root = document } = {
             });
 
             // Update the element list
-            currentElements = Array.from(elements);
+            currentElements = elements;
         }
     }).observe(root, {
         childList: true,
@@ -55,6 +57,8 @@ function onElementAdded(selector, handler, { once = false, root = document } = {
  * @param {string} selector The CSS seletor to observe
  * @param {function} handler The handler to run for each removed element
  * @param {object} options The options
+ * @param {boolean} options.once If TRUE, the handler will fire only once
+ * @param {ParentNode} options.root The root element to observe
  */
 function onElementRemoved(selector, handler, { once = false, root = document } = {}) {
     let currentElements = Array.from(root.querySelectorAll(selector));
@@ -79,7 +83,7 @@ function onElementRemoved(selector, handler, { once = false, root = document } =
             });
 
             // Update the element list
-            currentElements = Array.from(elements);
+            currentElements = elements;
         }
     }).observe(root, {
         childList: true,
@@ -91,12 +95,12 @@ function onElementRemoved(selector, handler, { once = false, root = document } =
  * Observes the document for the availability of an element
  *
  * @param {string} selector The CSS seletor to observe
- * @param {function} handler The handler to run if the element is found
  * @param {object} options The options
+ * @param {ParentNode} options.root The root element to observe
  * @returns {Promise} A Promise that will be resolved when the element is available
  */
 function onElementReady(selector, { root = document } = {}) {
-    return new Promise(function (resolve) {
+    return new Promise(resolve => {
         onElementAdded(selector, resolve, { root, once: true });
     });
 }
