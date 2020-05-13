@@ -43,7 +43,7 @@ function onElementAdded(selector, handler, { once = false, root = document } = {
             });
 
             // Update the element list
-            currentElements = Array.from(elements);
+            currentElements = elements;
         }
     }).observe(root, {
         childList: true,
@@ -83,7 +83,7 @@ function onElementRemoved(selector, handler, { once = false, root = document } =
             });
 
             // Update the element list
-            currentElements = Array.from(elements);
+            currentElements = elements;
         }
     }).observe(root, {
         childList: true,
