@@ -7,8 +7,13 @@
  * @param {object} options The options
  * @param {boolean} options.once If TRUE, the handler will fire only once
  * @param {ParentNode} options.root The root element to observe
+ * @param {boolean} options.subtree Whether the subtree will also be observed
  */
-function onElementAdded(selector, handler, { once = false, root = document } = {}) {
+function onElementAdded(selector, handler, {
+    once = false,
+    root = document,
+    subtree = true
+} = {}) {
     let currentElements = Array.from(root.querySelectorAll(selector));
 
     // Stop if element found and 'once' option provided
@@ -47,7 +52,7 @@ function onElementAdded(selector, handler, { once = false, root = document } = {
         }
     }).observe(root, {
         childList: true,
-        subtree: true
+        subtree
     });
 }
 
@@ -59,8 +64,13 @@ function onElementAdded(selector, handler, { once = false, root = document } = {
  * @param {object} options The options
  * @param {boolean} options.once If TRUE, the handler will fire only once
  * @param {ParentNode} options.root The root element to observe
+ * @param {boolean} options.subtree Whether the subtree will also be observed
  */
-function onElementRemoved(selector, handler, { once = false, root = document } = {}) {
+function onElementRemoved(selector, handler, {
+    once = false,
+    root = document,
+    subtree = true
+} = {}) {
     let currentElements = Array.from(root.querySelectorAll(selector));
 
     // Observe the page for any new elements that are removed
@@ -87,7 +97,7 @@ function onElementRemoved(selector, handler, { once = false, root = document } =
         }
     }).observe(root, {
         childList: true,
-        subtree: true
+        subtree
     });
 }
 
