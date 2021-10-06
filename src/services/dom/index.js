@@ -67,11 +67,11 @@ function onElementRemoved(selector, handler, { once = false, root = document } =
     new MutationObserver((mutationRecords, observer) => {
         if (mutationRecords.some(mutation => (mutation.type === 'childList' && mutation.removedNodes.length > 0))) {
             let elements = Array.from(root.querySelectorAll(selector));
-            let removededElements = currentElements.filter(element => !elements.includes(element));
+            let removedElements = currentElements.filter(element => !elements.includes(element));
 
             // Stop if element found and 'once' option provided
-            if (once && removededElements.length > 0) {
-                handler(removededElements[0]);
+            if (once && removedElements.length > 0) {
+                handler(removedElements[0]);
                 observer.disconnect();
 
                 return;
