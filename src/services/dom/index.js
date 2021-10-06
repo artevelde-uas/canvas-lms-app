@@ -31,8 +31,8 @@ function onElementAdded(selector, handler, { once = false, root = document } = {
 
             // Stop if element found and 'once' option provided
             if (once && addedElements.length > 0) {
-                handler(addedElements[0]);
                 observer.disconnect();
+                handler(addedElements[0]);
 
                 return;
             }
@@ -71,14 +71,14 @@ function onElementRemoved(selector, handler, { once = false, root = document } =
 
             // Stop if element found and 'once' option provided
             if (once && removedElements.length > 0) {
-                handler(removedElements[0]);
                 observer.disconnect();
+                handler(removedElements[0]);
 
                 return;
             }
 
             // Handle all removed elements
-            removededElements.forEach(element => {
+            removedElements.forEach(element => {
                 handler(element);
             });
 
