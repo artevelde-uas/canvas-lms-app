@@ -137,7 +137,6 @@ function onTextContentChange(element, handler, {
             textContent = element.textContent;
         }
     }).observe(element, {
-        attributes: true,
         characterData: true,
         childList: true,
         subtree: true
