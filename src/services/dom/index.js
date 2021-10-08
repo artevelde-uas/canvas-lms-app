@@ -102,6 +102,31 @@ function onElementRemoved(selector, handler, {
 }
 
 /**
+ * Observes changes to the text content of a given element
+ * 
+ * @param {HTMLElement} element The element to observe
+ * @param {function} handler The handler to run on each change
+ */
+function onTextContentChange(element, handler) {
+    // Store the current value
+    let textContent = element.textContent;
+
+    // Observe ...
+    new MutationObserver(() => {
+        // Invoke the handler with the new and old values
+        handler(element.textContent, textContent);
+
+        // Store the new value
+        textContent = element.textContent;
+    }).observe(element, {
+        attributes: true,
+        characterData: true,
+        childList: true,
+        subtree: true
+    });
+}
+
+/**
  * Observes the document for the availability of an element
  *
  * @param {string} selector The CSS seletor to observe
@@ -118,5 +143,6 @@ function onElementReady(selector, { root = document } = {}) {
 export default {
     onElementAdded,
     onElementRemoved,
-    onElementReady
+    onElementReady,
+    onTextContentChange
 };
