@@ -75,7 +75,7 @@ function onElementRemoved(selector, handler, {
 
     // Observe the page for any new elements that are removed
     new MutationObserver((mutationRecords, observer) => {
-        if (mutationRecords.some(mutation => (mutation.type === 'childList' && mutation.removedNodes.length > 0))) {
+        if (mutationRecords.some(mutation => (mutation.type === 'childList'))) {
             let elements = Array.from(root.querySelectorAll(selector));
             let removedElements = currentElements.filter(element => !elements.includes(element));
 
