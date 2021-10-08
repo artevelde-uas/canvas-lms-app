@@ -106,15 +106,25 @@ function onElementRemoved(selector, handler, {
  * 
  * @param {HTMLElement} element The element to observe
  * @param {function} handler The handler to run on each change
+ * @param {boolean} options.once If TRUE, the handler will fire only once
  */
-function onTextContentChange(element, handler) {
+function onTextContentChange(element, handler, {
+    once = false
+} = {}) {
     // Store the current value
     let textContent = element.textContent;
 
     // Observe ...
-    new MutationObserver(() => {
+    new MutationObserver((mutationRecords, observer) => {
         // Invoke the handler with the new and old values
         handler(element.textContent, textContent);
+
+        // Stop observing after first change
+        if (once) {
+            observer.disconnect();
+
+            return;
+        }
 
         // Store the new value
         textContent = element.textContent;
