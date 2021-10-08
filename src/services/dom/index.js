@@ -107,17 +107,23 @@ function onElementRemoved(selector, handler, {
  * @param {HTMLElement} element The element to observe
  * @param {function} handler The handler to run on each change
  * @param {boolean} options.once If TRUE, the handler will fire only once
+ * @param {boolean} options.oldValue If TRUE, the old value will also be 
  */
 function onTextContentChange(element, handler, {
-    once = false
+    once = false,
+    oldValue = false
 } = {}) {
     // Store the current value
-    let textContent = element.textContent;
+    let textContent = oldValue ? element.textContent : undefined;
 
     // Observe ...
     new MutationObserver((mutationRecords, observer) => {
-        // Invoke the handler with the new and old values
-        handler(element.textContent, textContent);
+        // Invoke the handler with the new (and optionally old) value
+        if (oldValue) {
+            handler(element.textContent, textContent);
+        } else {
+            handler(element.textContent);
+        }
 
         // Stop observing after first change
         if (once) {
@@ -127,7 +133,9 @@ function onTextContentChange(element, handler, {
         }
 
         // Store the new value
-        textContent = element.textContent;
+        if (oldValue) {
+            textContent = element.textContent;
+        }
     }).observe(element, {
         attributes: true,
         characterData: true,
