@@ -1,34 +1,21 @@
-import i18next from 'i18next';
+import i18n from 'i18next';
 
 
-function setTranslations(translations, fallbackLanguage = 'en') {
-    var resources = {};
+const language = document.documentElement.lang || window.navigator.language;
 
-    Object.entries(translations).forEach(function ([key, value]) {
-        resources[key] = { 'translation': value };
+i18n.init({
+    lng: language,
+    fallbackLng: 'en',
+    defaultNS: 'translations'
+});
+
+
+export function getTranslator(ns, translations) {
+    Object.entries(translations).forEach(([language, resources]) => {
+        i18n.addResources(language, ns, resources);
     });
 
-    this.init({
-        lng: document.documentElement.lang,
-        fallbackLng: fallbackLanguage,
-        resources
-    });
+    return i18n.getFixedT(language, ns);
 }
 
-function translate(keys, options) {
-    return this.t(keys, options);
-}
-
-function createInstance() {
-    var i18n = i18next.createInstance();
-
-    return {
-        setTranslations: setTranslations.bind(i18n),
-        translate: translate.bind(i18n)
-    }
-}
-
-
-export default {
-    createInstance
-}
+export default i18n;
