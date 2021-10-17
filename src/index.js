@@ -3,7 +3,7 @@ import api from '@artevelde-uas/canvas-lms-api';
 import auth from './services/auth';
 import dom from './services/dom';
 import elementReady from './services/dom/element-ready';
-import i18n from './services/i18n';
+import i18n from './services/i18n/old';
 import messages from './services/messages';
 import router, { handlePath, addAppListener } from './services/router';
 
