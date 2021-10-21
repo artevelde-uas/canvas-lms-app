@@ -7,8 +7,7 @@ const language = document.documentElement.lang || window.navigator.language;
 i18n.use(initReactI18next);
 i18n.init({
     lng: language,
-    fallbackLng: 'en',
-    defaultNS: 'translations'
+    fallbackLng: 'en'
 });
 
 
