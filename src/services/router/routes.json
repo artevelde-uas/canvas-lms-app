@@ -78,5 +78,7 @@
 
     "inbox": "/conversations",
 
-    "admin": "/accounts"
+    "admin": "/accounts",
+
+    "login": "/login/canvas"
 }
