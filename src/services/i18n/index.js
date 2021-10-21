@@ -11,12 +11,14 @@ i18n.init({
 });
 
 
-export function getTranslator(ns, translations) {
+export function addTranslations(ns, translations) {
     Object.entries(translations).forEach(([language, resources]) => {
-        i18n.addResources(language, ns, resources);
+        i18n.addResourceBundle(language, ns, resources, true, true);
     });
+}
 
-    return i18n.getFixedT(language, ns);
+export function getTranslator(ns, prefix) {
+    return i18n.getFixedT(language, ns, prefix);
 }
 
 export default i18n;
