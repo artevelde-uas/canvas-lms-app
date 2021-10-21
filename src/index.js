@@ -1,5 +1,5 @@
 import { createServiceManager, addService } from './services';
-import api from '@artevelde-uas/canvas-lms-api';
+import api from './services/api';
 import auth from './services/auth';
 import dom from './services/dom';
 import elementReady from './services/dom/element-ready';
@@ -52,6 +52,14 @@ function handle(path) {
     run();
 }
 
+export {
+    api,
+    auth,
+    dom,
+    i18n,
+    messages,
+    router
+};
 
 export default {
     addPlugin,

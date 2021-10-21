@@ -9,6 +9,15 @@
   "author": "Renaat De Muynck <renaat.demuynck@arteveldehs.be>",
   "repository": "https://github.com/artevelde-uas/canvas-lms-app",
   "module": "src/index.js",
+  "exports": {
+    ".": "./src",
+    "./services/api": "./src/services/api",
+    "./services/auth": "./src/services/auth",
+    "./services/dom": "./src/services/dom",
+    "./services/i18n": "./src/services/i18n",
+    "./services/messages": "./src/services/messages",
+    "./services/router": "./src/services/router"
+  },
   "files": [
     "src/"
   ],
