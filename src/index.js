@@ -6,6 +6,7 @@ import elementReady from './services/dom/element-ready';
 import i18n from './services/i18n/old';
 import messages from './services/messages';
 import router, { handlePath, addAppListener } from './services/router';
+import theme from './theme';
 
 
 addService('api', api);
@@ -58,7 +59,8 @@ export {
     dom,
     i18n,
     messages,
-    router
+    router,
+    theme
 };
 
 export default {
