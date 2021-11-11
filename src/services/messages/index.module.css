@@ -1,27 +1,28 @@
-
 @keyframes message-fade-out {
-    from {
-        opacity: 1;
-    }
-    to {
-        opacity: 0;
-    }
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
 }
 
 #content-message-holder {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
-:global(#flash_message_holder) .message.hide,
-#content-message-holder .message.hide {
+:global(#flash_message_holder),
+#content-message-holder {
+  & .message.hide {
     animation-name: message-fade-out;
     animation-duration: 1s;
     animation-direction: forwards;
-}
+  }
 
-:global(#flash_message_holder) .message + .message,
-#content-message-holder .message + .message {
+  & .message + .message {
     margin-top: 0.5em;
+  }
 }
