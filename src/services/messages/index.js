@@ -82,7 +82,7 @@ export function addFlashMessage(message, { type = 'info', hideAfter = '5s' } = {
     `);
 
     container.firstElementChild.addEventListener('animationend', event => {
-        //event.target.remove();
+        event.target.remove();
     });
 }
 
