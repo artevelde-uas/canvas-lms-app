@@ -1,14 +1,18 @@
-import { createServiceManager, addService } from './services';
 import api from './services/api';
 import auth from './services/auth';
 import dom from './services/dom';
 import elementReady from './services/dom/element-ready';
 import i18n from './services/i18n/old';
 import messages from './services/messages';
-import router, { handlePath, addAppListener } from './services/router';
+import router, { handlePath } from './services/router';
 import theme from './theme';
 
+// DEPRECATED
+import { createServiceManager, addService } from './services';
+import { addAppListener } from './services/router';
 
+
+// DEPRECATED
 addService('api', api);
 addService('auth', auth);
 addService('dom', dom);
@@ -32,6 +36,7 @@ const plugins = new Map();
  * @param {boolean} options.classicPlugin Indicates if the plug-in is a classic one that needs the services injected
  */
 function addPlugin(plugin, options = { classicPlugin: false }) {
+    // DEPRECATED
     var serviceManager = createServiceManager();
 
     if (options.classicPlugin) {
