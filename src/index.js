@@ -21,20 +21,38 @@ addService('addAppListener', () => addAppListener); // DEPRECATED: use `router.a
 addService('addReadyListener', () => elementReady); // DEPRECATED: use `dom.onElementAdded()`
 
 
-function addPlugin(plugin, options = {}) {
+const plugins = new Map();
+
+
+function addPlugin(plugin, options = { classicPlugin: false }) {
     var serviceManager = createServiceManager();
 
-    try {
-        switch (typeof plugin) {
-            case 'function':
-                plugin(serviceManager, options);
-                break;
-            case 'object':
-                plugin.init(serviceManager, options);
-                break;
+    if (options.classicPlugin) {
+        console.warn('DEPRECATED: Classic plug-in support will be removed in the future');
+
+        try {
+            switch (typeof plugin) {
+                case 'function':
+                    plugin(serviceManager, options);
+                    break;
+
+                case 'object':
+                    plugin.init(serviceManager, options);
+                    break;
+            }
+        } catch (ex) {
+            console.error(ex.toString());
         }
-    } catch (ex) {
-        console.error(ex.toString());
+
+        return;
+    }
+
+    try {
+        const info = plugin(options);
+
+        plugins.set(plugin, { info, options });
+    } catch (err) {
+        console.error(err.toString());
     }
 }
 
