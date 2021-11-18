@@ -7,8 +7,13 @@
  * @param {object} options The options
  * @param {boolean} options.once If TRUE, the handler will fire only once
  * @param {ParentNode} options.root The root element to observe
+ * @param {boolean} options.subtree Whether the subtree will also be observed
  */
-function onElementAdded(selector, handler, { once = false, root = document } = {}) {
+function onElementAdded(selector, handler, {
+    once = false,
+    root = document,
+    subtree = true
+} = {}) {
     let currentElements = Array.from(root.querySelectorAll(selector));
 
     // Stop if element found and 'once' option provided
@@ -31,8 +36,8 @@ function onElementAdded(selector, handler, { once = false, root = document } = {
 
             // Stop if element found and 'once' option provided
             if (once && addedElements.length > 0) {
-                handler(addedElements[0]);
                 observer.disconnect();
+                handler(addedElements[0]);
 
                 return;
             }
@@ -47,7 +52,7 @@ function onElementAdded(selector, handler, { once = false, root = document } = {
         }
     }).observe(root, {
         childList: true,
-        subtree: true
+        subtree
     });
 }
 
@@ -59,26 +64,31 @@ function onElementAdded(selector, handler, { once = false, root = document } = {
  * @param {object} options The options
  * @param {boolean} options.once If TRUE, the handler will fire only once
  * @param {ParentNode} options.root The root element to observe
+ * @param {boolean} options.subtree Whether the subtree will also be observed
  */
-function onElementRemoved(selector, handler, { once = false, root = document } = {}) {
+function onElementRemoved(selector, handler, {
+    once = false,
+    root = document,
+    subtree = true
+} = {}) {
     let currentElements = Array.from(root.querySelectorAll(selector));
 
     // Observe the page for any new elements that are removed
     new MutationObserver((mutationRecords, observer) => {
-        if (mutationRecords.some(mutation => (mutation.type === 'childList' && mutation.removedNodes.length > 0))) {
+        if (mutationRecords.some(mutation => (mutation.type === 'childList'))) {
             let elements = Array.from(root.querySelectorAll(selector));
-            let removededElements = currentElements.filter(element => !elements.includes(element));
+            let removedElements = currentElements.filter(element => !elements.includes(element));
 
             // Stop if element found and 'once' option provided
-            if (once && removededElements.length > 0) {
-                handler(removededElements[0]);
+            if (once && removedElements.length > 0) {
                 observer.disconnect();
+                handler(removedElements[0]);
 
                 return;
             }
 
             // Handle all removed elements
-            removededElements.forEach(element => {
+            removedElements.forEach(element => {
                 handler(element);
             });
 
@@ -86,6 +96,48 @@ function onElementRemoved(selector, handler, { once = false, root = document } =
             currentElements = elements;
         }
     }).observe(root, {
+        childList: true,
+        subtree
+    });
+}
+
+/**
+ * Observes changes to the text content of a given element
+ * 
+ * @param {HTMLElement} element The element to observe
+ * @param {function} handler The handler to run on each change
+ * @param {boolean} options.once If TRUE, the handler will fire only once
+ * @param {boolean} options.oldValue If TRUE, the old value will also be 
+ */
+function onTextContentChange(element, handler, {
+    once = false,
+    oldValue = false
+} = {}) {
+    // Store the current value
+    let textContent = oldValue ? element.textContent : undefined;
+
+    // Observe ...
+    new MutationObserver((mutationRecords, observer) => {
+        // Invoke the handler with the new (and optionally old) value
+        if (oldValue) {
+            handler(element.textContent, textContent);
+        } else {
+            handler(element.textContent);
+        }
+
+        // Stop observing after first change
+        if (once) {
+            observer.disconnect();
+
+            return;
+        }
+
+        // Store the new value
+        if (oldValue) {
+            textContent = element.textContent;
+        }
+    }).observe(element, {
+        characterData: true,
         childList: true,
         subtree: true
     });
@@ -108,5 +160,6 @@ function onElementReady(selector, { root = document } = {}) {
 export default {
     onElementAdded,
     onElementRemoved,
-    onElementReady
+    onElementReady,
+    onTextContentChange
 };
