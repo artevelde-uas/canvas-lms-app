@@ -35,7 +35,7 @@ const plugins = new Map();
  * @param {object} options The options to pass to the plugin
  * @param {boolean} options.classicPlugin Indicates if the plug-in is a classic one that needs the services injected
  */
-function addPlugin(plugin, options = { classicPlugin: false }) {
+export function addPlugin(plugin, options = { classicPlugin: false }) {
     // DEPRECATED
     var serviceManager = createServiceManager();
 
@@ -75,7 +75,7 @@ function addPlugin(plugin, options = { classicPlugin: false }) {
 /**
  * Starts the application and runs each registered plug-in
  */
-function run() {
+export function run() {
     var path = window.location.pathname + window.location.search;
     // Get the current path with the query string
 
