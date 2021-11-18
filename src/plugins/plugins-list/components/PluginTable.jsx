@@ -22,17 +22,24 @@ export default ({ plugins }) => (
                 </Table.Row>
             </Table.Head>
             <Table.Body>
-                {plugins.map((plugin) => {
-                    const title = plugin.title || plugin.name;
+                {plugins.map(plugin => {
+                    if (plugin === undefined) return;
+
+                    const title = plugin?.title || plugin.description;
+                    const description = plugin?.title && plugin.description;
 
                     return (
                         <Table.Row key={plugin.name}>
                             <Table.Cell id='plugin'>
-                                <ToggleDetails
-                                    summary={title}
-                                >
-                                    <Text>{plugin.description}</Text>
-                                </ToggleDetails>
+                                {description ? (
+                                    <ToggleDetails
+                                        summary={title}
+                                    >
+                                        <Text>{description}</Text>
+                                    </ToggleDetails>
+                                ) : (
+                                    <Text>{title}</Text>
+                                )}
                             </Table.Cell>
                             <Table.Cell id='status'>
                                 <IconButton
