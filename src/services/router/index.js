@@ -9,11 +9,6 @@ const emitter = new EventEmitter();
 // Convert route mappings to actual Route objects
 const routes = Object.fromEntries(Object.entries(routeMappings).map(([name, spec]) => ([name, new Route(spec)])));
 
-const deprecatedRoutes = {
-    'course': 'courses',
-    'profile.communication': 'profile.notifications'
-};
-
 
 function fireEvents(name, params) {
     var index = name.lastIndexOf('.');
@@ -54,53 +49,17 @@ function getUrl(name, params) {
     return routes[name].reverse(params);
 }
 
-function addListener(name, handler) {
-    console.warn(`DEPRECATED: Use "router.onRoute(name, handler)" instead`);
-
-    // 'name' is optional and defaults to '*'
-    if (typeof name === 'function') {
-        handler = name;
-        name = '*';
-    }
-
-    let names = Array.isArray(name) ? name : name.split(/\s*,\s*/);
-
-    onRoute(names, handler);
-}
-
 function onRoute(name, handler) {
     let names = Array.isArray(name) ? name : name.trim().split(/\s*,\s*/);
 
     names.forEach(name => {
         var baseName = name.endsWith('.*') ? name.slice(0, -2) : name;
 
-        Object.entries(deprecatedRoutes).some(([deprecatedName, newName]) => {
-            if (baseName === deprecatedName || baseName.startsWith(`${deprecatedName}.`)) {
-                let suffix = name.substring(deprecatedName.length);
-
-                baseName = (suffix === '') ? newName : `${newName}.${suffix}`;
-                console.warn(`DEPRECATED: Route '${deprecatedName}' is deprecated and will be removed in v1.0.0, use '${newName}' instead`);
-
-                return true;
-            }
-        });
-
         if (name !== '*' && !Object.keys(routes).some(name => (name === baseName || name.startsWith(`${baseName}.`)))) {
             throw new TypeError(`Route '${name}' does not exist.`);
         }
 
         emitter.on(name, handler);
-    });
-}
-
-// DEPRECATED: use `addRouteListener()`
-export function addAppListener(name, handler) {
-    var names = Array.isArray(name) ? name : name.split(/\s*,\s*/);
-
-    names.forEach(function (name) {
-        console.warn(`DEPRECATED: Use "addRouteListener('${name}.*', handler)" instead`);
-
-        router.addListener(name + '.*', handler);
     });
 }
 
