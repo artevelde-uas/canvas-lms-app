@@ -97,6 +97,5 @@ function onRoute(name, handler) {
 
 export default {
     onRoute,
-    getUrl,
-    addListener
+    getUrl
 };
