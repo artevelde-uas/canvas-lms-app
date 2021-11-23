@@ -27,7 +27,7 @@ const plugins = new Map();
  * 
  * @param {function} plugin The plugin to register
  * @param {object} options The options to pass to the plugin
- * @param {boolean} options.classicPlugin Indicates if the plug-in is a classic one that needs the services injected
+ * @param {boolean} [options.classicPlugin] Indicates if the plug-in is a classic one that needs the services injected
  */
 export function addPlugin(plugin, options = { classicPlugin: false }) {
     // DEPRECATED
