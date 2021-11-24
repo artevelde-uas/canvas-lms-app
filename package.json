@@ -21,7 +21,9 @@
     "./webpack/production-config": "./config/webpack.prod.js"
   },
   "files": [
-    "src/"
+    "src/",
+    "config/",
+    "docs/"
   ],
   "dependencies": {
     "@artevelde-uas/canvas-lms-api": "^0.2.0",
