@@ -1,7 +1,6 @@
 import api from './services/api';
 import auth from './services/auth';
 import dom from './services/dom';
-import elementReady from './services/dom/element-ready';
 import i18n from './services/i18n/old';
 import messages from './services/messages';
 import router, { handlePath } from './services/router';
@@ -9,7 +8,6 @@ import theme from './theme';
 
 // DEPRECATED
 import { createServiceManager, addService } from './services';
-import { addAppListener } from './services/router';
 
 
 // DEPRECATED
@@ -19,10 +17,6 @@ addService('dom', dom);
 addService('i18n', () => i18n.createInstance());
 addService('messages', messages);
 addService('router', router);
-addService('addRouteListener', () => router.addListener.bind(router)); // DEPRECATED: use `router.addListener()`
-addService('getRouteUrl', () => router.getUrl.bind(router)); // DEPRECATED: use `router.getUrl()`
-addService('addAppListener', () => addAppListener); // DEPRECATED: use `router.addListener()`
-addService('addReadyListener', () => elementReady); // DEPRECATED: use `dom.onElementAdded()`
 
 
 const plugins = new Map();
@@ -33,12 +27,13 @@ const plugins = new Map();
  * 
  * @param {function} plugin The plugin to register
  * @param {object} options The options to pass to the plugin
- * @param {boolean} options.classicPlugin Indicates if the plug-in is a classic one that needs the services injected
+ * @param {boolean} [options.classicPlugin] Indicates if the plug-in is a classic one that needs the services injected
  */
 export function addPlugin(plugin, options = { classicPlugin: false }) {
     // DEPRECATED
     var serviceManager = createServiceManager();
-
+    
+    // DEPRECATED
     if (options.classicPlugin) {
         console.warn('DEPRECATED: Classic plug-in support will be removed in the future');
 
@@ -86,13 +81,6 @@ export function run() {
     handlePath(path);
 }
 
-// DEPRECATED: use `run()`
-function handle(path) {
-    console.warn('DEPRECATED: Use "run()" instead');
-
-    run();
-}
-
 export {
     api,
     auth,
@@ -105,6 +93,5 @@ export {
 
 export default {
     addPlugin,
-    run,
-    handle
+    run
 };

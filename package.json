@@ -1,6 +1,6 @@
 {
   "name": "@artevelde-uas/canvas-lms-app",
-  "version": "0.33.0",
+  "version": "1.0.0",
   "description": "App for building custom JS & CSS for Canvas LMS customizations",
   "keywords": [
     "Canvas LMS"
@@ -21,7 +21,9 @@
     "./webpack/production-config": "./config/webpack.prod.js"
   },
   "files": [
-    "src/"
+    "src/",
+    "config/",
+    "docs/"
   ],
   "dependencies": {
     "@artevelde-uas/canvas-lms-api": "^0.2.0",

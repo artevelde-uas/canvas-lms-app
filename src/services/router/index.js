@@ -9,27 +9,31 @@ const emitter = new EventEmitter();
 // Convert route mappings to actual Route objects
 const routes = Object.fromEntries(Object.entries(routeMappings).map(([name, spec]) => ([name, new Route(spec)])));
 
-const deprecatedRoutes = {
-    'course': 'courses',
-    'profile.communication': 'profile.notifications'
-};
-
 
 function fireEvents(name, params) {
     var index = name.lastIndexOf('.');
     var baseName = name;
 
+    // Fire the event for the full route name
     emitter.emit(name, params, name);
 
+    // Fire the event for each sub route with wildcard
     while (index >= 0) {
         baseName = baseName.substring(0, index);
         emitter.emit(baseName + '.*', params, name);
         index = baseName.lastIndexOf('.');
     }
 
+    // Fire the global wildcard route event
     emitter.emit('*', params, name);
 }
 
+/**
+ * Looks up the name and parameters of the matched route of the given path
+ * 
+ * @param {string} path The path to match
+ * @returns {string} The route that matches the given path
+ */
 export function routeMatch(path) {
     var match;
     var [name] = Object.entries(routes).find(([, route]) => (match = route.match(path))) || [];
@@ -42,6 +46,11 @@ export function routeMatch(path) {
     };
 }
 
+/**
+ * Fires all route events for the given path
+ * 
+ * @param {string} path The path to fire the route events for
+ */
 export function handlePath(path) {
     var match = routeMatch(path);
 
@@ -50,41 +59,33 @@ export function handlePath(path) {
     fireEvents(match.name, match.params);
 }
 
+/**
+ * Gets the URL for the given route and parameters
+ * 
+ * @param {string} name The route name to get the URL for
+ * @param {object} params The params to use for the URL
+ * @returns {string} The URL for the given route, or FALSE if route can't be found
+ */
 function getUrl(name, params) {
     return routes[name].reverse(params);
 }
 
-function addListener(name, handler) {
-    console.warn(`DEPRECATED: Use "router.onRoute(name, handler)" instead`);
-
-    // 'name' is optional and defaults to '*'
-    if (typeof name === 'function') {
-        handler = name;
-        name = '*';
-    }
-
-    let names = Array.isArray(name) ? name : name.split(/\s*,\s*/);
-
-    onRoute(names, handler);
-}
-
+/**
+ * Invokes the given handler for each match found
+ * 
+ * @param {string|Array} name The route name(s) to match (comma seperated list or an array)
+ * @param {function} handler The handler to fire when a match is found
+ */
 function onRoute(name, handler) {
+    // Convert the given string to an array
     let names = Array.isArray(name) ? name : name.trim().split(/\s*,\s*/);
 
+    // Adds a listener for each given route name
     names.forEach(name => {
+        // Remove the wildcard from the route name
         var baseName = name.endsWith('.*') ? name.slice(0, -2) : name;
 
-        Object.entries(deprecatedRoutes).some(([deprecatedName, newName]) => {
-            if (baseName === deprecatedName || baseName.startsWith(`${deprecatedName}.`)) {
-                let suffix = name.substring(deprecatedName.length);
-
-                baseName = (suffix === '') ? newName : `${newName}.${suffix}`;
-                console.warn(`DEPRECATED: Route '${deprecatedName}' is deprecated and will be removed in v1.0.0, use '${newName}' instead`);
-
-                return true;
-            }
-        });
-
+        // Throw an error if the route name isn't found
         if (name !== '*' && !Object.keys(routes).some(name => (name === baseName || name.startsWith(`${baseName}.`)))) {
             throw new TypeError(`Route '${name}' does not exist.`);
         }
@@ -93,20 +94,8 @@ function onRoute(name, handler) {
     });
 }
 
-// DEPRECATED: use `addRouteListener()`
-export function addAppListener(name, handler) {
-    var names = Array.isArray(name) ? name : name.split(/\s*,\s*/);
-
-    names.forEach(function (name) {
-        console.warn(`DEPRECATED: Use "addRouteListener('${name}.*', handler)" instead`);
-
-        router.addListener(name + '.*', handler);
-    });
-}
-
 
 export default {
     onRoute,
-    getUrl,
-    addListener
+    getUrl
 };
