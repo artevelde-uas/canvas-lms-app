@@ -1,22 +1,64 @@
 {
   "name": "@artevelde-uas/canvas-lms-app",
-  "version": "0.33.0",
+  "version": "1.0.0",
   "description": "App for building custom JS & CSS for Canvas LMS customizations",
   "keywords": [
     "Canvas LMS"
   ],
-  "license": "MIT",
+  "license": "ISC",
   "author": "Renaat De Muynck <renaat.demuynck@arteveldehs.be>",
   "repository": "https://github.com/artevelde-uas/canvas-lms-app",
   "module": "src/index.js",
+  "exports": {
+    ".": "./src",
+    "./services/api": "./src/services/api",
+    "./services/auth": "./src/services/auth",
+    "./services/dom": "./src/services/dom",
+    "./services/i18n": "./src/services/i18n",
+    "./services/messages": "./src/services/messages",
+    "./services/router": "./src/services/router",
+    "./webpack/development-config": "./config/webpack.dev.js",
+    "./webpack/production-config": "./config/webpack.prod.js"
+  },
   "files": [
-    "src/"
+    "src/",
+    "config/",
+    "docs/"
   ],
   "dependencies": {
     "@artevelde-uas/canvas-lms-api": "^0.2.0",
+    "@instructure/canvas-theme": "^8.11.1",
     "events": "^2.0.0",
-    "i18next": "^12.1.0",
+    "i18next": "^21.3.1",
     "js-cookie": "^2.2.0",
+    "react-i18next": "^11.12.0",
     "route-parser": "^0.0.5"
+  },
+  "peerDependencies": {
+    "@instructure/emotion": "^8.11.1",
+    "@instructure/ui": "^8.11.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.15.5",
+    "@babel/preset-env": "^7.15.6",
+    "@babel/preset-react": "^7.14.5",
+    "@instructure/browserslist-config-canvas-lms": "^2.0.0",
+    "babel-loader": "^8.2.2",
+    "base64-image-loader": "^1.2.1",
+    "css-loader": "^5.2.7",
+    "css-minimizer-webpack-plugin": "^1.3.0",
+    "mini-css-extract-plugin": "^1.6.2",
+    "postcss": "^8.3.7",
+    "postcss-clean": "1.2.0",
+    "postcss-import": "^14.0.2",
+    "postcss-loader": "^4.3.0",
+    "postcss-nesting": "^8.0.1",
+    "postcss-preset-env": "^6.7.0",
+    "postcss-url": "^10.1.3",
+    "style-loader": "^2",
+    "webpack": "^4.46.0",
+    "webpack-cli": "^4.9.1"
   }
 }

@@ -4,6 +4,12 @@ import { routeMatch } from '../router';
 
 let enrollmentTypes;
 
+/**
+ * Determines if the user is enrolled as the given enrollment type in the current course
+ * 
+ * @param {string} enrollmentType The enrollment type to test
+ * @returns {boolean} TRUE if the user is enrolled as the given type, FALSE otherwise
+ */
 export async function hasCourseEnrollment(enrollmentType) {
     let path = window.location.pathname + window.location.search;
     let { params } = routeMatch(path);

@@ -1,34 +1,40 @@
-import i18next from 'i18next';
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
 
 
-function setTranslations(translations, fallbackLanguage = 'en') {
-    var resources = {};
+// Get the current user language
+const language = document.documentElement.lang || window.navigator.language;
 
-    Object.entries(translations).forEach(function ([key, value]) {
-        resources[key] = { 'translation': value };
+// Add support for React
+i18n.use(initReactI18next);
+
+// Initialize with language
+i18n.init({
+    lng: language,
+    fallbackLng: 'en'
+});
+
+/**
+ * Adds translations to the given namespace
+ * 
+ * @param {string} ns The namespace to add the translations to
+ * @param {object} translations The translations
+ */
+export function addTranslations(ns, translations) {
+    Object.entries(translations).forEach(([language, resources]) => {
+        i18n.addResourceBundle(language, ns, resources, true, true);
     });
-
-    this.init({
-        lng: document.documentElement.lang,
-        fallbackLng: fallbackLanguage,
-        resources
-    });
 }
 
-function translate(keys, options) {
-    return this.t(keys, options);
+/**
+ * Gets a translator for the given namespace and prefix
+ * 
+ * @param {string} ns The namespace to get the translator for
+ * @param {string} prefix The prefix to get the translator for
+ * @returns {function} A namespaced translator function
+ */
+export function getTranslator(ns, prefix) {
+    return i18n.getFixedT(language, ns, prefix);
 }
 
-function createInstance() {
-    var i18n = i18next.createInstance();
-
-    return {
-        setTranslations: setTranslations.bind(i18n),
-        translate: translate.bind(i18n)
-    }
-}
-
-
-export default {
-    createInstance
-}
+export default i18n;

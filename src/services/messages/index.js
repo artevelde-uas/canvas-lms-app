@@ -1,6 +1,12 @@
 import styles from './index.module.css';
 
 
+/**
+ * Gets the corresponding class name and icon type of the given message type
+ * 
+ * @param {string} type The type of the message
+ * @returns {object} The corresponding class name and icon type
+ */
 function getFlashInfo(type) {
     switch (type) {
         case 'info':
@@ -31,6 +37,12 @@ function getFlashInfo(type) {
     }
 }
 
+/**
+ * Gets the corresponding class name and icon type of the given notification type
+ * 
+ * @param {string} type The type of the notification
+ * @returns {object} The corresponding class name and icon type
+ */
 function getNotificationInfo(type) {
     switch (type) {
         case 'info':
@@ -61,13 +73,25 @@ function getNotificationInfo(type) {
     }
 }
 
+/**
+ * Adds a flash message to the top of the page
+ * 
+ * @param {string} message The message text
+ * @param {object} options The options for the message
+ * @param {string} options.type The type of message (info, warning, error, success)
+ * @param {string} options.hideAfter The time after which the message should disappear (CSS time value; e.g. '2s' or '1500ms')
+ * @returns 
+ */
 export function addFlashMessage(message, { type = 'info', hideAfter = '5s' } = {}) {
+    // Find the flash message container
     let container = document.getElementById('flash_message_holder');
 
     if (container === null) return;
 
+    // Get the corresponding class name and icon type of the given message type
     let typeInfo = getFlashInfo(type);
 
+    // Prepend the message to the container
     container.insertAdjacentHTML('afterbegin', `
         <li class="ic-flash-${typeInfo.class} ${styles.message} ${styles.hide}"
             ${hideAfter ? `style="animation-delay: ${hideAfter};"` : ''}>
@@ -81,14 +105,27 @@ export function addFlashMessage(message, { type = 'info', hideAfter = '5s' } = {
         </li>
     `);
 
+    // Remove the message after the hide animation
     container.firstElementChild.addEventListener('animationend', event => {
-        //event.target.remove();
+        event.target.remove();
     });
 }
 
+/**
+ * Adds a notification message to the top of the main content
+ * 
+ * @param {string} title The notification title
+ * @param {string} message The notification body
+ * @param {object} options The options for the notification
+ * @param {string} options.type The type of notification (info, warning, error, question)
+ * @param {boolean} options.canClose Indicates if the notification can be closed by the user
+ * @param {string} options.hideAfter The time after which the notification should disappear (CSS time value; e.g. '2s' or '1500ms')
+ */
 export function addNotification(title, message, { type = 'info', canClose = true, hideAfter = false } = {}) {
+    // Find the flash notification container
     let container = document.getElementById(styles.contentMessageHolder);
 
+    // Create the container if it is not found
     if (container === null) {
         let content = document.getElementById('content');
 
@@ -102,8 +139,10 @@ export function addNotification(title, message, { type = 'info', canClose = true
         container = document.getElementById(styles.contentMessageHolder);
     }
 
+    // Get the corresponding class name and icon type of the given notification type
     let typeInfo = getNotificationInfo(type);
 
+    // Append the message to the container
     container.insertAdjacentHTML('beforeend', `
         <div class="ic-notification ic-notification--admin-created
                     ic-notification--${typeInfo.class} ${styles.message} ${hideAfter ? styles.hide : ''}"
@@ -133,12 +172,14 @@ export function addNotification(title, message, { type = 'info', canClose = true
         </div>
     `);
 
+    // Remove the message after the hide animation
     if (hideAfter) {
         container.lastElementChild.addEventListener('animationend', event => {
             event.target.remove();
         });
     }
 
+    // Handle click on the close button
     if (canClose) {
         container.lastElementChild.addEventListener('click', event => {
             let button = event.target.closest('.Button--icon-action');

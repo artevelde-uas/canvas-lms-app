@@ -28,7 +28,7 @@ function onElementAdded(selector, handler, {
         handler(element);
     });
 
-    // Observe the page for any new elements that are added
+    // Observe the given root element for any new elements that are added
     new MutationObserver((mutationRecords, observer) => {
         if (mutationRecords.some(mutation => (mutation.type === 'childList' && mutation.addedNodes.length > 0))) {
             let elements = Array.from(root.querySelectorAll(selector));
@@ -73,7 +73,7 @@ function onElementRemoved(selector, handler, {
 } = {}) {
     let currentElements = Array.from(root.querySelectorAll(selector));
 
-    // Observe the page for any new elements that are removed
+    // Observe the given root element for any elements that are removed
     new MutationObserver((mutationRecords, observer) => {
         if (mutationRecords.some(mutation => (mutation.type === 'childList'))) {
             let elements = Array.from(root.querySelectorAll(selector));
@@ -116,7 +116,7 @@ function onTextContentChange(element, handler, {
     // Store the current value
     let textContent = oldValue ? element.textContent : undefined;
 
-    // Observe ...
+    // Observe the given element for any changes in the text content
     new MutationObserver((mutationRecords, observer) => {
         // Invoke the handler with the new (and optionally old) value
         if (oldValue) {
