@@ -25,8 +25,8 @@ export default ({ plugins }) => (
                 {plugins.map(plugin => {
                     if (plugin === undefined) return;
 
-                    const title = plugin?.title || plugin.description;
-                    const description = plugin?.title && plugin.description;
+                    const title = plugin.title || plugin.description;
+                    const description = plugin.title && plugin.description;
 
                     return (
                         <Table.Row key={plugin.name}>
