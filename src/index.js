@@ -4,6 +4,7 @@ import dom from './services/dom';
 import i18n from './services/i18n/old';
 import messages from './services/messages';
 import router, { handlePath } from './services/router';
+import pluginsList from './plugins/plugins-list';
 import theme from './theme';
 
 // DEPRECATED
@@ -76,6 +77,10 @@ export function run() {
 
     // Don't run inside iframes
     if (window !== window.top) return;
+
+    // Show each registered plug-in on the Profile settings page
+    const pluginsInfo = Array.from(plugins.values()).map(value => value.info);
+    pluginsList({ plugins: pluginsInfo });
 
     // Let the router handle the current path
     handlePath(path);
