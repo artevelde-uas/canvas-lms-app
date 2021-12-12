@@ -144,14 +144,20 @@ function onTextContentChange(element, handler, {
 }
 
 /**
- * Observes the document for the availability of an element
+ * Observes the document for the availability of one or more elements
  *
- * @param {string} selector The CSS seletor to observe
+ * @param {string} selector The CSS selector to observe, or an array of selectors
  * @param {object} options The options
  * @param {ParentNode} options.root The root element to observe
- * @returns {Promise} A Promise that will be resolved when the element is available
+ * @returns {Promise} A Promise that will be resolved when all elements are available
  */
 function onElementReady(selector, { root = document } = {}) {
+    // If an array of selectors is passed, return a Promise that will resolve all of them
+    if (Array.isArray(selector)) {
+        return Promise.all(selector.map(selector => onElementReady(selector, { root })));
+    }
+
+    // Return a Promise that will resolve when the first occurance becomes available
     return new Promise(resolve => {
         onElementAdded(selector, resolve, { root, once: true });
     });
