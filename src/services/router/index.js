@@ -35,6 +35,9 @@ function fireEvents(name, params) {
  * @returns {string} The route that matches the given path
  */
 export function routeMatch(path) {
+    // Strip trailing slash
+    path = path.replace(/\/$/, '');
+
     var match;
     var [name] = Object.entries(routes).find(([, route]) => (match = route.match(path))) || [];
 
