@@ -102,12 +102,55 @@ function onElementRemoved(selector, handler, {
 }
 
 /**
+ * Observes changes to a given element's attributes
+ * 
+ * @param {HTMLElement} element The element to observe
+ * @param {function} handler The handler to run on each change
+ * @param {boolean} options.once If TRUE, the handler will fire only once
+ * @param {boolean} options.oldValue If TRUE, the old value will also be returned
+ * @param {Array} options.filter Only attributes provided in the array will be observed
+ */
+function onAttributeChange(element, handler, {
+    once = false,
+    oldValue = false,
+    filter = undefined
+} = {}) {
+    // Observe the given element for any changes in the text content
+    new MutationObserver((mutationRecords, observer) => {
+        mutationRecords.forEach(function (mutation) {
+            // Only execute if one of the filtered 
+            if (mutation.type !== 'attributes') return;
+            if (Array.isArray(filter) && !filter.includes(mutation.attributeName)) return;
+
+            // Get the value from the element's attribute
+            const value = mutation.target.getAttribute(mutation.attributeName);
+
+            // Invoke the handler with the new (and optionally old) value
+            if (oldValue) {
+                handler(value, mutation.attributeName, mutation.oldValue);
+            } else {
+                handler(value, mutation.attributeName);
+            }
+
+            // Stop observing after first change
+            if (once) {
+                observer.disconnect();
+            }
+        });
+    }).observe(element, {
+        attributes: true,
+        attributeFilter: filter,
+        attributeOldValue: oldValue
+    });
+}
+
+/**
  * Observes changes to the text content of a given element
  * 
  * @param {HTMLElement} element The element to observe
  * @param {function} handler The handler to run on each change
  * @param {boolean} options.once If TRUE, the handler will fire only once
- * @param {boolean} options.oldValue If TRUE, the old value will also be 
+ * @param {boolean} options.oldValue If TRUE, the old value will also be returned
  */
 function onTextContentChange(element, handler, {
     once = false,
@@ -167,5 +210,6 @@ export default {
     onElementAdded,
     onElementRemoved,
     onElementReady,
+    onAttributeChange,
     onTextContentChange
 };
