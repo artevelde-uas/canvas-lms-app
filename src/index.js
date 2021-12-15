@@ -75,8 +75,11 @@ export function run() {
     var path = window.location.pathname + window.location.search;
 
     // Don't run inside iframes
-    if (window !== window.top) return;
+    if (window !== window.top) {
+        console.error('UI customizations can not be run inside iframes');
         
+        return;
+    }
 
     // Let the router handle the current path
     handlePath(path);
