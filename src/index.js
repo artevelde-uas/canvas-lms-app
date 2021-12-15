@@ -67,6 +67,10 @@ export function addPlugin(plugin, options = { classicPlugin: false }) {
     }
 }
 
+export function getPluginData() {
+    return Array.from(plugins.values());
+}
+
 /**
  * Starts the application and runs each registered plug-in
  */
