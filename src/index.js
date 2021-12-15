@@ -4,7 +4,6 @@ import dom from './services/dom';
 import i18n from './services/i18n/old';
 import messages from './services/messages';
 import router, { handlePath } from './services/router';
-import pluginsList from './plugins/plugins-list';
 import theme from './theme';
 
 // DEPRECATED
@@ -68,19 +67,23 @@ export function addPlugin(plugin, options = { classicPlugin: false }) {
     }
 }
 
+export function getPluginData() {
+    return Array.from(plugins.values());
+}
+
 /**
  * Starts the application and runs each registered plug-in
  */
 export function run() {
-    var path = window.location.pathname + window.location.search;
     // Get the current path with the query string
+    var path = window.location.pathname + window.location.search;
 
     // Don't run inside iframes
-    if (window !== window.top) return;
-
-    // Show each registered plug-in on the Profile settings page
-    const pluginsInfo = Array.from(plugins.values()).map(value => value.info);
-    pluginsList({ plugins: pluginsInfo });
+    if (window !== window.top) {
+        console.error('UI customizations can not be run inside iframes');
+        
+        return;
+    }
 
     // Let the router handle the current path
     handlePath(path);

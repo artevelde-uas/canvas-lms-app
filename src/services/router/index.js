@@ -11,8 +11,8 @@ const routes = Object.fromEntries(Object.entries(routeMappings).map(([name, spec
 
 
 function fireEvents(name, params) {
-    var index = name.lastIndexOf('.');
-    var baseName = name;
+    let index = name.lastIndexOf('.');
+    let baseName = name;
 
     // Fire the event for the full route name
     emitter.emit(name, params, name);
@@ -38,8 +38,8 @@ export function routeMatch(path) {
     // Strip trailing slash
     path = path.replace(/\/$/, '');
 
-    var match;
-    var [name] = Object.entries(routes).find(([, route]) => (match = route.match(path))) || [];
+    let match;
+    const [name] = Object.entries(routes).find(([, route]) => (match = route.match(path))) || [];
 
     if (name === undefined) return null;
 
@@ -55,7 +55,7 @@ export function routeMatch(path) {
  * @param {string} path The path to fire the route events for
  */
 export function handlePath(path) {
-    var match = routeMatch(path);
+    const match = routeMatch(path);
 
     if (match === null) return;
 
@@ -81,12 +81,12 @@ function getUrl(name, params) {
  */
 function onRoute(name, handler) {
     // Convert the given string to an array
-    let names = Array.isArray(name) ? name : name.trim().split(/\s*,\s*/);
+    const names = Array.isArray(name) ? name : name.trim().split(/\s*,\s*/);
 
     // Adds a listener for each given route name
     names.forEach(name => {
         // Remove the wildcard from the route name
-        var baseName = name.endsWith('.*') ? name.slice(0, -2) : name;
+        const baseName = name.endsWith('.*') ? name.slice(0, -2) : name;
 
         // Throw an error if the route name isn't found
         if (name !== '*' && !Object.keys(routes).some(name => (name === baseName || name.startsWith(`${baseName}.`)))) {

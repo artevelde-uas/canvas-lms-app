@@ -13,26 +13,26 @@ function getFlashInfo(type) {
         case 'information':
         default:
             return {
-                class: 'info',
-                icon: 'info'
+                className: 'info',
+                iconType: 'info'
             };
         case 'warning':
         case 'warn':
         case 'alert':
             return {
-                class: 'warning',
-                icon: 'warning'
+                className: 'warning',
+                iconType: 'warning'
             };
         case 'error':
         case 'danger':
             return {
-                class: 'error',
-                icon: 'warning'
+                className: 'error',
+                iconType: 'warning'
             };
         case 'success':
             return {
-                class: 'success',
-                icon: 'check'
+                className: 'success',
+                iconType: 'check'
             };
     }
 }
@@ -49,26 +49,26 @@ function getNotificationInfo(type) {
         case 'information':
         default:
             return {
-                class: 'info',
-                icon: 'info'
+                className: 'info',
+                iconType: 'info'
             };
         case 'warning':
         case 'warn':
         case 'alert':
             return {
-                class: 'alert',
-                icon: 'warning'
+                className: 'alert',
+                iconType: 'warning'
             };
         case 'error':
         case 'danger':
             return {
-                class: 'danger',
-                icon: 'warning'
+                className: 'danger',
+                iconType: 'warning'
             };
         case 'question':
             return {
-                class: 'info',
-                icon: 'question'
+                className: 'info',
+                iconType: 'question'
             };
     }
 }
@@ -84,19 +84,19 @@ function getNotificationInfo(type) {
  */
 export function addFlashMessage(message, { type = 'info', hideAfter = '5s' } = {}) {
     // Find the flash message container
-    let container = document.getElementById('flash_message_holder');
+    const container = document.getElementById('flash_message_holder');
 
     if (container === null) return;
 
     // Get the corresponding class name and icon type of the given message type
-    let typeInfo = getFlashInfo(type);
+    const { className, iconType } = getFlashInfo(type);
 
     // Prepend the message to the container
     container.insertAdjacentHTML('afterbegin', `
-        <li class="ic-flash-${typeInfo.class} ${styles.message} ${styles.hide}"
+        <li class="ic-flash-${className} ${styles.message} ${styles.hide}"
             ${hideAfter ? `style="animation-delay: ${hideAfter};"` : ''}>
             <div class="ic-flash__icon">
-                <i class="icon-${typeInfo.icon}"></i>
+                <i class="icon-${iconType}"></i>
             </div>
             ${message}
             <button type="button" class="Button Button--icon-action close_link">
@@ -127,7 +127,7 @@ export function addNotification(title, message, { type = 'info', canClose = true
 
     // Create the container if it is not found
     if (container === null) {
-        let content = document.getElementById('content');
+        const content = document.getElementById('content');
 
         if (content === null) return;
 
@@ -140,15 +140,15 @@ export function addNotification(title, message, { type = 'info', canClose = true
     }
 
     // Get the corresponding class name and icon type of the given notification type
-    let typeInfo = getNotificationInfo(type);
+    const { className, iconType } = getNotificationInfo(type);
 
     // Append the message to the container
     container.insertAdjacentHTML('beforeend', `
         <div class="ic-notification ic-notification--admin-created
-                    ic-notification--${typeInfo.class} ${styles.message} ${hideAfter ? styles.hide : ''}"
+                    ic-notification--${className} ${styles.message} ${hideAfter ? styles.hide : ''}"
              ${hideAfter ? `style="animation-delay: ${hideAfter};"` : ''}>
             <div class="ic-notification__icon">
-                <i class="icon-${typeInfo.icon}"></i>
+                <i class="icon-${iconType}"></i>
             </div>
             <div class="notification_account_content">
                 <div class="ic-notification__content">
@@ -182,7 +182,7 @@ export function addNotification(title, message, { type = 'info', canClose = true
     // Handle click on the close button
     if (canClose) {
         container.lastElementChild.addEventListener('click', event => {
-            let button = event.target.closest('.Button--icon-action');
+            const button = event.target.closest('.Button--icon-action');
 
             if (button === null) return;
 
