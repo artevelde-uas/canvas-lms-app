@@ -13,26 +13,26 @@ function getFlashInfo(type) {
         case 'information':
         default:
             return {
-                class: 'info',
-                icon: 'info'
+                className: 'info',
+                iconType: 'info'
             };
         case 'warning':
         case 'warn':
         case 'alert':
             return {
-                class: 'warning',
-                icon: 'warning'
+                className: 'warning',
+                iconType: 'warning'
             };
         case 'error':
         case 'danger':
             return {
-                class: 'error',
-                icon: 'warning'
+                className: 'error',
+                iconType: 'warning'
             };
         case 'success':
             return {
-                class: 'success',
-                icon: 'check'
+                className: 'success',
+                iconType: 'check'
             };
     }
 }
@@ -49,26 +49,26 @@ function getNotificationInfo(type) {
         case 'information':
         default:
             return {
-                class: 'info',
-                icon: 'info'
+                className: 'info',
+                iconType: 'info'
             };
         case 'warning':
         case 'warn':
         case 'alert':
             return {
-                class: 'alert',
-                icon: 'warning'
+                className: 'alert',
+                iconType: 'warning'
             };
         case 'error':
         case 'danger':
             return {
-                class: 'danger',
-                icon: 'warning'
+                className: 'danger',
+                iconType: 'warning'
             };
         case 'question':
             return {
-                class: 'info',
-                icon: 'question'
+                className: 'info',
+                iconType: 'question'
             };
     }
 }
@@ -93,10 +93,10 @@ export function addFlashMessage(message, { type = 'info', hideAfter = '5s' } = {
 
     // Prepend the message to the container
     container.insertAdjacentHTML('afterbegin', `
-        <li class="ic-flash-${typeInfo.class} ${styles.message} ${styles.hide}"
+        <li class="ic-flash-${className} ${styles.message} ${styles.hide}"
             ${hideAfter ? `style="animation-delay: ${hideAfter};"` : ''}>
             <div class="ic-flash__icon">
-                <i class="icon-${typeInfo.icon}"></i>
+                <i class="icon-${iconType}"></i>
             </div>
             ${message}
             <button type="button" class="Button Button--icon-action close_link">
@@ -145,10 +145,10 @@ export function addNotification(title, message, { type = 'info', canClose = true
     // Append the message to the container
     container.insertAdjacentHTML('beforeend', `
         <div class="ic-notification ic-notification--admin-created
-                    ic-notification--${typeInfo.class} ${styles.message} ${hideAfter ? styles.hide : ''}"
+                    ic-notification--${className} ${styles.message} ${hideAfter ? styles.hide : ''}"
              ${hideAfter ? `style="animation-delay: ${hideAfter};"` : ''}>
             <div class="ic-notification__icon">
-                <i class="icon-${typeInfo.icon}"></i>
+                <i class="icon-${iconType}"></i>
             </div>
             <div class="notification_account_content">
                 <div class="ic-notification__content">
