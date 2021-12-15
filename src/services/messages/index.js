@@ -84,12 +84,12 @@ function getNotificationInfo(type) {
  */
 export function addFlashMessage(message, { type = 'info', hideAfter = '5s' } = {}) {
     // Find the flash message container
-    let container = document.getElementById('flash_message_holder');
+    const container = document.getElementById('flash_message_holder');
 
     if (container === null) return;
 
     // Get the corresponding class name and icon type of the given message type
-    let typeInfo = getFlashInfo(type);
+    const { className, iconType } = getFlashInfo(type);
 
     // Prepend the message to the container
     container.insertAdjacentHTML('afterbegin', `
@@ -127,7 +127,7 @@ export function addNotification(title, message, { type = 'info', canClose = true
 
     // Create the container if it is not found
     if (container === null) {
-        let content = document.getElementById('content');
+        const content = document.getElementById('content');
 
         if (content === null) return;
 
@@ -140,7 +140,7 @@ export function addNotification(title, message, { type = 'info', canClose = true
     }
 
     // Get the corresponding class name and icon type of the given notification type
-    let typeInfo = getNotificationInfo(type);
+    const { className, iconType } = getNotificationInfo(type);
 
     // Append the message to the container
     container.insertAdjacentHTML('beforeend', `
@@ -182,7 +182,7 @@ export function addNotification(title, message, { type = 'info', canClose = true
     // Handle click on the close button
     if (canClose) {
         container.lastElementChild.addEventListener('click', event => {
-            let button = event.target.closest('.Button--icon-action');
+            const button = event.target.closest('.Button--icon-action');
 
             if (button === null) return;
 

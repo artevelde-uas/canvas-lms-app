@@ -31,8 +31,8 @@ function onElementAdded(selector, handler, {
     // Observe the given root element for any new elements that are added
     new MutationObserver((mutationRecords, observer) => {
         if (mutationRecords.some(mutation => (mutation.type === 'childList' && mutation.addedNodes.length > 0))) {
-            let elements = Array.from(root.querySelectorAll(selector));
-            let addedElements = elements.filter(element => !currentElements.includes(element));
+            const elements = Array.from(root.querySelectorAll(selector));
+            const addedElements = elements.filter(element => !currentElements.includes(element));
 
             // Stop if element found and 'once' option provided
             if (once && addedElements.length > 0) {
@@ -76,8 +76,8 @@ function onElementRemoved(selector, handler, {
     // Observe the given root element for any elements that are removed
     new MutationObserver((mutationRecords, observer) => {
         if (mutationRecords.some(mutation => (mutation.type === 'childList'))) {
-            let elements = Array.from(root.querySelectorAll(selector));
-            let removedElements = currentElements.filter(element => !elements.includes(element));
+            const elements = Array.from(root.querySelectorAll(selector));
+            const removedElements = currentElements.filter(element => !elements.includes(element));
 
             // Stop if element found and 'once' option provided
             if (once && removedElements.length > 0) {
