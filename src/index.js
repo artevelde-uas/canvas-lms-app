@@ -71,8 +71,8 @@ export function addPlugin(plugin, options = { classicPlugin: false }) {
  * Starts the application and runs each registered plug-in
  */
 export function run() {
-    var path = window.location.pathname + window.location.search;
     // Get the current path with the query string
+    var path = window.location.pathname + window.location.search;
 
     // Don't run inside iframes
     if (window !== window.top) return;
