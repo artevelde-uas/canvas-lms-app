@@ -11,7 +11,8 @@ i18n.use(initReactI18next);
 // Initialize with language
 i18n.init({
     lng: language,
-    fallbackLng: 'en'
+    fallbackLng: 'en',
+    joinArrays: ' '
 });
 
 /**
