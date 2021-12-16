@@ -13,19 +13,15 @@ module.exports = {
     module: {
         rules: [{
             test: /\.jsx?$/,
-            exclude: /node_modules/,
             use: [{
                 loader: 'babel-loader',
                 options: {
-                    presets: [[
-                        '@babel/preset-env', {
+                    presets: [
+                        ['@babel/preset-env', {
                             targets: browserslist
-                        }
-                    ], [
-                        '@babel/preset-react', {
-                            runtime: 'automatic'
-                        }
-                    ]]
+                        }],
+                        '@babel/preset-react'
+                    ]
                 }
             }]
         }, {
@@ -49,12 +45,10 @@ module.exports = {
                             'postcss-import',
                             'postcss-nesting',
                             'postcss-preset-env',
-                            [
-                                'postcss-url', {
-                                    url: 'inline',
-                                    encodeType: 'base64'
-                                }
-                            ]
+                            ['postcss-url', {
+                                url: 'inline',
+                                encodeType: 'base64'
+                            }]
                         ]
                     }
                 }

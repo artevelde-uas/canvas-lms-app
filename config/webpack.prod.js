@@ -1,5 +1,5 @@
 const browserslist = require('@instructure/browserslist-config-canvas-lms');
-const CssMinimizerPlugin  = require('css-minimizer-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 
@@ -15,21 +15,17 @@ module.exports = {
     module: {
         rules: [{
             test: /\.jsx?$/,
-            exclude: /node_modules/,
             use: [{
                 loader: 'babel-loader',
                 options: {
-                    presets: [[
-                        '@babel/preset-env', {
+                    presets: [
+                        ['@babel/preset-env', {
                             targets: browserslist,
                             useBuiltIns: 'entry',
                             corejs: 3
-                        }
-                    ], [
-                        '@babel/preset-react', {
-                            runtime: 'automatic'
-                        }
-                    ]]
+                        }],
+                        '@babel/preset-react'
+                    ]
                 }
             }]
         }, {
@@ -52,24 +48,16 @@ module.exports = {
                             'postcss-import',
                             'postcss-nesting',
                             'postcss-preset-env',
-                            [
-                                'postcss-url', {
-                                    url: 'inline',
-                                    encodeType: 'base64'
+                            ['postcss-url', {
+                                url: 'inline',
+                                encodeType: 'base64'
+                            }],
+                            ['postcss-clean', {
+                                level: {
+                                    1: { removeEmpty: false },
+                                    2: { removeEmpty: false }
                                 }
-                            ],
-                            [
-                                'postcss-clean', {
-                                    level: {
-                                        1: {
-                                            removeEmpty: false
-                                        },
-                                        2: {
-                                            removeEmpty: false
-                                        }
-                                    }
-                                }
-                            ]
+                            }]
                         ]
                     }
                 }
