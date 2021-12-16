@@ -21,11 +21,9 @@ module.exports = {
                         '@babel/preset-env', {
                             targets: browserslist
                         }
-                    ], [
-                        '@babel/preset-react', {
-                            runtime: 'automatic'
-                        }
-                    ]]
+                    ],
+                        '@babel/preset-react'
+                    ]
                 }
             }]
         }, {
