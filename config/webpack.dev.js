@@ -33,7 +33,7 @@ module.exports = {
                 options: {
                     modules: {
                         auto: true,
-                        localIdentName: '[path]--[name]___[local]',
+                        localIdentName: '[hash:base64:5]___[local]',
                         exportLocalsConvention: 'camelCaseOnly'
                     }
                 }
