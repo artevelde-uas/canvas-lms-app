@@ -46,10 +46,27 @@ export function isCourseObserver() {
     return hasCourseEnrollment('ObserverEnrollment');
 }
 
+/**
+ * Determines if the user is an administrator
+ * 
+ * @returns {boolean} TRUE if the user is an administrator, FALSE otherwise
+ */
+export function isAdmin() {
+    return (
+        ENV !== undefined &&
+        Array.isArray(ENV.current_user_roles) &&
+        ENV.current_user_roles.some(role => (
+            role === 'admin' ||
+            role === 'root_admin'
+        ))
+    );
+}
+
 export default {
     isCourseStudent,
     isCourseTeacher,
     isCourseTA,
     isCourseDesigner,
-    isCourseObserver
+    isCourseObserver,
+    isAdmin
 };
