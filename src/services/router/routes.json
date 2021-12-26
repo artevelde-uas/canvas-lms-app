@@ -24,6 +24,7 @@
     "courses.modules": "/courses/:courseId/modules",
     "courses.syllabus": "/courses/:courseId/assignments/syllabus",
     "courses.files": "/courses/:courseId/files",
+    "courses.files.folder": "/courses/:courseId/files/folder/:folderName",
     "courses.assignments": "/courses/:courseId/assignments",
     "courses.assignments.new": "/courses/:courseId/assignments/new",
     "courses.assignments.view": "/courses/:courseId/assignments/:assignmentId",
@@ -62,6 +63,7 @@
     "groups.discussions.new": "/groups/:groupId/discussion_topics/new",
     "groups.discussions.view": "/groups/:groupId/discussion_topics/:topicId",
     "groups.files": "/groups/:groupId/files",
+    "groups.files.folder": "/groups/:groupId/files/folder/:folderName",
     "groups.conferences": "/groups/:groupId/conferences",
     "groups.collaborations": "/groups/:groupId/collaborations",
 
@@ -70,6 +72,7 @@
     "profile.notifications": "/profile/communication",
     "profile.settings": "/profile/settings",
     "profile.files": "/files",
+    "profile.files.folder": "/files/folder/user_:userId/:folderName",
     "profile.eportfolios": "/dashboard/eportfolios",
     "profile.eportfolios.home": "/eportfolios/:portfolioId",
     "profile.eportfolios.view": "/eportfolios/:portfolioId/:sectionSlug[/:pageSlug]",
