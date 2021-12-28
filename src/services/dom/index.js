@@ -150,6 +150,71 @@ function onAttributeChange(element, handler, {
 }
 
 /**
+ * Observes the element for existing or added CSS classes
+ * 
+ * @param {HTMLElement} element The element to observe
+ * @param {function} handler The handler to run on each change
+ * @param {Array} options.filter Only attributes provided in the array will be observed
+ * @param {boolean} options.once If TRUE, the handler will fire only once
+ */
+ function onClassAdded(element, handler, {
+    filter = [],
+    once = false
+} = {}) {
+    // Run handler for each existing class name
+    filter.forEach(className => {
+        if (element.classList.contains(className)) {
+            handler(className);
+        }
+    });
+
+    onAttributeChange(element, (value, attributeName, oldValue) => {
+        const oldClasses = oldValue.split(' ');
+        const newClasses = value.split(' ');
+
+        // Run handler for each added class name
+        filter.forEach(className => {
+            if (!oldClasses.includes(className) && newClasses.includes(className)) {
+                handler(className);
+            }
+        });
+    }, {
+        filter,
+        once,
+        oldValue: true
+    });
+}
+
+/**
+ * Observes the element for removed CSS classes
+ * 
+ * @param {HTMLElement} element The element to observe
+ * @param {function} handler The handler to run on each change
+ * @param {Array} options.filter Only attributes provided in the array will be observed
+ * @param {boolean} options.once If TRUE, the handler will fire only once
+ */
+function onClassRemoved(element, handler, {
+    filter = [],
+    once = false
+} = {}) {
+    onAttributeChange(element, (value, attributeName, oldValue) => {
+        const oldClasses = oldValue.split(' ');
+        const newClasses = value.split(' ');
+
+        // Run handler for each removed class name
+        filter.forEach(className => {
+            if (oldClasses.includes(className) && !newClasses.includes(className)) {
+                handler(className);
+            }
+        });
+    }, {
+        filter,
+        once,
+        oldValue: true
+    });
+}
+
+/**
  * Observes changes to the text content of a given element
  * 
  * @param {HTMLElement} element The element to observe
@@ -216,5 +281,7 @@ export default {
     onElementRemoved,
     onElementReady,
     onAttributeChange,
+    onClassAdded,
+    onClassRemoved,
     onTextContentChange
 };
