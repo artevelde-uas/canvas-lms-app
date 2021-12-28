@@ -161,6 +161,11 @@ function onAttributeChange(element, handler, {
     filter = [],
     once = false
 } = {}) {
+    // Convert filter to array if necessary
+    if (!Array.isArray(filter)) {
+        filter = Array.of(filter);
+    }
+
     // Run handler for each existing class name
     filter.forEach(className => {
         if (element.classList.contains(className)) {
@@ -197,6 +202,11 @@ function onClassRemoved(element, handler, {
     filter = [],
     once = false
 } = {}) {
+    // Convert filter to array if necessary
+    if (!Array.isArray(filter)) {
+        filter = Array.of(filter);
+    }
+
     onAttributeChange(element, (value, attributeName, oldValue) => {
         const oldClasses = oldValue.split(' ');
         const newClasses = value.split(' ');
