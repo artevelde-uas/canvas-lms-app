@@ -108,19 +108,24 @@ function onElementRemoved(selector, handler, {
  * @param {function} handler The handler to run on each change
  * @param {boolean} options.once If TRUE, the handler will fire only once
  * @param {boolean} options.oldValue If TRUE, the old value will also be returned
- * @param {Array} options.filter Only attributes provided in the array will be observed
+ * @param {Array|string} options.filter Only attributes provided in the array will be observed
  */
 function onAttributeChange(element, handler, {
     once = false,
     oldValue = false,
     filter = undefined
 } = {}) {
+    // Convert filter to array if necessary
+    if (!Array.isArray(filter)) {
+        filter = Array.of(filter);
+    }
+
     // Observe the given element for any changes in the text content
     new MutationObserver((mutationRecords, observer) => {
         mutationRecords.forEach(function (mutation) {
-            // Only execute if one of the filtered 
+            // Only execute if one of the filtered attributes changed
             if (mutation.type !== 'attributes') return;
-            if (Array.isArray(filter) && !filter.includes(mutation.attributeName)) return;
+            if (!filter.includes(mutation.attributeName)) return;
 
             // Get the value from the element's attribute
             const value = mutation.target.getAttribute(mutation.attributeName);
