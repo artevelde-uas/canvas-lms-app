@@ -113,7 +113,7 @@ function onElementRemoved(selector, handler, {
 function onAttributeChange(element, handler, {
     once = false,
     oldValue = false,
-    filter = undefined
+    filter = []
 } = {}) {
     // Convert filter to array if necessary
     if (!Array.isArray(filter)) {
@@ -184,7 +184,7 @@ function onAttributeChange(element, handler, {
             }
         });
     }, {
-        filter,
+        filter: 'class',
         once,
         oldValue: true
     });
@@ -218,7 +218,7 @@ function onClassRemoved(element, handler, {
             }
         });
     }, {
-        filter,
+        filter: 'class',
         once,
         oldValue: true
     });
