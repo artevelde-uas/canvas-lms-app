@@ -8,11 +8,13 @@
  * @param {boolean} options.once If TRUE, the handler will fire only once
  * @param {ParentNode} options.root The root element to observe
  * @param {boolean} options.subtree Whether the subtree will also be observed
+ * @param {boolean} options.attributes Whether changes in attributes will also be observed (slower)
  */
 function onElementAdded(selector, handler, {
     once = false,
     root = document,
-    subtree = true
+    subtree = true,
+    attributes = false
 } = {}) {
     let currentElements = Array.from(root.querySelectorAll(selector));
 
@@ -52,7 +54,8 @@ function onElementAdded(selector, handler, {
         }
     }).observe(root, {
         childList: true,
-        subtree
+        subtree,
+        attributes
     });
 }
 
@@ -65,11 +68,13 @@ function onElementAdded(selector, handler, {
  * @param {boolean} options.once If TRUE, the handler will fire only once
  * @param {ParentNode} options.root The root element to observe
  * @param {boolean} options.subtree Whether the subtree will also be observed
+ * @param {boolean} options.attributes Whether changes in attributes will also be observed (slower)
  */
 function onElementRemoved(selector, handler, {
     once = false,
     root = document,
-    subtree = true
+    subtree = true,
+    attributes = false
 } = {}) {
     let currentElements = Array.from(root.querySelectorAll(selector));
 
@@ -97,7 +102,8 @@ function onElementRemoved(selector, handler, {
         }
     }).observe(root, {
         childList: true,
-        subtree
+        subtree,
+        attributes
     });
 }
 
@@ -157,7 +163,7 @@ function onAttributeChange(element, handler, {
  * @param {Array} options.filter Only attributes provided in the array will be observed
  * @param {boolean} options.once If TRUE, the handler will fire only once
  */
- function onClassAdded(element, handler, {
+function onClassAdded(element, handler, {
     filter = [],
     once = false
 } = {}) {
@@ -272,17 +278,21 @@ function onTextContentChange(element, handler, {
  * @param {string} selector The CSS selector to observe, or an array of selectors
  * @param {object} options The options
  * @param {ParentNode} options.root The root element to observe
+ * @param {boolean} options.attributes Whether changes in attributes will also be observed (slower)
  * @returns {Promise} A Promise that will be resolved when all elements are available
  */
-function onElementReady(selector, { root = document } = {}) {
+function onElementReady(selector, {
+    root = document,
+    attributes = false
+} = {}) {
     // If an array of selectors is passed, return a Promise that will resolve all of them
     if (Array.isArray(selector)) {
-        return Promise.all(selector.map(selector => onElementReady(selector, { root })));
+        return Promise.all(selector.map(selector => onElementReady(selector, { root, attributes })));
     }
 
     // Return a Promise that will resolve when the first occurance becomes available
     return new Promise(resolve => {
-        onElementAdded(selector, resolve, { root, once: true });
+        onElementAdded(selector, resolve, { root, attributes, once: true });
     });
 }
 
