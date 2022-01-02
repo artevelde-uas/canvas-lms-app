@@ -106,14 +106,14 @@ function onElementRemoved(selector, handler, {
  * 
  * @param {HTMLElement} element The element to observe
  * @param {function} handler The handler to run on each change
- * @param {boolean} options.once If TRUE, the handler will fire only once
- * @param {boolean} options.oldValue If TRUE, the old value will also be returned
  * @param {Array|string} options.filter Only attributes provided in the array will be observed
+ * @param {boolean} options.oldValue If TRUE, the old value will also be returned
+ * @param {boolean} options.once If TRUE, the handler will fire only once
  */
 function onAttributeChange(element, handler, {
-    once = false,
+    filter = [],
     oldValue = false,
-    filter = []
+    once = false
 } = {}) {
     // Convert filter to array if necessary
     if (!Array.isArray(filter)) {
