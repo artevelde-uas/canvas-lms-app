@@ -8,11 +8,13 @@
  * @param {boolean} options.once If TRUE, the handler will fire only once
  * @param {ParentNode} options.root The root element to observe
  * @param {boolean} options.subtree Whether the subtree will also be observed
+ * @param {boolean} options.attributes Whether changes in attributes will also be observed (slower)
  */
 function onElementAdded(selector, handler, {
     once = false,
     root = document,
-    subtree = true
+    subtree = true,
+    attributes = false
 } = {}) {
     let currentElements = Array.from(root.querySelectorAll(selector));
 
@@ -52,7 +54,8 @@ function onElementAdded(selector, handler, {
         }
     }).observe(root, {
         childList: true,
-        subtree
+        subtree,
+        attributes
     });
 }
 
@@ -65,11 +68,13 @@ function onElementAdded(selector, handler, {
  * @param {boolean} options.once If TRUE, the handler will fire only once
  * @param {ParentNode} options.root The root element to observe
  * @param {boolean} options.subtree Whether the subtree will also be observed
+ * @param {boolean} options.attributes Whether changes in attributes will also be observed (slower)
  */
 function onElementRemoved(selector, handler, {
     once = false,
     root = document,
-    subtree = true
+    subtree = true,
+    attributes = false
 } = {}) {
     let currentElements = Array.from(root.querySelectorAll(selector));
 
@@ -97,7 +102,8 @@ function onElementRemoved(selector, handler, {
         }
     }).observe(root, {
         childList: true,
-        subtree
+        subtree,
+        attributes
     });
 }
 
@@ -106,21 +112,26 @@ function onElementRemoved(selector, handler, {
  * 
  * @param {HTMLElement} element The element to observe
  * @param {function} handler The handler to run on each change
- * @param {boolean} options.once If TRUE, the handler will fire only once
+ * @param {Array|string} options.filter Only attributes provided in the array will be observed
  * @param {boolean} options.oldValue If TRUE, the old value will also be returned
- * @param {Array} options.filter Only attributes provided in the array will be observed
+ * @param {boolean} options.once If TRUE, the handler will fire only once
  */
 function onAttributeChange(element, handler, {
-    once = false,
+    filter = [],
     oldValue = false,
-    filter = undefined
+    once = false
 } = {}) {
+    // Convert filter to array if necessary
+    if (!Array.isArray(filter)) {
+        filter = Array.of(filter);
+    }
+
     // Observe the given element for any changes in the text content
     new MutationObserver((mutationRecords, observer) => {
         mutationRecords.forEach(function (mutation) {
-            // Only execute if one of the filtered 
+            // Only execute if one of the filtered attributes changed
             if (mutation.type !== 'attributes') return;
-            if (Array.isArray(filter) && !filter.includes(mutation.attributeName)) return;
+            if (!filter.includes(mutation.attributeName)) return;
 
             // Get the value from the element's attribute
             const value = mutation.target.getAttribute(mutation.attributeName);
@@ -141,6 +152,81 @@ function onAttributeChange(element, handler, {
         attributes: true,
         attributeFilter: filter,
         attributeOldValue: oldValue
+    });
+}
+
+/**
+ * Observes the element for existing or added CSS classes
+ * 
+ * @param {HTMLElement} element The element to observe
+ * @param {function} handler The handler to run on each change
+ * @param {Array} options.filter Only attributes provided in the array will be observed
+ * @param {boolean} options.once If TRUE, the handler will fire only once
+ */
+function onClassAdded(element, handler, {
+    filter = [],
+    once = false
+} = {}) {
+    // Convert filter to array if necessary
+    if (!Array.isArray(filter)) {
+        filter = Array.of(filter);
+    }
+
+    // Run handler for each existing class name
+    filter.forEach(className => {
+        if (element.classList.contains(className)) {
+            handler(className);
+        }
+    });
+
+    onAttributeChange(element, (value, attributeName, oldValue) => {
+        const oldClasses = oldValue.split(' ');
+        const newClasses = value.split(' ');
+
+        // Run handler for each added class name
+        filter.forEach(className => {
+            if (!oldClasses.includes(className) && newClasses.includes(className)) {
+                handler(className);
+            }
+        });
+    }, {
+        filter: 'class',
+        once,
+        oldValue: true
+    });
+}
+
+/**
+ * Observes the element for removed CSS classes
+ * 
+ * @param {HTMLElement} element The element to observe
+ * @param {function} handler The handler to run on each change
+ * @param {Array} options.filter Only attributes provided in the array will be observed
+ * @param {boolean} options.once If TRUE, the handler will fire only once
+ */
+function onClassRemoved(element, handler, {
+    filter = [],
+    once = false
+} = {}) {
+    // Convert filter to array if necessary
+    if (!Array.isArray(filter)) {
+        filter = Array.of(filter);
+    }
+
+    onAttributeChange(element, (value, attributeName, oldValue) => {
+        const oldClasses = oldValue.split(' ');
+        const newClasses = value.split(' ');
+
+        // Run handler for each removed class name
+        filter.forEach(className => {
+            if (oldClasses.includes(className) && !newClasses.includes(className)) {
+                handler(className);
+            }
+        });
+    }, {
+        filter: 'class',
+        once,
+        oldValue: true
     });
 }
 
@@ -192,17 +278,21 @@ function onTextContentChange(element, handler, {
  * @param {string} selector The CSS selector to observe, or an array of selectors
  * @param {object} options The options
  * @param {ParentNode} options.root The root element to observe
+ * @param {boolean} options.attributes Whether changes in attributes will also be observed (slower)
  * @returns {Promise} A Promise that will be resolved when all elements are available
  */
-function onElementReady(selector, { root = document } = {}) {
+function onElementReady(selector, {
+    root = document,
+    attributes = false
+} = {}) {
     // If an array of selectors is passed, return a Promise that will resolve all of them
     if (Array.isArray(selector)) {
-        return Promise.all(selector.map(selector => onElementReady(selector, { root })));
+        return Promise.all(selector.map(selector => onElementReady(selector, { root, attributes })));
     }
 
     // Return a Promise that will resolve when the first occurance becomes available
     return new Promise(resolve => {
-        onElementAdded(selector, resolve, { root, once: true });
+        onElementAdded(selector, resolve, { root, attributes, once: true });
     });
 }
 
@@ -211,5 +301,7 @@ export default {
     onElementRemoved,
     onElementReady,
     onAttributeChange,
+    onClassAdded,
+    onClassRemoved,
     onTextContentChange
 };
