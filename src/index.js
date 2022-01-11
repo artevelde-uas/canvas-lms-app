@@ -32,7 +32,7 @@ const plugins = new Map();
 export function addPlugin(plugin, options = { classicPlugin: false }) {
     // DEPRECATED
     var serviceManager = createServiceManager();
-    
+
     // DEPRECATED
     if (options.classicPlugin) {
         console.warn('DEPRECATED: Classic plug-in support will be removed in the future');
@@ -60,8 +60,10 @@ export function addPlugin(plugin, options = { classicPlugin: false }) {
         // Run the plugin with the provided options
         const info = plugin(options);
 
-        // Store the plugin data
-        plugins.set(plugin, { info, options });
+        // Store the plugin data if available
+        if (typeof info === 'object') {
+            plugins.set(plugin, { info, options });
+        }
     } catch (err) {
         console.error(err.toString());
     }
@@ -81,7 +83,7 @@ export function run() {
     // Don't run inside iframes
     if (window !== window.top) {
         console.error('UI customizations can not be run inside iframes');
-        
+
         return;
     }
 
