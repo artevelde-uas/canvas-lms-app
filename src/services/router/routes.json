@@ -82,6 +82,24 @@
     "inbox": "/conversations",
 
     "admin": "/accounts",
+    "accounts.courses": "/accounts/:accountId",
+    "accounts.users": "/accounts/:accountId/users",
+    "accounts.statistics": "/accounts/:accountId/statistics",
+    "accounts.permissions": "/accounts/:accountId/permissions",
+    "accounts.outcomes": "/accounts/:accountId/outcomes",
+    "accounts.rubrics": "/accounts/:accountId/rubrics",
+    "accounts.grading-standards": "/accounts/:accountId/grading_standards",
+    "accounts.question-banks": "/accounts/:accountId/question_banks",
+    "accounts.sub-accounts": "/accounts/:accountId/sub_accounts",
+    "accounts.terms": "/accounts/:accountId/terms",
+    "accounts.authentication-providers": "/accounts/:accountId/authentication_providers",
+    "accounts.sis_import": "/accounts/:accountId/sis_import",
+    "accounts.brand-configs": "/accounts/:accountId/brand_configs",
+    "accounts.developer-keys": "/accounts/:accountId/developer_keys",
+    "accounts.admin-tools": "/accounts/:accountId/admin_tools",
+    "accounts.eportfolio-moderation": "/accounts/:accountId/eportfolio_moderation",
+    "accounts.analytics": "/accounts/:accountId/analytics",
+    "accounts.settings": "/accounts/:accountId/settings",
 
     "login": "/login/canvas"
 }
