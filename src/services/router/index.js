@@ -10,6 +10,16 @@ const emitter = new EventEmitter();
 const routes = new Map(Object.entries(routeMappings).map(([name, spec]) => ([name, new Route(spec)])));
 
 
+/**
+ * Adds a new route to the Router service
+ * 
+ * @param {string} name The route name
+ * @param {*} spec The route spec
+ */
+export function addRoute(name, spec) {
+    routes.set(name, new Route(spec));
+}
+
 function fireEvents(name, params) {
     let index = name.lastIndexOf('.');
     let baseName = name;
