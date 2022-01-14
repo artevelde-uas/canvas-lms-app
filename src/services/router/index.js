@@ -7,8 +7,18 @@ import routeMappings from './routes.json';
 const emitter = new EventEmitter();
 
 // Convert route mappings to actual Route objects
-const routes = Object.fromEntries(Object.entries(routeMappings).map(([name, spec]) => ([name, new Route(spec)])));
+const routes = new Map(Object.entries(routeMappings).map(([name, spec]) => ([name, new Route(spec)])));
 
+
+/**
+ * Adds a new route to the Router service
+ * 
+ * @param {string} name The route name
+ * @param {*} spec The route spec
+ */
+export function addRoute(name, spec) {
+    routes.set(name, new Route(spec));
+}
 
 function fireEvents(name, params) {
     let index = name.lastIndexOf('.');
@@ -39,7 +49,7 @@ export function routeMatch(path) {
     path = path.replace(/\/$/, '');
 
     let match;
-    const [name] = Object.entries(routes).find(([, route]) => (match = route.match(path))) || [];
+    const [name] = Array.from(routes).find(([, route]) => (match = route.match(path))) || [];
 
     if (name === undefined) return null;
 
@@ -70,7 +80,7 @@ export function handlePath(path) {
  * @returns {string} The URL for the given route, or FALSE if route can't be found
  */
 function getUrl(name, params) {
-    return routes[name].reverse(params);
+    return routes.get(name).reverse(params);
 }
 
 /**
@@ -89,7 +99,7 @@ function onRoute(name, handler) {
         const baseName = name.endsWith('.*') ? name.slice(0, -2) : name;
 
         // Throw an error if the route name isn't found
-        if (name !== '*' && !Object.keys(routes).some(name => (name === baseName || name.startsWith(`${baseName}.`)))) {
+        if (name !== '*' && !Array.from(routes.keys()).some(name => (name === baseName || name.startsWith(`${baseName}.`)))) {
             throw new TypeError(`Route '${name}' does not exist.`);
         }
 
