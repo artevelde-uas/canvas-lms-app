@@ -1,0 +1,6 @@
+#fixed_bottom > .fixed_warning {
+    display: none;
+}
+.with-fixed-bottom .ic-Layout-wrapper {
+    padding-bottom: unset;
+}

@@ -11,6 +11,7 @@
   "module": "src/index.js",
   "exports": {
     ".": "./src",
+    "./server": "./src/server",
     "./services/api": "./src/services/api",
     "./services/auth": "./src/services/auth",
     "./services/dom": "./src/services/dom",
@@ -19,6 +20,9 @@
     "./services/router": "./src/services/router",
     "./webpack/development-config": "./config/webpack.dev.js",
     "./webpack/production-config": "./config/webpack.prod.js"
+  },
+  "bin": {
+    "canvas-server-start": "./src/server/start.js"
   },
   "files": [
     "src/",

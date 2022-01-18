@@ -7,6 +7,7 @@ module.exports = {
     resolve: {
         extensions: ['.js', '.jsx', '.json'],
         alias: {
+            '@artevelde-uas/canvas-lms-app/server': '@artevelde-uas/canvas-lms-app/src/server',
             '@artevelde-uas/canvas-lms-app/services': '@artevelde-uas/canvas-lms-app/src/services'
         }
     },
