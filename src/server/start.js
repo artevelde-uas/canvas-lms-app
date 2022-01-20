@@ -1,6 +1,7 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const chalk = require('chalk');
 const { log } = require("./util");
 
 const appRoot = process.cwd();
@@ -14,8 +15,8 @@ log('\n');
 
 // Create 'dist' folder if it doesn't exist
 if (!fs.existsSync(distFolder)) {
-    log(`
-        Folder '${distFolder}' does not exist.
+    log(chalk`
+        {cyan INFO: Folder '${distFolder}' does not exist.}
          -> Creating '${distFolder}' ...
     `, '\n');
 
@@ -23,9 +24,9 @@ if (!fs.existsSync(distFolder)) {
 
     // Check for compiled script
     if (!fs.existsSync(serveFile)) {
-        log(`
-            WARNING: File '${serveFile}' does not exist.
-                     Please compile your source files before serving.
+        log(chalk`
+            {yellow WARN: File '${serveFile}' does not exist.}
+             -> Please compile your source files before serving.
         `, '\n');
     }
 }
@@ -42,8 +43,8 @@ themeWarnings: {
     );
 
     if (!fs.existsSync(hideWarningsStylesPath)) {
-        log(`
-            File '${hideWarningsStylesPath}' does not exist.
+        log(chalk`
+            {cyan INFO: File '${hideWarningsStylesPath}' does not exist.}
              -> Creating '${hideWarningsStylesPath}' ...
                 Please upload this CSS file to your Canvas theme.
         `, '\n');
@@ -54,9 +55,9 @@ themeWarnings: {
             break themeWarnings;
         }
 
-        log(`
-            File '${hideWarningsStylesPath}' was modified.
-              Please upload this CSS file to your Canvas theme again.
+        log(chalk`
+            {yellow WARN: File '${hideWarningsStylesPath}' was modified.}
+             -> Please upload this CSS file to your Canvas theme again.
         `, '\n');
     }
 
@@ -72,8 +73,8 @@ serveLocal: {
     const serveLocalScript = serveLocalScriptDist.replace(/{{URL}}/, `http://127.0.0.1:${port}`)
 
     if (!fs.existsSync(serveLocalScriptFile)) {
-        log(`
-            File '${serveLocalScriptFile}' does not exist.
+        log(chalk`
+            {cyan INFO: File '${serveLocalScriptFile}' does not exist.}
              -> Creating '${serveLocalScriptFile}' ...
                 Please upload this JavaScript file to your Canvas theme.
         `, '\n');
@@ -84,9 +85,9 @@ serveLocal: {
             break serveLocal;
         }
 
-        log(`
-            File '${serveLocalScriptFile}' was modified.
-              Please upload this JavaScript file to your Canvas theme again.
+        log(chalk`
+            {yellow WARN: File '${serveLocalScriptFile}' was modified.}
+             -> Please upload this JavaScript file to your Canvas theme again.
         `, '\n');
     }
 
@@ -111,4 +112,4 @@ const server = http.createServer((request, response) => {
 // Start the server on port 3000
 server.listen(port, '127.0.0.1');
 
-log(`Serving '/dist/${serveFile}' on 'http://127.0.0.1:${port}'`, '\n');
+log(chalk`{green Serving '/dist/${serveFile}' on 'http://127.0.0.1:${port}'}`, '\n');
