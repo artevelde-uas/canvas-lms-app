@@ -1,7 +1,7 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
-const heredoc = require('heredoc-tag').default.unindent.trim;
+const { log } = require("./util");
 
 const appRoot = process.cwd();
 const distFolder = path.join(appRoot, '/dist');
@@ -10,20 +10,20 @@ const port = package.config?.server?.port || 5000;
 const serveFile = package.config?.server?.file || 'desktop.dev.js';
 
 
-console.log('\n');
+log('\n');
 
 // Create 'dist' folder if it doesn't exist
 if (!fs.existsSync(distFolder)) {
-    console.log(heredoc`
+    log(`
         Folder '${distFolder}' does not exist.
          -> Creating '${distFolder}' ...
-    ` + '\n');
+    `, '\n');
 
     fs.mkdirSync(distFolder);
 
     // Check for compiled script
     if (!fs.existsSync(serveFile)) {
-        console.log(heredoc`
+        log(`
             WARNING: File '${serveFile}' does not exist.
                      Please compile your source files before serving.
         `, '\n');
@@ -42,7 +42,7 @@ themeWarnings: {
     );
 
     if (!fs.existsSync(hideWarningsStylesPath)) {
-        console.log(heredoc`
+        log(`
             File '${hideWarningsStylesPath}' does not exist.
              -> Creating '${hideWarningsStylesPath}' ...
                 Please upload this CSS file to your Canvas theme.
@@ -54,7 +54,7 @@ themeWarnings: {
             break themeWarnings;
         }
 
-        console.log(heredoc`
+        log(`
             File '${hideWarningsStylesPath}' was modified.
               Please upload this CSS file to your Canvas theme again.
         `, '\n');
@@ -72,7 +72,7 @@ serveLocal: {
     const serveLocalScript = serveLocalScriptDist.replace(/{{URL}}/, `http://127.0.0.1:${port}`)
 
     if (!fs.existsSync(serveLocalScriptFile)) {
-        console.log(heredoc`
+        log(`
             File '${serveLocalScriptFile}' does not exist.
              -> Creating '${serveLocalScriptFile}' ...
                 Please upload this JavaScript file to your Canvas theme.
@@ -84,7 +84,7 @@ serveLocal: {
             break serveLocal;
         }
 
-        console.log(heredoc`
+        log(`
             File '${serveLocalScriptFile}' was modified.
               Please upload this JavaScript file to your Canvas theme again.
         `, '\n');
@@ -111,4 +111,4 @@ const server = http.createServer((request, response) => {
 // Start the server on port 3000
 server.listen(port, '127.0.0.1');
 
-console.log(`Serving '/dist/${serveFile}' on 'http://127.0.0.1:${port}'`, '\n');
+log(`Serving '/dist/${serveFile}' on 'http://127.0.0.1:${port}'`, '\n');
