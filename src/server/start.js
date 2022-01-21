@@ -47,7 +47,7 @@ themeWarnings: {
         log(chalk`
             {cyan INFO: File '${hideWarningsStylesPath}' does not exist.}
              -> Creating '${hideWarningsStylesPath}' ...
-                Please upload this CSS file to your Canvas theme.
+             -> Please upload this CSS file to your Canvas theme.
         `, '\n');
     } else {
         const currentHideWarningsStyles = fs.readFileSync(hideWarningsStylesPath, 'utf8');
@@ -77,7 +77,7 @@ serveLocal: {
         log(chalk`
             {cyan INFO: File '${serveLocalScriptFile}' does not exist.}
              -> Creating '${serveLocalScriptFile}' ...
-                Please upload this JavaScript file to your Canvas theme.
+             -> Please upload this JavaScript file to your Canvas theme.
         `, '\n');
     } else {
         const currentServeLocalScript = fs.readFileSync(serveLocalScriptFile, 'utf8');
