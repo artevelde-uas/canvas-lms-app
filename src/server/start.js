@@ -2,6 +2,7 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const chalk = require('chalk');
+const boxen = require('boxen');
 const { log } = require("./util");
 
 const appRoot = process.cwd();
@@ -112,4 +113,8 @@ const server = http.createServer((request, response) => {
 // Start the server on port 3000
 server.listen(port, '127.0.0.1');
 
-log(chalk`{green Serving '/dist/${serveFile}' on 'http://127.0.0.1:${port}'}`, '\n');
+log(boxen(chalk`{green Serving '/dist/${serveFile}' on 'http://127.0.0.1:${port}'}`, {
+    padding: 1,
+    borderStyle: 'round',
+    borderColor: 'green'
+}), '\n');
