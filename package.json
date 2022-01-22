@@ -1,6 +1,6 @@
 {
   "name": "@artevelde-uas/canvas-lms-app",
-  "version": "1.8.0",
+  "version": "1.9.0",
   "description": "App for building custom JS & CSS for Canvas LMS customizations",
   "keywords": [
     "Canvas LMS"
@@ -11,6 +11,7 @@
   "module": "src/index.js",
   "exports": {
     ".": "./src",
+    "./server": "./src/server",
     "./services/api": "./src/services/api",
     "./services/auth": "./src/services/auth",
     "./services/dom": "./src/services/dom",
@@ -20,6 +21,9 @@
     "./webpack/development-config": "./config/webpack.dev.js",
     "./webpack/production-config": "./config/webpack.prod.js"
   },
+  "bin": {
+    "canvas-server-start": "./src/server/start.js"
+  },
   "files": [
     "src/",
     "config/",
@@ -28,6 +32,8 @@
   "dependencies": {
     "@artevelde-uas/canvas-lms-api": "^0.2.0",
     "@instructure/canvas-theme": "^8.11.1",
+    "boxen": "v5.1.2",
+    "chalk": "v4.1.2",
     "events": "^2.0.0",
     "i18next": "^21.3.1",
     "js-cookie": "^2.2.0",

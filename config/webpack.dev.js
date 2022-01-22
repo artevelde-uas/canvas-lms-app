@@ -7,12 +7,29 @@ module.exports = {
     resolve: {
         extensions: ['.js', '.jsx', '.json'],
         alias: {
+            '@artevelde-uas/canvas-lms-app/server': '@artevelde-uas/canvas-lms-app/src/server',
             '@artevelde-uas/canvas-lms-app/services': '@artevelde-uas/canvas-lms-app/src/services'
         }
     },
     module: {
         rules: [{
-            test: /\.jsx?$/,
+            test: /\.js?$/,
+            use: [{
+                loader: 'babel-loader',
+                options: {
+                    presets: [
+                        ['@babel/preset-env', {
+                            targets: browserslist
+                        }]
+                    ],
+                    plugins: [
+                        "@babel/plugin-proposal-optional-chaining",
+                        '@babel/plugin-proposal-nullish-coalescing-operator'
+                    ]
+                }
+            }]
+        }, {
+            test: /\.jsx$/,
             use: [{
                 loader: 'babel-loader',
                 options: {
@@ -21,6 +38,10 @@ module.exports = {
                             targets: browserslist
                         }],
                         '@babel/preset-react'
+                    ],
+                    plugins: [
+                        "@babel/plugin-proposal-optional-chaining",
+                        '@babel/plugin-proposal-nullish-coalescing-operator'
                     ]
                 }
             }]
@@ -33,7 +54,7 @@ module.exports = {
                 options: {
                     modules: {
                         auto: true,
-                        localIdentName: '[hash:base52:5]___[local]',
+                        localIdentName: '[hash:base52:5]__[local]',
                         exportLocalsConvention: 'camelCaseOnly'
                     }
                 }
