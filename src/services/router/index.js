@@ -83,6 +83,20 @@ function getUrl(name, params) {
     return routes.get(name).reverse(params);
 }
 
+function getParams() {
+    // Get the route from the current path
+    const route = routeMatch(window.location.pathname + window.location.search);
+
+    // Get the search parameters from the current path
+    const searchParams = Object.fromEntries((new URLSearchParams(window.location.search)).entries());
+
+    // Return combined parameters
+    return {
+        ...route?.params,
+        ...searchParams
+    };
+}
+
 /**
  * Invokes the given handler for each match found
  * 
@@ -110,5 +124,6 @@ function onRoute(name, handler) {
 
 export default {
     onRoute,
-    getUrl
+    getUrl,
+    getParams
 };
