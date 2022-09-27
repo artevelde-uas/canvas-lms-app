@@ -2,7 +2,7 @@ import api from '@artevelde-uas/canvas-lms-api';
 import { routeMatch } from '../router';
 
 
-let enrollmentTypes;
+var enrollmentTypes;
 
 async function getEnrollmentTypes(courseId) {
     // Cache the enrollment types
