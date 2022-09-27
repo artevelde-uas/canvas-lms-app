@@ -1,6 +1,6 @@
 {
   "name": "@artevelde-uas/canvas-lms-app",
-  "version": "1.10.0",
+  "version": "1.11.0",
   "description": "App for building custom JS & CSS for Canvas LMS customizations",
   "keywords": [
     "Canvas LMS"
@@ -23,7 +23,7 @@
     "docs/"
   ],
   "dependencies": {
-    "@artevelde-uas/canvas-lms-api": "^0.2.0",
+    "@artevelde-uas/canvas-lms-api": "^0.3.0",
     "@instructure/canvas-theme": "^8.11.1",
     "@instructure/emotion": "^8.11.1",
     "@instructure/ui": "^8.11.1",
