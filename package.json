@@ -23,7 +23,7 @@
     "docs/"
   ],
   "dependencies": {
-    "@artevelde-uas/canvas-lms-api": "^0.2.0",
+    "@artevelde-uas/canvas-lms-api": "^0.3.0",
     "@instructure/canvas-theme": "^8.11.1",
     "@instructure/emotion": "^8.11.1",
     "@instructure/ui": "^8.11.1",
