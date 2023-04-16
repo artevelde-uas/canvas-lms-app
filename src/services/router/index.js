@@ -21,11 +21,11 @@ export function addRoute(name, spec) {
 }
 
 function fireEvents(name, params) {
-    let index = name.lastIndexOf('.');
-    let baseName = name;
-
     // Fire the event for the full route name
     emitter.emit(name, params, name);
+
+    let index = name.lastIndexOf('.');
+    let baseName = name;
 
     // Fire the event for each sub route with wildcard
     while (index >= 0) {
