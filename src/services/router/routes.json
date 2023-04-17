@@ -12,6 +12,7 @@
     "courses.gradebook": "/courses/:courseId/gradebook",
     "courses.gradebook.history": "/courses/:courseId/gradebook/history",
     "courses.gradebook.upload": "/courses/:courseId/gradebook_upload/new",
+    "courses.gradebook.speedgrader.student": "/courses/:courseId/gradebook/speed_grader?assignment_id=:assignmentId&student_id=:studentId",
     "courses.gradebook.speedgrader": "/courses/:courseId/gradebook/speed_grader?assignment_id=:assignmentId",
     "courses.grades": "/courses/:courseId/grades",
     "courses.outcomes": "/courses/:courseId/outcomes",
