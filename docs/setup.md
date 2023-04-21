@@ -1,86 +1,45 @@
 # How to set up your project
 
-Create your main project using `npm init` (Or with Yarn). Then install the Canvas LMS App:
+## TL;DR
+
+If you want to get started right away, check out the [example app](https://github.com/artevelde-uas/canvas-lms-theme-customization-example)
+which has everything you need right out-of-the-box.
+
+## Setup
+
+## Step 1: Initialize your project
+
+Initialize your main project using `npm init` (or `Yarn init`). Then install the Canvas LMS App dependencies.
+
+With `NPM`:
 
     npm install @artevelde-uas/canvas-lms-app
+    npm install --save-dev @artevelde-uas/canvas-lms-theme-dev
 
-## Dependencies
+Using Yarn:
 
-### Webpack
+    yarn add @artevelde-uas/canvas-lms-app
+    yarn add -D @artevelde-uas/canvas-lms-theme-dev
 
-Your project needs to be transpiled with Webpack. You need to copy all the *dev dependencies* listed in the `package.json` file of the `@artevelde-uas/canvas-lms-app` package to your own project.
+**⚠ NOTE:** If you use `Yarn`, be sure to add this to your `.yarnrc` config file:
 
-```json
-{
-  // ...
-  "devDependencies": {
-    "@babel/core": "^7.15.5",
-    "@babel/preset-env": "^7.15.6",
-    "babel-loader": "^8.2.2",
-    "css-loader": "^5.2.7",
-    "webpack": "^4.46.0",
-    "webpack-cli": "^4.9.1"
-    // ...
-  },
-  // ...
-}
+```yaml
+nodeLinker: node-modules
 ```
 
-### React
+### Step 2: Installing plug-ins in your project
 
-Some plug-ins may be using the [Instructure UI](https://instructure.design/) components and so you will probably need to add it as a dependency, as well as [React](https://reactjs.org/):
-
-```json
-{
-  // ...
-  "dependencies": {
-    // ...
-    "@instructure/emotion": "^8.11.1",
-    "@instructure/ui": "^8.11.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
-  },
-  // ...
-}
-```
-
-**NOTE:** Instructure UI requires Webpack v4 (!) to work properly.
-
-## Webpack configuration
-
-The Canvas LMS App provides default Webpack config files for *development* and *production*. You can import and override them like so:
-
-```javascript
-// config/webpack.dev.js
-const developmentConfig = require('@artevelde-uas/canvas-lms-app/webpack/development-config');
-
-module.exports = {
-    ...developmentConfig,
-    output: {
-        filename: '[name].dev.js'
-    }
-};
-```
-
-You can then add these scripts to your `package.json` file:
-
-```json
-{
-  // ...
-  "scripts": {
-    "build": "webpack --config=./config/webpack.prod.js",
-    "build:dev": "webpack --config=./config/webpack.dev.js"
-  }
-}
-```
-
-## Adding plug-ins to your project
-
-Install the plug-ins you want using `npm install`:
+Install the extra plug-ins you want using `NPM`:
 
     npm install @some-org/plugin @some/plugin-with-options
 
-Just import your plug-ins and add them to the app. Some plug-ins accept an additional options object.
+Or `Yarn`:
+
+    yarn add @some-org/plugin @some/plugin-with-options
+
+### Step 3: Import the plug-ins into your project's code
+
+Just import your plug-ins and add them to the app using `addPlugin()`. Some plug-ins accept an additional options object.
 
 ```javascript
 import { run, addPlugin } from '@artevelde-uas/canvas-lms-app';
@@ -91,10 +50,26 @@ import myPlugin from './plugins/my-plugin';
 
 addPlugin(somePlugin);
 addPlugin(somePluginWithOptions, {
-  option1: 'foo',
-  option2: true
+    option1: 'foo',
+    option2: true
 });
 addPlugin(myPlugin);
 
 run();
 ```
+
+If you want to create your own plug-ins, check out [this guide](create-plugins.md).
+
+### Step 4: Build your project
+
+The Canvas LMS DEV tool provides a default build script to compile your code with zero configuration needed. Just add the plug-ins you need to the `./src/index.js` file and run the command:
+
+    npm run canvas-build
+
+Or:
+
+    yarn canvas-build
+
+This will compile your code into a Javascript and CSS file in the `dist/` folder. Upload these onto your Canvas instance's theme and you're good to go!
+
+If you want to customize the build process, follow [this guide](custom-build.md).
