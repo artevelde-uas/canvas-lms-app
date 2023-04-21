@@ -31,7 +31,7 @@ const plugins = new Map();
  */
 export function addPlugin(plugin, options = { classicPlugin: false }) {
     // DEPRECATED
-    var serviceManager = createServiceManager();
+    const serviceManager = createServiceManager();
 
     // DEPRECATED
     if (options.classicPlugin) {
@@ -78,7 +78,7 @@ export function getPluginData() {
  */
 export function run() {
     // Get the current path with the query string
-    var path = window.location.pathname + window.location.search;
+    const path = window.location.pathname + window.location.search;
 
     // Don't run inside iframes
     if (window !== window.top) {
