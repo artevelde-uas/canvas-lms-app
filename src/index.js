@@ -31,13 +31,12 @@ const plugins = new Map();
  */
 export function addPlugin(plugin, options = { classicPlugin: false }) {
     // DEPRECATED
-    const serviceManager = createServiceManager();
-
-    // DEPRECATED
     if (options.classicPlugin) {
         console.warn('DEPRECATED: Classic plug-in support will be removed in the future');
 
         try {
+            const serviceManager = createServiceManager();
+
             switch (typeof plugin) {
                 case 'function':
                     // Run the plugin with services and the provided options
@@ -77,15 +76,15 @@ export function getPluginData() {
  * Starts the application and runs each registered plug-in
  */
 export function run() {
-    // Get the current path with the query string
-    const path = window.location.pathname + window.location.search;
-
     // Don't run inside iframes
     if (window !== window.top) {
         console.error('UI customizations can not be run inside iframes');
 
         return;
     }
+
+    // Get the current path with the query string
+    const path = window.location.pathname + window.location.search;
 
     // Let the router handle the current path
     handlePath(path);
