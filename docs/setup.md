@@ -7,6 +7,8 @@ which has everything you need right out-of-the-box.
 
 ## Setup
 
+Your code needs to be compiled into a single file to be able to upload it into Canvas Theme. You can setup your own tool chain, but we also provide a [convenient DEV tool](https://github.com/artevelde-uas/canvas-lms-theme-dev). This tool usus Webpack and Babel to compile your code.
+
 ## Step 1: Initialize your project
 
 Initialize your main project using `npm init` (or `Yarn init`). Then install the Canvas LMS App dependencies.
