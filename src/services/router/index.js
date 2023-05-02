@@ -113,6 +113,11 @@ function getUrl(name, params) {
     return routes.get(name).reverse(params);
 }
 
+/**
+ * Gets the parameters for the current route
+ * 
+ * @returns {object} The current params
+ */
 function getParams() {
     // Get the route from the current path
     const route = routeMatch(window.location.pathname + window.location.search);
