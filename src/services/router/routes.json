@@ -25,7 +25,7 @@
     "courses.pages.view": "/courses/:courseId/pages/:pageSlug",
     "courses.pages.edit": "/courses/:courseId/pages/:pageSlug/edit",
     "courses.pages.revisions": "/courses/:courseId/pages/:pageSlug/revisions",
-    "courses.modules": "/courses/:courseId/modules",
+    "courses.modules": "/courses/:courseId/modules(/:moduleId)",
     "courses.modules.item": "/courses/:courseId/modules/items/:module_item_id",
     "courses.syllabus": "/courses/:courseId/assignments/syllabus",
     "courses.files": "/courses/:courseId/files(/folder/:id(/*folderName))",

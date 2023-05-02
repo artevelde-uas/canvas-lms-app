@@ -59,13 +59,31 @@ export function routeMatch(path) {
     };
 }
 
+function getPath() {
+    // Replace the module ID in the URL hash with slash notation
+    {
+        const path = window.location.pathname + window.location.hash;
+        const match = path.match(/\/courses\/\d+\/modules#module_(?<moduleId>\d+)$/);
+
+        if (match !== null) {
+            const url = `${window.location.pathname}/${match.groups.moduleId}`;
+
+            history.replaceState(null, '', url);
+        }
+    }
+
+    // return the current path with the query string
+    return window.location.pathname + window.location.search;
+}
+
 /**
  * Fires all route events for the given path
  * 
- * @param {string} path The path to fire the route events for
+ * @param {string} path (@deprecated) The path to fire the route events for
  */
 export function handlePath(path) {
-    const match = routeMatch(path);
+    const fixedPath = (path === undefined) ? getPath() : path;
+    const match = routeMatch(fixedPath);
 
     if (match === null) return;
 

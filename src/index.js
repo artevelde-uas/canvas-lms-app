@@ -87,7 +87,7 @@ export function run() {
     const path = window.location.pathname + window.location.search;
 
     // Let the router handle the current path
-    handlePath(path);
+    handlePath();
 }
 
 export {
