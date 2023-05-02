@@ -4,7 +4,8 @@ import EventEmitter from 'events';
 import routeMappings from './routes.json';
 
 
-const emitter = new EventEmitter();
+const routeEmitter = new EventEmitter();
+const paramsEmitter = new EventEmitter();
 
 // Convert route mappings to actual Route objects
 const routes = new Map(Object.entries(routeMappings).map(([name, spec]) => ([name, new Route(spec)])));
@@ -22,7 +23,7 @@ export function addRoute(name, spec) {
 
 function fireEvents(name, params) {
     // Fire the event for the full route name
-    emitter.emit(name, params, name);
+    routeEmitter.emit(name, params, name);
 
     let index = name.lastIndexOf('.');
     let baseName = name;
@@ -30,12 +31,12 @@ function fireEvents(name, params) {
     // Fire the event for each sub route with wildcard
     while (index >= 0) {
         baseName = baseName.substring(0, index);
-        emitter.emit(baseName + '.*', params, name);
+        routeEmitter.emit(baseName + '.*', params, name);
         index = baseName.lastIndexOf('.');
     }
 
     // Fire the global wildcard route event
-    emitter.emit('*', params, name);
+    routeEmitter.emit('*', params, name);
 }
 
 /**
@@ -88,6 +89,17 @@ export function handlePath(path) {
     if (match === null) return;
 
     fireEvents(match.name, match.params);
+
+    window.addEventListener('popstate', () => {
+        // Mix current parameters with history state
+        const params = {
+            ...getParams(),
+            ...history.state
+        };
+
+        // Fire 'params' event with new parameters
+        paramsEmitter.emit('params', params);
+    });
 }
 
 /**
@@ -116,6 +128,44 @@ function getParams() {
 }
 
 /**
+ * Pushes a new parameter state to the history
+ * 
+ * @param {object} params The parameters to push to the history
+ * @returns {boolean} TRUE if the new parameters were is pushed to the history, FALSE otherwise
+ */
+function pushParams(newParams) {
+    // Get the route from the current path
+    const path = window.location.pathname + window.location.search;
+    const { name, params: oldParams } = routeMatch(path);
+
+    // Mix old parameters with new ones
+    const params = {
+        ...oldParams,
+        ...newParams
+    };
+
+    // Create route URL with new parameters
+    const url = getUrl(name, params);
+
+    // Do nothing if URL remains unchanged
+    if (path === url) return false;
+
+    // Push the parameter state to the history
+    history.pushState(params, '', url);
+
+    return true;
+}
+
+/**
+ * Subscribe for parameter changes on the current route
+ * 
+ * @param {function} handler The handler to run on each parameter change
+ */
+function onParams(handler) {
+    paramsEmitter.on('params', handler);
+}
+
+/**
  * Invokes the given handler for each match found
  * 
  * @param {string|Array} name The route name(s) to match (comma seperated list or an array)
@@ -135,7 +185,7 @@ function onRoute(name, handler) {
             throw new TypeError(`Route '${name}' does not exist.`);
         }
 
-        emitter.on(name, handler);
+        routeEmitter.on(name, handler);
     });
 }
 
@@ -143,5 +193,7 @@ function onRoute(name, handler) {
 export default {
     onRoute,
     getUrl,
-    getParams
+    getParams,
+    pushParams,
+    onParams
 };
