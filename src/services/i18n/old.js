@@ -3,7 +3,7 @@ import { initReactI18next } from 'react-i18next';
 
 
 function setTranslations(translations, fallbackLanguage = 'en') {
-    var resources = {};
+    const resources = {};
 
     Object.entries(translations).forEach(function ([key, value]) {
         resources[key] = { 'translation': value };
@@ -22,7 +22,7 @@ function translate(keys, options) {
 }
 
 function createInstance() {
-    var i18n = i18next.createInstance();
+    const i18n = i18next.createInstance();
 
     return {
         setTranslations: setTranslations.bind(i18n),

@@ -4,7 +4,8 @@ import EventEmitter from 'events';
 import routeMappings from './routes.json';
 
 
-const emitter = new EventEmitter();
+const routeEmitter = new EventEmitter();
+const paramsEmitter = new EventEmitter();
 
 // Convert route mappings to actual Route objects
 const routes = new Map(Object.entries(routeMappings).map(([name, spec]) => ([name, new Route(spec)])));
@@ -21,21 +22,21 @@ export function addRoute(name, spec) {
 }
 
 function fireEvents(name, params) {
+    // Fire the event for the full route name
+    routeEmitter.emit(name, params, name);
+
     let index = name.lastIndexOf('.');
     let baseName = name;
-
-    // Fire the event for the full route name
-    emitter.emit(name, params, name);
 
     // Fire the event for each sub route with wildcard
     while (index >= 0) {
         baseName = baseName.substring(0, index);
-        emitter.emit(baseName + '.*', params, name);
+        routeEmitter.emit(baseName + '.*', params, name);
         index = baseName.lastIndexOf('.');
     }
 
     // Fire the global wildcard route event
-    emitter.emit('*', params, name);
+    routeEmitter.emit('*', params, name);
 }
 
 /**
@@ -59,17 +60,46 @@ export function routeMatch(path) {
     };
 }
 
+function getPath() {
+    // Replace the module ID in the URL hash with slash notation
+    {
+        const path = window.location.pathname + window.location.hash;
+        const match = path.match(/\/courses\/\d+\/modules#module_(?<moduleId>\d+)$/);
+
+        if (match !== null) {
+            const url = `${window.location.pathname}/${match.groups.moduleId}`;
+
+            history.replaceState(null, '', url);
+        }
+    }
+
+    // return the current path with the query string
+    return window.location.pathname + window.location.search;
+}
+
 /**
  * Fires all route events for the given path
  * 
- * @param {string} path The path to fire the route events for
+ * @param {string} path (@deprecated) The path to fire the route events for
  */
 export function handlePath(path) {
-    const match = routeMatch(path);
+    const fixedPath = (path === undefined) ? getPath() : path;
+    const match = routeMatch(fixedPath);
 
     if (match === null) return;
 
     fireEvents(match.name, match.params);
+
+    window.addEventListener('popstate', () => {
+        // Mix current parameters with history state
+        const params = {
+            ...getParams(),
+            ...history.state
+        };
+
+        // Fire 'params' event with new parameters
+        paramsEmitter.emit('params', params);
+    });
 }
 
 /**
@@ -83,6 +113,11 @@ function getUrl(name, params) {
     return routes.get(name).reverse(params);
 }
 
+/**
+ * Gets the parameters for the current route
+ * 
+ * @returns {object} The current params
+ */
 function getParams() {
     // Get the route from the current path
     const route = routeMatch(window.location.pathname + window.location.search);
@@ -95,6 +130,44 @@ function getParams() {
         ...route?.params,
         ...searchParams
     };
+}
+
+/**
+ * Pushes a new parameter state to the history
+ * 
+ * @param {object} params The parameters to push to the history
+ * @returns {boolean} TRUE if the new parameters were is pushed to the history, FALSE otherwise
+ */
+function pushParams(newParams) {
+    // Get the route from the current path
+    const path = window.location.pathname + window.location.search;
+    const { name, params: oldParams } = routeMatch(path);
+
+    // Mix old parameters with new ones
+    const params = {
+        ...oldParams,
+        ...newParams
+    };
+
+    // Create route URL with new parameters
+    const url = getUrl(name, params);
+
+    // Do nothing if URL remains unchanged
+    if (path === url) return false;
+
+    // Push the parameter state to the history
+    history.pushState(params, '', url);
+
+    return true;
+}
+
+/**
+ * Subscribe for parameter changes on the current route
+ * 
+ * @param {function} handler The handler to run on each parameter change
+ */
+function onParams(handler) {
+    paramsEmitter.on('params', handler);
 }
 
 /**
@@ -117,7 +190,7 @@ function onRoute(name, handler) {
             throw new TypeError(`Route '${name}' does not exist.`);
         }
 
-        emitter.on(name, handler);
+        routeEmitter.on(name, handler);
     });
 }
 
@@ -125,5 +198,7 @@ function onRoute(name, handler) {
 export default {
     onRoute,
     getUrl,
-    getParams
+    getParams,
+    pushParams,
+    onParams
 };
