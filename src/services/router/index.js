@@ -158,6 +158,9 @@ function pushParams(newParams) {
     // Push the parameter state to the history
     history.pushState(params, '', url);
 
+    // Fire 'params' event with new parameters
+    paramsEmitter.emit('params', params);
+
     return true;
 }
 
