@@ -1,5 +1,5 @@
 
-export function createInfoButton(contents, options = {}) {
+export function createQuestionIcon(contents, options = {}) {
     const infoButton = document.createElement('button');
     const infoIcon = document.createElement('i');
     const title = options.title ?? 'More info';
@@ -24,5 +24,5 @@ export function createInfoButton(contents, options = {}) {
 }
 
 export default {
-    createInfoButton
+    createQuestionIcon
 };
