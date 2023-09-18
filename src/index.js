@@ -4,6 +4,7 @@ import dom from './services/dom';
 import i18n from './services/i18n/old';
 import messages from './services/messages';
 import router, { handlePath } from './services/router';
+import ui from './services/ui';
 import theme from './theme';
 
 // DEPRECATED
@@ -97,6 +98,7 @@ export {
     i18n,
     messages,
     router,
+    ui,
     theme
 };
 
