@@ -16,7 +16,8 @@
     "./services/dom": "./src/services/dom",
     "./services/i18n": "./src/services/i18n",
     "./services/messages": "./src/services/messages",
-    "./services/router": "./src/services/router"
+    "./services/router": "./src/services/router",
+    "./services/ui": "./src/services/ui"
   },
   "files": [
     "src/",
