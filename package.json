@@ -1,6 +1,6 @@
 {
   "name": "@artevelde-uas/canvas-lms-app",
-  "version": "1.13.1",
+  "version": "1.14.0",
   "description": "App for building custom JS & CSS for Canvas LMS customizations",
   "keywords": [
     "Canvas LMS"
@@ -16,7 +16,8 @@
     "./services/dom": "./src/services/dom",
     "./services/i18n": "./src/services/i18n",
     "./services/messages": "./src/services/messages",
-    "./services/router": "./src/services/router"
+    "./services/router": "./src/services/router",
+    "./services/ui": "./src/services/ui"
   },
   "files": [
     "src/",
