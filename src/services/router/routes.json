@@ -1,6 +1,5 @@
 {
     "dashboard": "/",
-
     "courses": "/courses",
     "courses.home": "/courses/:courseId",
     "courses.announcements": "/courses/:courseId/announcements",
@@ -33,6 +32,7 @@
     "courses.assignments.new": "/courses/:courseId/assignments/new",
     "courses.assignments.view": "/courses/:courseId/assignments/:assignmentId",
     "courses.assignments.edit": "/courses/:courseId/assignments/:assignmentId/edit",
+    "courses.assignments.submissions.view": "/courses/:courseId/assignments/:assignmentId/submissions/:submissionId",
     "courses.conferences": "/courses/:courseId/conferences",
     "courses.collaborations": "/courses/:courseId/lti_collaborations",
     "courses.users": "/courses/:courseId/users",
@@ -52,7 +52,6 @@
     "courses.settings.export": "/courses/:courseId/content_export",
     "courses.settings.undelete": "/courses/:courseId/undelete",
     "courses.external-tool": "/courses/:courseId/external_tools/:toolId",
-
     "groups": "/groups",
     "groups.home": "/groups/:groupId",
     "groups.announcements": "/groups/:groupId/announcements",
@@ -69,7 +68,6 @@
     "groups.files": "/groups/:groupId/files(/folder/:id(/*folderName))",
     "groups.conferences": "/groups/:groupId/conferences",
     "groups.collaborations": "/groups/:groupId/collaborations",
-
     "profile": "/profile",
     "profile.about": "/about[/:userId]",
     "profile.notifications": "/profile/communication",
@@ -78,11 +76,8 @@
     "profile.eportfolios": "/dashboard/eportfolios",
     "profile.eportfolios.home": "/eportfolios/:portfolioId",
     "profile.eportfolios.view": "/eportfolios/:portfolioId/:sectionSlug(/:pageSlug)",
-
     "calendar": "/calendar",
-
     "inbox": "/conversations",
-
     "admin": "/accounts",
     "accounts.courses": "/accounts/:accountId",
     "accounts.users": "/accounts/:accountId/users",
@@ -102,6 +97,5 @@
     "accounts.eportfolio-moderation": "/accounts/:accountId/eportfolio_moderation",
     "accounts.analytics": "/accounts/:accountId/analytics",
     "accounts.settings": "/accounts/:accountId/settings",
-
     "login": "/login/canvas"
 }
