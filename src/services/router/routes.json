@@ -33,6 +33,7 @@
     "courses.assignments.new": "/courses/:courseId/assignments/new",
     "courses.assignments.view": "/courses/:courseId/assignments/:assignmentId",
     "courses.assignments.edit": "/courses/:courseId/assignments/:assignmentId/edit",
+    "courses.assignments.submissions.view": "/courses/:courseId/assignments/:assignmentId/submissions/:submissionId",
     "courses.conferences": "/courses/:courseId/conferences",
     "courses.collaborations": "/courses/:courseId/lti_collaborations",
     "courses.users": "/courses/:courseId/users",
