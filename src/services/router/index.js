@@ -88,7 +88,17 @@ export function handlePath(path) {
 
     if (match === null) return;
 
-    fireEvents(match.name, match.params);
+    // Fix the parameters to remove any '&' characters
+    // This is a workaround for the fact that the route parser doesn't support '&' in parameters
+    // and will match the first part of the parameter as the value
+    const fixedParams = Object.fromEntries(Object.entries(match.params).map(([key, value]) => ([
+        key,
+        (value.indexOf('&') > -1)
+            ? value.substring(0, value.indexOf('&'))
+            : value
+    ])));
+
+    fireEvents(match.name, fixedParams);
 
     window.addEventListener('popstate', () => {
         // Mix current parameters with history state
