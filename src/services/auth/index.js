@@ -10,7 +10,7 @@ export function isStudent() {
     return (
         ENV !== undefined &&
         Array.isArray(ENV.current_user_roles) &&
-        ENV.current_user_roles.includes('student')
+        (ENV.current_user_is_student || ENV.current_user_roles.includes('fake_student'))
     );
 }
 
