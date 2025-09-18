@@ -1,16 +1,37 @@
 import { hasCourseEnrollment } from './util';
 
 
+function hasUserRole(role) {
+    return ENV.current_user_roles.includes(role);
+}
+
 /**
- * Determines if the user is a student
+ * Determines if the user is currently using the student role
  * 
- * @returns {boolean} TRUE if the user is an administrator, FALSE otherwise
+ * @returns {boolean} TRUE if the user is a student, FALSE otherwise
  */
 export function isStudent() {
     return (
-        ENV !== undefined &&
-        Array.isArray(ENV.current_user_roles) &&
-        (ENV.current_user_is_student || ENV.current_user_roles.includes('fake_student'))
+        ENV !== undefined && (
+            ENV.current_user_is_student || (
+                Array.isArray(ENV.current_user_roles) &&
+                ENV.current_user_roles.includes('fake_student')
+            )
+        )
+    );
+}
+
+/**
+ * Determines if the user is currently using the student view
+ * 
+ * @returns {boolean} TRUE if the user is in student view, FALSE otherwise
+ */
+export function isStudentView() {
+    return (
+        ENV !== undefined && (
+            Array.isArray(ENV.current_user_roles) &&
+            ENV.current_user_roles.includes('fake_student')
+        )
     );
 }
 
@@ -21,9 +42,10 @@ export function isStudent() {
  */
 export function isTeacher() {
     return (
-        ENV !== undefined &&
-        Array.isArray(ENV.current_user_roles) &&
-        ENV.current_user_roles.includes('teacher')
+        ENV !== undefined && (
+            Array.isArray(ENV.current_user_roles) &&
+            ENV.current_user_roles.includes('teacher')
+        )
     );
 }
 
@@ -34,9 +56,10 @@ export function isTeacher() {
  */
 export function isObserver() {
     return (
-        ENV !== undefined &&
-        Array.isArray(ENV.current_user_roles) &&
-        ENV.current_user_roles.includes('observer')
+        ENV !== undefined && (
+            Array.isArray(ENV.current_user_roles) &&
+            ENV.current_user_roles.includes('observer')
+        )
     );
 }
 
@@ -47,12 +70,29 @@ export function isObserver() {
  */
 export function isAdmin() {
     return (
-        ENV !== undefined &&
-        Array.isArray(ENV.current_user_roles) &&
-        ENV.current_user_roles.some(role => (
-            role === 'admin' ||
-            role === 'root_admin'
-        ))
+        ENV !== undefined && (
+            ENV.current_user_is_admin || (
+                Array.isArray(ENV.current_user_roles) &&
+                ENV.current_user_roles.some(role => (
+                    role === 'admin' ||
+                    role === 'root_admin'
+                ))
+            )
+        )
+    );
+}
+
+/**
+ * Determines if the user is an administrator on the root account
+ * 
+ * @returns {boolean} TRUE if the user is a root administrator, FALSE otherwise
+ */
+export function isRootAdmin() {
+    return (
+        ENV !== undefined && (
+            Array.isArray(ENV.current_user_roles) &&
+            ENV.current_user_roles.includes('root_admin')
+        )
     );
 }
 
@@ -101,6 +141,7 @@ export function isCourseObserver() {
     return hasCourseEnrollment('ObserverEnrollment');
 }
 
+
 export default {
     isStudent,
     isTeacher,
@@ -110,5 +151,7 @@ export default {
     isCourseTeacher,
     isCourseTA,
     isCourseDesigner,
-    isCourseObserver
+    isCourseObserver,
+    hasUserRole,
+    hasCourseEnrollment
 };
