@@ -1,6 +1,6 @@
 {
   "name": "@artevelde-uas/canvas-lms-app",
-  "version": "1.15.2",
+  "version": "1.15.3",
   "description": "App for building custom JS & CSS for Canvas LMS customizations",
   "keywords": [
     "Canvas LMS"
@@ -29,26 +29,23 @@
     "events": "^3.3.0",
     "i18next": "^22.4.14",
     "js-cookie": "^3.0.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "react-i18next": "^12.2.0",
     "route-parser": "^0.0.5"
   },
   "peerDependencies": {
     "@instructure/emotion": "^8.11.1",
-    "@instructure/ui": "^8.11.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "@instructure/ui": "^8.11.1"
   },
   "peerDependenciesMeta": {
-    "@instructure/canvas-theme": {
+    "@instructure/emotion": {
+      "optional": true
+    },
+    "@instructure/shared-types": {
       "optional": true
     },
     "@instructure/ui": {
-      "optional": true
-    },
-    "react": {
-      "optional": true
-    },
-    "react-dom": {
       "optional": true
     }
   }
