@@ -12,7 +12,10 @@ i18n.use(initReactI18next);
 i18n.init({
     lng: language,
     fallbackLng: 'en',
-    joinArrays: ' '
+    joinArrays: ' ',
+    react: {
+        transKeepBasicHtmlNodesFor: ['p', 'br', 'strong', 'em', 'b', 'i', 'u', 'q', 'ul', 'li']
+    }
 });
 
 /**
