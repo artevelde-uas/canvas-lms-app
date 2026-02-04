@@ -79,6 +79,7 @@
     "profile.eportfolios": "/dashboard/eportfolios",
     "profile.eportfolios.home": "/eportfolios/:portfolioId",
     "profile.eportfolios.view": "/eportfolios/:portfolioId/:sectionSlug(/:pageSlug)",
+    "profile.external-tool": "/users/:userId/external_tools/:toolId",
     "calendar": "/calendar",
     "inbox": "/conversations",
     "admin": "/accounts",
@@ -100,5 +101,6 @@
     "accounts.eportfolio-moderation": "/accounts/:accountId/eportfolio_moderation",
     "accounts.analytics": "/accounts/:accountId/analytics",
     "accounts.settings": "/accounts/:accountId/settings",
+    "accounts.external-tool": "/accounts/:accountId/external_tools/:toolId",
     "login": "/login/canvas"
 }
