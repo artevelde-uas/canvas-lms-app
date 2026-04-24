@@ -93,7 +93,7 @@ export function handlePath(path) {
     // and will match the first part of the parameter as the value
     const fixedParams = Object.fromEntries(Object.entries(match.params).map(([key, value]) => ([
         key,
-        (value.indexOf('&') > -1)
+        (value?.indexOf('&') > -1)
             ? value.substring(0, value.indexOf('&'))
             : value
     ])));
