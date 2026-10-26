@@ -120,11 +120,10 @@ export function addFlashMessage(message, { type = 'info', hideAfter = '5s' } = {
  * @param {string} options.type The type of notification (info, warning, error, question)
  * @param {boolean} options.canClose Indicates if the notification can be closed by the user
  * @param {string} options.hideAfter The time after which the notification should disappear (CSS time value; e.g. '2s' or '1500ms')
- * @param {string} options.root The root element that the message will be rendered in
  */
-export function addNotification(title, message, { type = 'info', canClose = true, hideAfter = false, root = null } = {}) {
-    // Find the flash notification container (or custom container if provided)
-    let container = root ?? document.getElementById(styles.contentMessageHolder);
+export function addNotification(title, message, { type = 'info', canClose = true, hideAfter = false } = {}) {
+    // Find the flash notification container
+    let container = document.getElementById(styles.contentMessageHolder);
 
     // Create the container if it is not found
     if (container === null) {
@@ -132,10 +131,12 @@ export function addNotification(title, message, { type = 'info', canClose = true
 
         if (content === null) return;
 
-        container = document.createElement('div');
-        container.id = styles.contentMessageHolder;
+        content.insertAdjacentHTML('afterbegin', `
+            <ul id="${styles.contentMessageHolder}">
+            </ul>
+        `);
 
-        content.insertAdjacentElement('afterbegin', container);
+        container = document.getElementById(styles.contentMessageHolder);
     }
 
     // Get the corresponding class name and icon type of the given notification type
