@@ -74,6 +74,32 @@ function getNotificationInfo(type) {
 }
 
 /**
+ * Gets the corresponding class name and icon type of the given message type
+ * 
+ * @param {string} type The type of the message
+ * @param {boolean} border Indicates if the icon should have a circular outline border around it
+ * @returns {object} The corresponding class name and icon type
+ */
+function getMessageInfo(type, border = false) {
+    switch (type) {
+        case 'info':
+        case 'information':
+        default:
+            return {
+                className: styles.info,
+                iconType: border ? 'info' : 'info-borderless'
+            };
+        case 'warning':
+        case 'warn':
+        case 'alert':
+            return {
+                className: styles.warning,
+                iconType: border ? 'warning' : 'warning-borderless'
+            };
+    }
+}
+
+/**
  * Adds a flash message to the top of the page
  * 
  * @param {string} message The message text
@@ -93,7 +119,7 @@ export function addFlashMessage(message, { type = 'info', hideAfter = '5s' } = {
 
     // Prepend the message to the container
     container.insertAdjacentHTML('afterbegin', `
-        <li class="ic-flash-${className} ${styles.message} ${styles.hide}"
+        <li class="ic-flash-${className} ${styles.flashMessage} ${styles.hide}"
             ${hideAfter ? `style="animation-delay: ${hideAfter};"` : ''}>
             <div class="ic-flash__icon">
                 <i class="icon-${iconType}"></i>
@@ -120,11 +146,10 @@ export function addFlashMessage(message, { type = 'info', hideAfter = '5s' } = {
  * @param {string} options.type The type of notification (info, warning, error, question)
  * @param {boolean} options.canClose Indicates if the notification can be closed by the user
  * @param {string} options.hideAfter The time after which the notification should disappear (CSS time value; e.g. '2s' or '1500ms')
- * @param {string} options.root The root element that the message will be rendered in
  */
-export function addNotification(title, message, { type = 'info', canClose = true, hideAfter = false, root = null } = {}) {
-    // Find the flash notification container (or custom container if provided)
-    let container = root ?? document.getElementById(styles.contentMessageHolder);
+export function addNotification(title, message, { type = 'info', canClose = true, hideAfter = false } = {}) {
+    // Find the flash notification container
+    let container = document.getElementById(styles.contentMessageHolder);
 
     // Create the container if it is not found
     if (container === null) {
@@ -132,10 +157,12 @@ export function addNotification(title, message, { type = 'info', canClose = true
 
         if (content === null) return;
 
-        container = document.createElement('div');
-        container.id = styles.contentMessageHolder;
+        content.insertAdjacentHTML('afterbegin', `
+            <ul id="${styles.contentMessageHolder}">
+            </ul>
+        `);
 
-        content.insertAdjacentElement('afterbegin', container);
+        container = document.getElementById(styles.contentMessageHolder);
     }
 
     // Get the corresponding class name and icon type of the given notification type
@@ -144,7 +171,7 @@ export function addNotification(title, message, { type = 'info', canClose = true
     // Append the message to the container
     container.insertAdjacentHTML('beforeend', `
         <div class="ic-notification ic-notification--admin-created
-                    ic-notification--${className} ${styles.message} ${hideAfter ? styles.hide : ''}"
+                    ic-notification--${className} ${styles.notification} ${hideAfter ? styles.hide : ''}"
              ${hideAfter ? `style="animation-delay: ${hideAfter};"` : ''}>
             <div class="ic-notification__icon">
                 <i class="icon-${iconType}"></i>
@@ -192,7 +219,37 @@ export function addNotification(title, message, { type = 'info', canClose = true
     }
 }
 
+/**
+ * Adds a message to the given container
+ * 
+ * @param {string} message The message body
+ * @param {HTMLElement} options.container The container element to which the message will be added
+ * @param {object} options The options for the message
+ * @param {string} options.type The type of message (info, warning)
+ * @param {string} options.append Indicates if the message should be appended to the container (true) or prepended (false)
+ * @returns
+ */
+export function addMessage(message, container, { type = 'info', append = false } = {}) {
+    const position = append ? 'beforeend' : 'afterbegin';
+
+    // Get the corresponding class name and icon type of the given notification type
+    const { className, iconType } = getMessageInfo(type);
+
+    // Add the message to the container
+    container.insertAdjacentHTML(position, `
+        <div dir="ltr" open="" class="${styles.message} ${className}">
+            <div class="${styles.icon}">
+                <i class="icon-${iconType}"></i>
+            </div>
+            <div class="${styles.content}">
+                ${message}
+            </div>
+        </div>
+    `);
+}
+
 export default {
     addFlashMessage,
-    addNotification
+    addNotification,
+    addMessage
 };
