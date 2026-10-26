@@ -14,15 +14,15 @@
   padding: 0;
 }
 
-:global(#flash_message_holder),
-#content-message-holder {
-  & .message.hide {
+:global(#flash_message_holder) .flashMessage,
+#notificationHolder .notification {
+  &.hide {
     animation-name: message-fade-out;
     animation-duration: 1s;
     animation-direction: forwards;
   }
 
-  & .message + .message {
+  & + & {
     margin-top: 0.5em;
   }
 }

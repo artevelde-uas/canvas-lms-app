@@ -93,7 +93,7 @@ export function addFlashMessage(message, { type = 'info', hideAfter = '5s' } = {
 
     // Prepend the message to the container
     container.insertAdjacentHTML('afterbegin', `
-        <li class="ic-flash-${className} ${styles.message} ${styles.hide}"
+        <li class="ic-flash-${className} ${styles.flashMessage} ${styles.hide}"
             ${hideAfter ? `style="animation-delay: ${hideAfter};"` : ''}>
             <div class="ic-flash__icon">
                 <i class="icon-${iconType}"></i>
@@ -145,7 +145,7 @@ export function addNotification(title, message, { type = 'info', canClose = true
     // Append the message to the container
     container.insertAdjacentHTML('beforeend', `
         <div class="ic-notification ic-notification--admin-created
-                    ic-notification--${className} ${styles.message} ${hideAfter ? styles.hide : ''}"
+                    ic-notification--${className} ${styles.notification} ${hideAfter ? styles.hide : ''}"
              ${hideAfter ? `style="animation-delay: ${hideAfter};"` : ''}>
             <div class="ic-notification__icon">
                 <i class="icon-${iconType}"></i>
