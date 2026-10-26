@@ -26,3 +26,52 @@
     margin-top: 0.5em;
   }
 }
+
+.message {
+  display: flex;
+  box-sizing: border-box;
+  min-width: 12rem;
+  max-width: 100%;
+  margin: 0.75rem;
+  overflow: visible;
+  overscroll-behavior: auto;
+  color: rgb(39, 53, 64);
+  background-color: rgb(255, 255, 255);
+  border: solid 0.125rem rgb(43, 122, 188);
+  border-radius: 0.25rem;
+  box-shadow:
+    rgba(0, 0, 0, 0.1) 0px 0.1875rem 0.375rem,
+    rgba(0, 0, 0, 0.15) 0px 0.1875rem 0.375rem;
+
+  &.warning {
+    border-color: rgb(206, 74, 0);
+
+    & .icon {
+      background-color: rgb(206, 74, 0);
+      border-right-color: rgb(206, 74, 0);
+    }
+  }
+
+  & .icon {
+    display: flex;
+    flex: 0 0 2.5rem;
+    align-items: center;
+    box-sizing: border-box;
+    justify-content: center;
+    margin: -1px;
+    font-size: 1.125rem;
+    color: rgb(255, 255, 255);
+    border-right: 0.125rem solid rgb(43, 122, 188);
+    border-start-start-radius: 0.25rem;
+    border-end-start-radius: 0.25rem;
+    background-color: rgb(43, 122, 188);
+  }
+
+  & .content {
+    flex: 1 1 0%;
+    box-sizing: border-box;
+    min-width: 0.0625rem;
+    line-height: 1.25;
+    padding: 0.75rem 1.5rem;
+  }
+}

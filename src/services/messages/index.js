@@ -74,6 +74,32 @@ function getNotificationInfo(type) {
 }
 
 /**
+ * Gets the corresponding class name and icon type of the given message type
+ * 
+ * @param {string} type The type of the message
+ * @param {boolean} border Indicates if the icon should have a circular outline border around it
+ * @returns {object} The corresponding class name and icon type
+ */
+function getMessageInfo(type, border = false) {
+    switch (type) {
+        case 'info':
+        case 'information':
+        default:
+            return {
+                className: styles.info,
+                iconType: border ? 'info' : 'info-borderless'
+            };
+        case 'warning':
+        case 'warn':
+        case 'alert':
+            return {
+                className: styles.warning,
+                iconType: border ? 'warning' : 'warning-borderless'
+            };
+    }
+}
+
+/**
  * Adds a flash message to the top of the page
  * 
  * @param {string} message The message text
@@ -193,7 +219,37 @@ export function addNotification(title, message, { type = 'info', canClose = true
     }
 }
 
+/**
+ * Adds a message to the given container
+ * 
+ * @param {string} message The message body
+ * @param {HTMLElement} options.container The container element to which the message will be added
+ * @param {object} options The options for the message
+ * @param {string} options.type The type of message (info, warning)
+ * @param {string} options.append Indicates if the message should be appended to the container (true) or prepended (false)
+ * @returns
+ */
+export function addMessage(message, container, { type = 'info', append = false } = {}) {
+    const position = append ? 'beforeend' : 'afterbegin';
+
+    // Get the corresponding class name and icon type of the given notification type
+    const { className, iconType } = getMessageInfo(type);
+
+    // Add the message to the container
+    container.insertAdjacentHTML(position, `
+        <div dir="ltr" open="" class="${styles.message} ${className}">
+            <div class="${styles.icon}">
+                <i class="icon-${iconType}"></i>
+            </div>
+            <div class="${styles.content}">
+                ${message}
+            </div>
+        </div>
+    `);
+}
+
 export default {
     addFlashMessage,
-    addNotification
+    addNotification,
+    addMessage
 };
